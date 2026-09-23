@@ -27,11 +27,11 @@ const serviceOrder = ['S05', 'S01', 'S02', 'S06', 'S07', 'S03', 'S04', 'S08', 'S
 const serviceImages = {
   S01: ['/assets/real-work/window-multipane.jpg', 'Timber window and sill', '木窗与窗台', 1280, 1707],
   S02: ['/assets/real-work/door-open-leaf.jpg', 'Interior door and frame', '室内门板与门框', 1280, 1707],
-  S03: ['/assets/service-imagery/fascia.png', 'Carpenter checking a timber fascia board', '木工检查屋檐木板', 1536, 1024],
-  S04: ['/assets/service-imagery/rotten-timber.png', 'Weathered timber under inspection', '检查老化木构件', 1536, 1024],
+  S03: ['/assets/service-imagery/fascia.webp', 'Carpenter checking a timber fascia board', '木工检查屋檐木板', 1536, 1024],
+  S04: ['/assets/service-imagery/rotten-timber.webp', 'Weathered timber under inspection', '检查老化木构件', 1536, 1024],
   S05: ['/assets/real-work/fence-timber-work.jpg', 'Timber fence with contrasting boards and lower timber strip', '带不同色泽木板与底部木条的木围栏', 1280, 1707],
-  S06: ['/assets/service-imagery/timber-gate.png', 'Carpenter adjusting a timber side gate', '木工调整庭院木门', 1536, 1024],
-  S07: ['/assets/service-imagery/deck.png', 'Replacing a weathered deck board', '更换老化的露台木板', 1536, 1024],
+  S06: ['/assets/service-imagery/timber-gate.webp', 'Carpenter adjusting a timber side gate', '木工调整庭院木门', 1536, 1024],
+  S07: ['/assets/service-imagery/deck.webp', 'Replacing a weathered deck board', '更换老化的露台木板', 1536, 1024],
   S08: ['/assets/real-work/interior-panels-prep.jpg', 'Detached interior panels', '拆下的室内板件', 1280, 1707],
   S09: ['/assets/real-work/cabinet-door-side.jpg', 'Cupboard door and side panel', '柜门与侧板', 1280, 1707],
 };
@@ -325,7 +325,7 @@ function supportBody(page, l, facts, selected, production) {
     tr(l, 'From worn window frames and sticking doors to damaged fences and decks. Share a few photos and your suburb to discuss repairs, replacement or timber refinishing.',
       '从老旧窗框、开关不顺的木门，到受损围栏与Deck。发来几张照片和所在地区，一起确认维修、更换或木作刷漆翻新的范围。') +
     '</p><div class="hero-actions">' + cta(l) + '<a class="text-link" href="' + href('/services/', l) + '">' +
-    tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/carpentry-work-scene.png" width="1536" height="1024" alt="' +
+    tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/carpentry-work-scene.webp" width="1536" height="1024" alt="' +
     tr(l, 'Carpenter measuring a timber door frame', '木工测量木门框') +
     '" fetchpriority="high"></figure></div><div class="service-highlights"><p><strong>' + tr(l, 'Your photos, a clearer enquiry', '用照片，把问题说清楚') +
     '</strong><span>' + tr(l, 'Upload the affected timber and a wider view.', '上传受损细节及周边全景。') + '</span></p><p><strong>' +

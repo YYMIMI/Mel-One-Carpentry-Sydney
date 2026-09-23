@@ -36,14 +36,14 @@ test('nine core service routes have substantive distinct bilingual answers rathe
 
 test('all nine service entrances have imagery while generated scenes stay out of real-job galleries', () => {
   const generated = {
-    S03: 'fascia.png', S04: 'rotten-timber.png', S06: 'timber-gate.png', S07: 'deck.png',
+    S03: 'fascia.webp', S04: 'rotten-timber.webp', S06: 'timber-gate.webp', S07: 'deck.webp',
   };
   for (const locale of ['en', 'zh']) {
     const prefix = locale === 'zh' ? '/zh' : '';
     const home = renderPage(prefix + '/', facts).html;
     assert.equal((home.match(/class="service-card"/g) || []).length, 9);
     assert.equal((home.match(/class="case-card"/g) || []).length, 5);
-    assert.match(home, /\/assets\/carpentry-work-scene\.png/);
+    assert.match(home, /\/assets\/carpentry-work-scene\.webp/);
     assert.doesNotMatch(home, /AI-generated|AI场景示意|示意图/);
     for (const [id, image] of Object.entries(generated)) {
       const page = pages.find(p => p.id === id && p.locale === locale);

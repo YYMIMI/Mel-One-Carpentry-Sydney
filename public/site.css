@@ -323,3 +323,49 @@ input, select, textarea { border-radius: .85rem }
   /* Override the default smooth scroll and decorative transitions for user motion preference. */
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important }
 }
+
+/* Reference-informed navigation: three service families, one Mel One visual voice. */
+.site-header { background: var(--paper); border-bottom: 0 }
+.header-inner { max-width: 1320px; background: var(--surface); border: 1px solid var(--line); border-radius: 1.75rem; margin: .65rem auto; box-shadow: 0 12px 30px #20343d0b }
+.header-inner nav a, .language, .service-menu > summary { border-radius: 999px; transition: background .2s, color .2s, box-shadow .2s }
+.header-inner nav a:hover, .language:hover { background: #e8eee7; color: var(--ink) }
+.header-inner nav a[aria-current="page"] { color: var(--ink); background: var(--sage); box-shadow: none }
+.header-inner nav a.nav-contact, .menu-toggle { border-radius: 999px }
+.service-menu > summary::after { content: '⌄'; display: inline-block; margin-left: .4rem; transition: transform .2s }
+.service-menu[open] > summary { background: var(--ink); color: var(--surface) }
+.service-menu[open] > summary::after { transform: rotate(180deg) }
+.service-menu-panel { top: calc(100% + .3rem); border: 1px solid var(--line); border-radius: 1.75rem; padding: 1.2rem; box-shadow: 0 24px 50px #20343d24 }
+.service-menu-panel .all-services { display: inline-flex; background: var(--ink); color: white; padding: .7rem 1.1rem; border-radius: 999px }
+.service-menu-groups { gap: .7rem }
+.service-menu-group { min-width: 0; border-radius: 1.4rem; padding: 1.1rem; background: #f0f2ed; border: 1px solid transparent }
+.service-menu-group--timber { background: #ede8e0; border-color: #e4d8c9 }
+.service-menu-group--outdoor { background: #e4eee5; border-color: #d2e0d3 }
+.service-menu-group--interior { background: #e8edf0; border-color: #d5e1e6 }
+.service-menu-group h2 { font-family: 'Fraunces', Georgia, serif; font-size: 1.15rem; margin: 0 0 .65rem }
+.service-menu-group a { padding: .55rem .7rem; margin: .16rem 0; border-radius: .75rem; text-decoration: none; font-size: .88rem; font-weight: 650 }
+.service-menu-group a:hover, .service-menu-group a:focus-visible { background: #fffefbd9; transform: translateX(2px) }
+.service-menu-group a[aria-current="page"] { background: var(--surface); color: var(--timber-dark); box-shadow: inset 3px 0 var(--timber) }
+.home-hero { background: #e8eee8; color: var(--ink) }
+.hero-copy .eyebrow { color: var(--timber-dark) }
+.hero-intro { color: var(--ink-soft) }
+.hero-photo { overflow: hidden }
+.button { border-radius: 999px }
+.button-primary { background: var(--ink); color: #fff }
+.button-primary:hover { background: var(--ink-soft) }
+.service-card, .case-card { border-radius: 2rem }
+.service-card:first-child .service-card-copy { background: #ebe6dd }
+.service-quote-card { border-radius: 2.2rem }
+.case-card > div { background: linear-gradient(transparent, #122e3dd9) }
+.footer-group a:hover { color: #fff; text-decoration-color: var(--timber) }
+@media (max-width: 1000px) {
+  .header-inner { margin-inline: var(--space) }
+  .service-menu-panel { left: var(--space); right: var(--space) }
+}
+@media (max-width: 700px) {
+  .header-inner { margin: .45rem 0; border-radius: 1.5rem }
+  .header-inner nav { background: var(--surface); border-radius: 1.25rem }
+  .service-menu-panel { position: static; border: 0; box-shadow: none; padding: .5rem 0 }
+  .service-menu-groups { grid-template-columns: 1fr }
+  .service-menu-group { padding: .9rem }
+  .home-hero { border-radius: 2.2rem }
+}

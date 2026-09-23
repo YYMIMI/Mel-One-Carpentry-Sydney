@@ -53,9 +53,9 @@ function serviceCardPhoto(id, l, priority = false) {
 }
 function serviceMenu(l,facts,production,page) {
   const groups=[['Doors, windows & timber','门窗与木材',['S01','S02','S04','S03']],['Fences, gates & decks','围栏、木闸门与露台',['S05','S06','S07']],['Interior repairs','室内木作维修',['S08','S09']]];
-  return '<details class="service-menu"><summary>'+tr(l,'Services','木工服务')+'</summary><div class="service-menu-panel"><a class="all-services" href="'+href('/services/',l)+'">'+tr(l,'All carpentry services','查看全部木工服务')+'</a><div class="service-menu-groups">'+groups.map(([en,zh,ids])=>{
+  return '<details class="service-menu"><summary>'+tr(l,'Services','木工服务')+'</summary><div class="service-menu-panel"><a class="all-services" href="'+href('/services/',l)+'">'+tr(l,'All carpentry services','查看全部木工服务')+'</a><div class="service-menu-groups">'+groups.map(([en,zh,ids],index)=>{
     const available=services.filter(s=>ids.includes(s.id)&&(!production||facts.approvedServices?.includes(s.id)));
-    return available.length ? '<div><h2>'+tr(l,en,zh)+'</h2>'+available.map(s=>'<a href="'+servicePath(s,l)+'"'+(page.id===s.id?' aria-current="page"':'')+'>'+esc(shortName(s,l))+'</a>').join('')+'</div>':'';
+    return available.length ? '<div class="service-menu-group service-menu-group--'+['timber','outdoor','interior'][index]+'"><h2>'+tr(l,en,zh)+'</h2>'+available.map(s=>'<a href="'+servicePath(s,l)+'"'+(page.id===s.id?' aria-current="page"':'')+'>'+esc(shortName(s,l))+'</a>').join('')+'</div>':'';
   }).join('')+'</div></div></details>';
 }
 const approvedAreaNames = facts => (facts.approvedAreas ?? [])
@@ -476,7 +476,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=20260923-soft">' +
+    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=20260923-reference-refresh">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     (base ? '' : '<div class="preview-bar">' + tr(l,

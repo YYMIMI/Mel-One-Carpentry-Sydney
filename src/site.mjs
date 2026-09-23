@@ -19,6 +19,29 @@ const href = (path, l) => l === 'zh' ? (path === '/' ? '/zh/' : '/zh' + path) : 
 const p = value => '<p>' + esc(value) + '</p>';
 const section = (id, title, body) => '<section class="content-section" id="' + id + '"><h2>' + esc(title) + '</h2>' + body + '</section>';
 const faq = items => '<div class="faq-list">' + items.map(([q, a]) => '<details><summary>' + esc(q) + '</summary>' + p(a) + '</details>').join('') + '</div>';
+const customerConcerns = l => [
+  [tr(l, 'What will the quote include?', '报价包含哪些工作？'), tr(l,
+    'Ask for the timber work, materials, access, finishing and any removal to be identified separately. A photograph helps start the conversation, but concealed damage or site access can change the scope.',
+    '请分别确认木作、材料、通道、表面收尾及拆旧清运。照片可帮助初步沟通，但隐蔽损坏与现场通道可能改变工作范围。')],
+  [tr(l, 'Can we repair only the damaged part?', '能只修坏掉的部分吗？'), tr(l,
+    'Sometimes. The adjoining timber, fixings and cause of moisture or movement need checking first. A local repair should not hide an unstable support or an unresolved leak.',
+    '有时可以，但先要看相邻木材、固定处，以及受潮或移动的原因。局部维修不应掩盖不稳的支撑或仍在漏水的位置。')],
+  [tr(l, 'What if hidden damage appears?', '拆开后发现更多损坏怎么办？'), tr(l,
+    'Stop and explain the newly visible condition before extra work. Agree the changed method, materials and cost in writing rather than treating an initial photo estimate as an unlimited approval.',
+    '增加工作前应先说明新发现的情况，再以书面确认变更后的方法、材料与费用；初步照片估算不等于无限追加工作的同意。')],
+  [tr(l, 'How will the work affect the home?', '施工会怎样影响家里？'), tr(l,
+    'Ask which areas need access, whether a door or window will be temporarily out of use, and what preparation, making good and waste removal are included. The answer depends on the agreed job.',
+    '可先确认需要进入哪些位置、门窗会否暂时不能使用，以及保护、收尾和清运包含什么；具体安排取决于同意的工作范围。')],
+];
+function concernsSection(l) {
+  return '<section class="homepage-section concern-section" id="customer-concerns"><div class="section-heading"><div><p class="eyebrow">' +
+    tr(l, 'Before you book', '预约前先说清楚') + '</p><h2>' + tr(l, 'The questions behind a repair enquiry', '客户真正担心的，不只是木头坏了') +
+    '</h2></div><p>' + tr(l, 'No single photo can settle every repair. These are the decisions worth making clear before work begins.', '一张照片不能决定所有维修；开始前，值得把这些判断说明白。') +
+    '</p></div><div class="concern-grid">' + customerConcerns(l).map(([question, answer], index) =>
+    '<article><span class="concern-number">0' + (index + 1) + '</span><h3>' + esc(question) + '</h3>' + p(answer) + '</article>').join('') +
+    '</div><div class="concern-actions"><a class="text-link" href="' + href('/faq/',l) + '">' + tr(l, 'Read more practical answers', '查看更多实际问题') +
+    '</a><a class="button button-primary" href="' + href('/contact/',l) + '">' + tr(l, 'Describe your job', '说明你的维修情况') + '</a></div></section>';
+}
 const servicePath = (s, l) => href('/services/' + s.slug + '/', l);
 const officeAddress = (l, facts) => facts.officeAddress ? '<p class="office-address"><strong>' + tr(l, 'Sydney office', '悉尼办公室') + '</strong><br><span>' + esc(facts.officeAddress) + '</span></p>' : '';
 const shortName = (s, l) => s.id === 'S05' ? tr(l, 'Timber fence maintenance & repairs', '木围栏保养与维修') : s[l].h1.replace(l === 'zh' ? /^悉尼/ : / in Sydney$/, '');
@@ -338,7 +361,7 @@ function supportBody(page, l, facts, selected, production) {
     '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与suburb。') +
     '</p><p>' + tr(l, 'Share safe photos and access details.', '从安全位置提供照片和通道信息。') +
     '</p><p>' + tr(l, 'Confirm the work, exclusions and written quote.', '再确认工作、排除项与书面报价。') +
-    '</p></div></section>' + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
+    '</p></div></section>' + concernsSection(l) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
     tr(l, 'Check your area before arranging work', '安排前确认服务地区') + '</h2>' +
     p(production ? tr(l, 'These locations have been approved for the listed work. We still confirm access and scope before a booking.',
       '以下地点已有相应服务批准；预约前仍需确认通道及工作范围。') : tr(l,
@@ -402,9 +425,24 @@ function supportBody(page, l, facts, selected, production) {
         '这些是不同的专门范围。报价应准确区分木构件与需要其他工种配合的工作。')],
       [tr(l, 'What should photos show?', '照片应拍什么？'), tr(l,
         'A wide view, damage and safe access. Never climb or dismantle an unsafe component for a photo.',
-        '拍全景、损坏近照和可进入位置；不要为拍照登高或拆动不稳构件。')]
+        '拍全景、损坏近照和可进入位置；不要为拍照登高或拆动不稳构件。')],
+      ...customerConcerns(l),
+      [tr(l, 'What affects the cost of a timber repair?', '木作维修费用由什么决定？'), tr(l,
+        'The damaged component, extent, safe access, material match, hardware, preparation, finishing and disposal all matter. A written quote should identify what is included and what is excluded; we cannot give one reliable price for every property.',
+        '受损构件、范围、安全通道、材料与五金匹配、前处理、收尾及清运都会影响费用。书面报价应列明包含和不包含的内容，不能用同一价格套所有房屋。')],
+      [tr(l, 'Who supplies materials and handles disposal?', '材料与清运由谁负责？'), tr(l,
+        'Confirm timber type, profile, visible finish and any hardware before ordering. Supply, removal of old material and disposal should each appear in the agreed scope; none is automatically included.',
+        '订料前先确认木材种类、线条、可见饰面和五金。材料供应、拆旧及清运应逐项写进同意的工作范围，不自动视为包含。')],
+      [tr(l, 'When can work be scheduled?', '什么时候可以安排施工？'), tr(l,
+        'Send the suburb, affected part and safe photos first. Timing depends on the assessed scope, access, materials and availability; enquiry hours are not a same-day attendance guarantee.',
+        '先提供所在地区、受损部位及安全拍摄的照片。安排时间取决于工作范围、通道、材料和可用档期；咨询时间不等于当天到场承诺。')],
+      [tr(l, 'How can I check the company and insurance?', '怎样核实公司和保险？'), tr(l,
+        'The About page names the operating company, ABN and ACN, and describes the current insurance evidence and its limits. Ask for a current certificate if your job or property manager needs it; cover remains subject to the policy terms and confirmed work.',
+        '关于我们页面列出经营公司、ABN、ACN及现有保险证明和适用边界。若工程或物业管理方需要，可索取现行证明；具体承保仍以保单条款与确定的工作范围为准。')]
     ]) + '<p class="below-faq"><a class="text-link" href="' + href('/services/', l) + '">' +
-    tr(l, 'Questions specific to each component', '查看各构件专属问题') + '</a></p>';
+    tr(l, 'Questions specific to each component', '查看各构件专属问题') + '</a> · <a class="text-link" href="' + href('/about/', l) + '">' +
+    tr(l, 'Company and insurance', '公司与保险') + '</a> · <a class="text-link" href="' + href('/contact/', l) + '">' +
+    tr(l, 'Ask about your job', '咨询你的项目') + '</a></p>';
   if (page.id === 'H07') return '<div class="page-lead">' + p(tr(l,
     'Describe the timber issue and suburb. Photos are optional; do not enter a full street address. At least one working contact method is needed for a reply.',
     '请说明木作问题及suburb。照片可选，无需输入完整街道地址；至少留一种有效联系方式以便回复。')) +
@@ -477,7 +515,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=20260923-office-refresh">' +
+    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=20260923-customer-concerns">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     (base ? '' : '<div class="preview-bar">' + tr(l,

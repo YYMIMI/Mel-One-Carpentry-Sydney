@@ -360,6 +360,20 @@ input, select, textarea { border-radius: .85rem }
 .office-address { margin: 1rem 0 0; line-height: 1.5 }
 .office-address strong { display: inline-block; font-size: .82rem; letter-spacing: .04em; margin-bottom: .25rem }
 .footer-identity .office-address { padding-top: .8rem; border-top: 1px solid #ffffff38 }
+.concern-section { padding-top: clamp(3rem, 6vw, 5.5rem) }
+.concern-section .section-heading { align-items: end; margin-bottom: 1.5rem }
+.concern-section .section-heading > p { max-width: 27rem; color: var(--ink-soft) }
+.concern-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem }
+.concern-grid article { position: relative; min-width: 0; padding: 1.6rem; border-radius: 1.75rem; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 10px 24px #20343d08 }
+.concern-grid article:nth-child(2) { background: #e9efe8 }
+.concern-grid article:nth-child(3) { background: #f0e9df }
+.concern-grid article:nth-child(4) { background: #e8edef }
+.concern-number { display: block; margin-bottom: 1.25rem; color: var(--timber-dark); font: 700 1.05rem Georgia, serif }
+.concern-grid h3 { font: 700 clamp(1.18rem, 1.6vw, 1.5rem)/1.25 'Fraunces', Georgia, serif; margin-bottom: .85rem }
+.concern-grid p { color: var(--ink-soft); font-size: .94rem; margin: 0 }
+.concern-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.3rem; margin-top: 1.5rem }
+@media (max-width: 1000px) { .concern-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+@media (max-width: 700px) { .concern-grid { grid-template-columns: 1fr } .concern-grid article { padding: 1.4rem } }
 @media (max-width: 1000px) {
   .header-inner { margin-inline: var(--space) }
   .service-menu-panel { left: var(--space); right: var(--space) }

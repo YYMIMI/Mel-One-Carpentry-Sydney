@@ -42,6 +42,9 @@ function concernsSection(l) {
     '</div><div class="concern-actions"><a class="text-link" href="' + href('/faq/',l) + '">' + tr(l, 'Read more practical answers', '查看更多实际问题') +
     '</a><a class="button button-primary" href="' + href('/contact/',l) + '">' + tr(l, 'Describe your job', '说明你的维修情况') + '</a></div></section>';
 }
+function homeInquirySection(l) {
+  return '<section class="homepage-section home-inquiry"><div class="home-inquiry-copy"><p class="eyebrow">' + tr(l, 'Ready to take the next step?', '想好下一步怎么处理了吗？') + '</p><h2>' + tr(l, 'Tell us what is wrong with the timber.', '告诉我们木作哪里出了问题。') + '</h2><p>' + tr(l, 'Choose the closest service, describe what has changed and tell us your suburb. A close-up and a wider photo help us understand the job; photos are optional.', '选择最接近的服务，说明哪里出了问题及所在地区。局部和全景照片有助于了解情况；照片不是必填。') + '</p><p class="home-inquiry-note">' + tr(l, 'We will discuss the work and what a quote needs to cover before arranging a visit.', '安排上门前，先沟通需要处理的工作及报价应包含的项目。') + '</p></div>' + contactForm(l, '') + '</section><script src="/form.js" defer></script>';
+}
 const servicePath = (s, l) => href('/services/' + s.slug + '/', l);
 const officeAddress = (l, facts) => facts.officeAddress ? '<p class="office-address"><strong>' + tr(l, 'Sydney office', '悉尼办公室') + '</strong><br><span>' + esc(facts.officeAddress) + '</span></p>' : '';
 const shortName = (s, l) => s.id === 'S05' ? tr(l, 'Timber fence maintenance & repairs', '木围栏保养与维修') : s[l].h1.replace(l === 'zh' ? /^悉尼/ : / in Sydney$/, '');
@@ -313,8 +316,8 @@ function suburbBody(page,l,facts,production) {
   const query='?suburb='+encodeURIComponent(a.name);
   const localCta='<a class="button button-primary" href="'+href('/contact/',l)+query+'">'+tr(l,'Ask about work in '+a.name,'咨询 '+a.name+' 的木工工作')+'</a>';
   return '<nav aria-label="'+tr(l,'Breadcrumb','当前位置')+'"><a href="'+href('/areas/',l)+'">'+tr(l,'Service areas','服务地区')+'</a> / '+esc(a.name)+'</nav>'+
-    '<div class="page-lead">'+p(tr(l,'Planning timber repairs in '+a.name+'? This '+a.region+' directory entry helps you prepare the job details, find the appropriate service and send a location-specific enquiry.',
-      '准备安排 '+a.name+' 的木作维修？本页属于'+a.regionZh+'地区目录，帮助你整理工作情况、找到对应服务，并提交带有所在地区的询价。'))+localCta+'</div>'+
+    '<div class="page-lead">'+p(tr(l,'Need timber repairs in '+a.name+'? Start with the affected part, see which service fits and tell us what is happening at your property.',
+      '在 '+a.name+' 需要木作维修？先看受损部位和对应服务，再告诉我们现场遇到的问题。'))+localCta+'</div>'+
     section('local-enquiry',tr(l,'A useful enquiry example','询价准备示例'),p(tr(l,a.en,a.zh))+
       p(tr(l,'This is a repair scenario to help describe your job, not a claim about typical damage or a completed project in this suburb. Other timber tasks are listed below.',
         '这是帮助描述工作的维修情境，并非声称本区普遍有这种损坏或展示当地已完成工程。其他木作需求也可从下方服务进入。'))+
@@ -325,8 +328,8 @@ function suburbBody(page,l,facts,production) {
         '询价请注明 '+a.name+'，提供全景、每类损坏的近照及大致尺寸。如涉及共用通道、楼梯、停车或物业管理安排，请一并说明；不需要公开完整街道地址。'))+
       p(tr(l,'The work, travel and availability are confirmed before booking. Timber repairs, agreed finishing, replacement materials and waste removal should be itemised; a suburb page is not a local office or an attendance-time guarantee.',
         '预约前确认工作范围、出行和时间。木材维修、同意的表面处理、更换材料及清运应分项说明；郊区页面不代表当地设有办公室，也不是到场时间保证。'))+localCta)+
-    section('other-locations',tr(l,'Other entries in '+a.region,a.regionZh+'的其他地区'),
-      '<div class="related-links">'+a.otherNames.filter(name=>!production || facts.approvedAreas?.some(area=>area.name===name && area.coverage_status==='APPROVED' && area.public_copy_approved && area.area_page_publish_approved)).map(name=>'<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join('')+'</div>'+p(tr(l,'These entries share a directory group; this is not a claim that every location is adjacent.','以上属同一目录分组，不表示每个地点都互相相邻。')))+
+    section('other-locations',tr(l,'Other Sydney areas','其他悉尼服务地区'),
+      '<div class="related-links">'+a.otherNames.filter(name=>!production || facts.approvedAreas?.some(area=>area.name===name && area.coverage_status==='APPROVED' && area.public_copy_approved && area.area_page_publish_approved)).map(name=>'<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join('')+'</div>')+
     section('questions',tr(l,'Before sending your enquiry','发送询价前'),faq([
       [tr(l,'Can I ask about fence maintenance here?','这里可以咨询围栏保养吗？'),tr(l,'Yes. Describe posts, rails, boards and fixings, then use the timber fence maintenance page to prepare photos. Confirm the work at your location before booking.','可以。说明立柱、横梁、木板及固定件情况，并按木围栏保养页准备照片；预约前确认当地工作范围。')],
       [tr(l,'Do the project photographs prove a job in '+a.name+'?','网站照片是否代表 '+a.name+' 的工程？'),tr(l,'No location is assigned to a photograph without confirmation. Service-page photographs illustrate the real work supplied by the business, not evidence of a job in every suburb.','未确认的照片不会标上郊区。服务页展示公司提供的真实工作照片，不代表每个郊区都有对应案例。')]
@@ -391,22 +394,20 @@ function supportBody(page, l, facts, selected, production) {
     '</p><div class="hero-actions"><a class="button button-primary" href="#inquiry">' + tr(l, 'Send a repair enquiry', '发送木作询价') + '</a>' + (facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + tr(l, 'Call ', '致电 ') + esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3')) + '</a>' : '') + '<a class="text-link" href="' + href('/services/', l) + '">' +
     tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/real-work/fence-timber-work.jpg" width="1280" height="1707" alt="' +
     tr(l, 'Timber fence boards and support timber from a supplied work photo', '提供的现场照片：木围栏板与支撑木条') +
-    '" fetchpriority="high"></figure></div><div class="service-highlights"><p><strong>' + tr(l, 'Your photos, a clearer enquiry', '用照片，把问题说清楚') +
-    '</strong><span>' + tr(l, 'Upload the affected timber and a wider view.', '上传受损细节及周边全景。') + '</span></p><p><strong>' +
+    '" fetchpriority="high"></figure></div><div class="service-highlights"><p><strong>' + tr(l, 'See real timber work', '看得见的真实木作') +
+    '</strong><span>' + tr(l, 'Explore supplied photos beside the service they relate to.', '施工照片放在对应服务旁，方便了解实际工作细节。') + '</span></p><p><strong>' +
     tr(l, 'English & Chinese', '中英文咨询') + '</strong><span>' + tr(l, 'Read and enquire in your preferred language.', '按习惯的语言查看服务及询价。') +
     '</span></p><p><strong>' + tr(l, 'Scope before a booking', '先确认范围，再安排') + '</strong><span>' +
-    tr(l, 'Discuss the timber, finish and suburb together.', '一起确认木作、表面处理与所在地区。') + '</span></p></div><section class="homepage-section home-inquiry"><div class="home-inquiry-copy"><p class="eyebrow">' + tr(l, 'A clear first step', '先把问题说清楚') + '</p><h2>' + tr(l, 'Show us the timber that needs attention.', '告诉我们哪一处木作需要处理。') + '</h2><p>' + tr(l, 'Tell us the suburb and what is happening. A close-up and a wider photo can help us discuss the scope; photos are optional.', '告诉我们所在 suburb 和遇到的问题。局部与全景照片有助于讨论工作范围；照片不是必填。') + '</p><p class="home-inquiry-note">' + (production ? tr(l, 'We confirm the work scope before a booking.', '预约前会确认实际工作范围。') : tr(l, 'We confirm scope before a booking. Preview enquiries do not prove inbox delivery.', '预约前会确认工作范围。预览表单不代表真实收件箱已收到。')) + '</p></div>' + contactForm(l, '') + '</section><script src="/form.js" defer></script><section class="homepage-section"><div class="section-heading"><p class="eyebrow">' +
+    tr(l, 'Discuss repair, materials, finishing and quote inclusions.', '把维修、材料、表面收尾及报价内容逐项说清。') + '</span></p></div><section class="homepage-section"><div class="section-heading"><p class="eyebrow">' +
     tr(l, 'Repairs, replacement & finishing', '维修、更换与表面翻新') + '</p><h2>' + tr(l, 'What needs repairing?', '哪一处木作需要处理？') +
     '</h2></div>' + cards(l, facts, production) + '</section><section class="process-strip"><h2>' + tr(l, 'From problem to scope', '从问题到工作范围') +
     '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与suburb。') +
     '</p><p>' + tr(l, 'Share safe photos and access details.', '从安全位置提供照片和通道信息。') +
     '</p><p>' + tr(l, 'Confirm the work, exclusions and written quote.', '再确认工作、排除项与书面报价。') +
-    '</p></div></section>' + repairDecisions(l) + concernsSection(l) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
+    '</p></div></section>' + repairDecisions(l) + concernsSection(l) + homeInquirySection(l) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
     tr(l, 'Check your area before arranging work', '安排前确认服务地区') + '</h2>' +
-    p(production ? tr(l, 'These locations have been approved for the listed work. We still confirm access and scope before a booking.',
-      '以下地点已有相应服务批准；预约前仍需确认通道及工作范围。') : tr(l,
-      'Well-known Sydney area names are enquiry starting points, not a blanket promise of attendance.',
-      '悉尼常见地名可作为询价入口，并非所有地区都已承诺出勤。')) +
+    p(tr(l, 'Tell us your suburb and what needs repair. We will confirm the work, access and timing with you before booking.',
+      '告诉我们所在地区和需要维修的部位；预约前会一起确认工作内容、通道与时间。')) +
     (production ? '<ul class="area-list">' + approved.map(name => '<li>' + esc(name) + '</li>').join('') + '</ul>' :
       areaCards(l, popularAreaCandidates.filter(group => ['Sydney CBD & Inner City', 'Inner West', 'Lower North Shore', 'Parramatta & Surrounds'].includes(group.en)))) +
     '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'Check a suburb', '查看地区查询方式') + '</a></section>' + officeMap(l, facts) + '<section class="quote-band"><div><p class="eyebrow">' +
@@ -423,15 +424,15 @@ function supportBody(page, l, facts, selected, production) {
     return '<div class="page-lead">' + p(tr(l,
       'Tell us the suburb and the timber problem. We confirm travel, access and which work can be offered there before any booking. A postcode or nearby area is not enough to assume attendance.',
       '请提供suburb及木作问题。预约前需核对能否到达、现场通道以及当地可做的工作；邮编或相邻地名不能直接当作出勤承诺。')) +
-      cta(l) + '</div>' + (approved.length ? section('confirmed', tr(l, 'Confirmed service locations', '已确认的服务地区'),
+      cta(l) + '</div>' + (approved.length ? section('confirmed', tr(l, 'Places we can discuss work', '可咨询木工服务的地区'),
         '<ul class="area-list">' + approved.map(name => '<li>' + esc(name) + '</li>').join('') + '</ul>') : '') +
-      (production ? '' : section('ask', tr(l, 'Sydney areas to ask us about', '可询问的悉尼地区示例'),
-        p(tr(l, 'These are area enquiry examples pending actual service and access confirmation. We do not assume all suburbs in a region are adjacent or automatically available.',
-          '以下是地区询问示例，实际服务与通道尚待确认。不会把同一区域所有suburb一律视为相邻或自动可到。')) +
+      (production ? '' : section('ask', tr(l, 'Sydney areas we hear from', '悉尼服务地区'),
+        p(tr(l, 'Find your suburb below, then tell us about the timber issue. We confirm the work and access details individually before booking.',
+          '在下方找到所在地区，再说明木作问题。预约前会逐项确认工作内容和现场通道。')) +
         areaCards(l, popularAreaCandidates))) +
       section('choose-work', tr(l, 'Choose by the timber problem', '按木作问题选择服务'),
-        p(tr(l, 'A suburb is only one part of the enquiry. Start with the damaged component so the correct service owner can assess the work.',
-          '地区只是询价的一部分。请先按受损构件进入对应服务页，让相关项目负责人判断工作范围。')) + cards(l, facts, production)) +
+        p(tr(l, 'Your suburb helps us plan the job; the damaged timber tells us which repair to discuss. Choose the affected part below, or send us a photo if you are unsure.',
+          '所在地区有助于安排工作；受损木构件决定要讨论哪种维修。可按部位选择下方服务，不确定时也可发照片说明。')) + cards(l, facts, production)) +
       section('specific', tr(l, 'Service and suburb must both fit', '服务项目和地区要分别核对'), p(tr(l,
         'Even when a location is confirmed, not every specialist task is necessarily available there. Unknown locations can still be submitted for an answer rather than being automatically rejected.',
         '即使某地获准，也不代表每项专门工作都能在那里做。未知地区仍可询问，不会自动拒绝。')));
@@ -493,8 +494,8 @@ function supportBody(page, l, facts, selected, production) {
     '请说明木作问题及suburb。照片可选，无需输入完整街道地址；至少留一种有效联系方式以便回复。')) +
     '</div><div class="contact-layout"><div>' + contactForm(l, selected) +
     '</div><aside class="aside-note"><h2>' + tr(l, 'Before you send', '发送前请留意') + '</h2>' + p(tr(l,
-      'Only share images you may provide. Avoid faces, number plates and documents. This preview is for testing; do not submit real customer details until the recipient and privacy terms are approved.',
-      '只提交有权提供的照片，避开人脸、车牌和文件。本预览仅供测试；收件端和隐私条款获批前不要提交真实客户资料。')) +
+      'Only share images you may provide. Avoid faces, number plates and documents. Online replies are not yet available; please call for a response.',
+      '只提交有权提供的照片，避开人脸、车牌和文件。目前网上询价尚不能保证收到回复；如需答复请致电。')) +
     businessContact(l,facts) +
     (facts.telephone ? '<p><a href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + esc(facts.telephone) + '</a></p>' : '') +
     (facts.email ? '<p><a href="mailto:' + esc(facts.email) + '" data-event="email_click">' + esc(facts.email) + '</a></p>' : '') + officeAddress(l,facts) +
@@ -503,11 +504,11 @@ function supportBody(page, l, facts, selected, production) {
     'An enquiry can contain contact details, a suburb, a description and optional photographs. These are used to assess and respond, not placed in public content or analytics events.',
     '询价可能包含联系方式、suburb、问题描述与可选照片。这些资料用于评估和回复，不会进入公开网页正文或分析事件。')) +
     '</div>' + section('handling', tr(l, 'Handling and access', '处理与访问'), p(tr(l,
-      'Photographs are stored privately and internal access must be controlled. The inbox owner, retention period, deletion process and any service providers need approval before this becomes the operating privacy policy.',
-      '上传照片应存放在私有空间，内部访问须受控。收件负责人、保存期限、删除流程和任何服务商，都要在本页作为正式隐私政策发布前核实。'))) +
+      'Uploaded photographs are stored privately. Please do not include faces, number plates or documents. For questions about information you have sent, contact us by phone or email.',
+      '上传的照片存放在私有空间。请不要包含人脸、车牌或文件。如需询问已提交资料的处理方式，请通过电话或电邮联系我们。'))) +
     section('contact-privacy', tr(l, 'Questions about your data', '资料相关问题'), p(tr(l,
-      'Use the confirmed contact channel once it appears on the live site.',
-      '正式网站显示经确认的联系方式后，请通过该渠道提出资料问题。')));
+      'Call or email us using the contact details shown on this website.',
+      '请使用本网站显示的电话或电邮联系我们。')));
   return '';
 }
 
@@ -563,9 +564,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260923-home-refresh">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
-    (base ? '' : '<div class="preview-bar">' + tr(l,
-      'Protected content preview · business facts and area coverage awaiting confirmation',
-      '受保护内容预览 · 业务资料与服务地区尚待核实') + '</div>') +
+    '' +
     '<header class="site-header">' + businessContact(l,facts) + '<div class="header-inner"><a class="brand" href="' + href('/', l) +
     '" aria-label="' + brand + ' ' + tr(l, 'home', '首页') + '"><img class="brand-logo" src="/assets/mel-one-logo.jpg" width="940" height="940" alt="Mel One"><span>' +
     brand + '<small>' + tr(l, 'Residential carpentry', '住宅木工') + '</small></span></a>' +

@@ -75,7 +75,7 @@ test('an unapproved suburb has a preview page but is not a production service pr
   assert.equal(renderPage('/areas/chatswood/', facts, {production:true}).status, 404);
   const area = renderPage('/areas/', facts).html;
   assert.match(area, /Chatswood/);
-  assert.match(area, /pending actual service and access confirmation/i);
+  assert.match(area, /confirm the work and access details individually before booking/i);
   assert.doesNotMatch(area, /We serve Chatswood/);
 });
 
@@ -144,7 +144,7 @@ test('approved, pending and out-of-scope areas remain distinct per service', () 
   assert.equal(areaDecision('Mosman','S01',local).status,'PENDING');
   assert.equal(areaDecision('Penrith','S01',local).status,'OUT_OF_SCOPE');
   const html=renderPage('/areas/',local).html;
-  assert.match(html,/Confirmed service locations/);
+  assert.match(html,/Places we can discuss work/);
   assert.doesNotMatch(html,/<ul class="area-list">[^<]*Mosman/);
 });
 

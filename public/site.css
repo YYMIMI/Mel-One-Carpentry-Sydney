@@ -357,6 +357,9 @@ input, select, textarea { border-radius: .85rem }
 .service-quote-card { border-radius: 2.2rem }
 .case-card > div { background: linear-gradient(transparent, #122e3dd9) }
 .footer-group a:hover { color: #fff; text-decoration-color: var(--timber) }
+.office-address { margin: 1rem 0 0; line-height: 1.5 }
+.office-address strong { display: inline-block; font-size: .82rem; letter-spacing: .04em; margin-bottom: .25rem }
+.footer-identity .office-address { padding-top: .8rem; border-top: 1px solid #ffffff38 }
 @media (max-width: 1000px) {
   .header-inner { margin-inline: var(--space) }
   .service-menu-panel { left: var(--space); right: var(--space) }

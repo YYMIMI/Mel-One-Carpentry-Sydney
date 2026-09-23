@@ -20,6 +20,7 @@ const p = value => '<p>' + esc(value) + '</p>';
 const section = (id, title, body) => '<section class="content-section" id="' + id + '"><h2>' + esc(title) + '</h2>' + body + '</section>';
 const faq = items => '<div class="faq-list">' + items.map(([q, a]) => '<details><summary>' + esc(q) + '</summary>' + p(a) + '</details>').join('') + '</div>';
 const servicePath = (s, l) => href('/services/' + s.slug + '/', l);
+const officeAddress = (l, facts) => facts.officeAddress ? '<p class="office-address"><strong>' + tr(l, 'Sydney office', '悉尼办公室') + '</strong><br><span>' + esc(facts.officeAddress) + '</span></p>' : '';
 const shortName = (s, l) => s.id === 'S05' ? tr(l, 'Timber fence maintenance & repairs', '木围栏保养与维修') : s[l].h1.replace(l === 'zh' ? /^悉尼/ : / in Sydney$/, '');
 const cta = (l, id = '') => '<a class="button button-primary" href="' + href('/contact/', l) +
   '?service=' + encodeURIComponent(id) + '">' + tr(l, 'Send photos & request a quote', '上传照片，咨询维修报价') + '</a>';
@@ -380,7 +381,7 @@ function supportBody(page, l, facts, selected, production) {
       '初次询价尽量说明构件、可见损坏、地区和安全通道。之后才能判断维修、局部更换或扩大检查。油漆、清运和其他工种工作应写进书面范围。'))) +
     section('company', tr(l, 'Company and contact', '公司与联系资料'), p(tr(l,
       'This Sydney carpentry service is operated by Mel One Property Maintenance Pty Ltd, ABN 39 666 325 408 and ACN 666 325 408. Contact Felix2 on 0403 202 949 or handyman.kevinlee@gmail.com. Enquiries are taken Monday to Sunday, 09:00–21:00 Sydney time; the actual job and appointment are confirmed individually.',
-      '悉尼木工服务由 Mel One Property Maintenance Pty Ltd 经营，ABN 39 666 325 408，ACN 666 325 408。联系 Felix2：0403 202 949，handyman.kevinlee@gmail.com。询价时间为悉尼时间周一至周日 09:00–21:00；具体工作和预约须分别确认。'))) +
+      '悉尼木工服务由 Mel One Property Maintenance Pty Ltd 经营，ABN 39 666 325 408，ACN 666 325 408。联系 Felix2：0403 202 949，handyman.kevinlee@gmail.com。询价时间为悉尼时间周一至周日 09:00–21:00；具体工作和预约须分别确认。')) + officeAddress(l,facts)) +
     section('insurance', tr(l, 'Insurance and work scope', '保险与工作范围'), p(tr(l,
       'The company holds Chubb public and products liability cover. The certificate on file records a limit of AUD 20 million for 13 April 2026 to 13 April 2027. Cover for a particular job remains subject to the policy terms, exclusions and confirmed scope; ask us for current evidence if needed.',
       '公司持有 Chubb 公众及产品责任保险。现有证明文件记录保额为澳币 2,000 万元，有效期为 2026 年 4 月 13 日至 2027 年 4 月 13 日。具体工作是否承保仍以保单条款、除外责任及确定的工作范围为准；如需现行证明可向我们索取。'))) +
@@ -413,7 +414,7 @@ function supportBody(page, l, facts, selected, production) {
       '只提交有权提供的照片，避开人脸、车牌和文件。本预览仅供测试；收件端和隐私条款获批前不要提交真实客户资料。')) +
     businessContact(l,facts) +
     (facts.telephone ? '<p><a href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + esc(facts.telephone) + '</a></p>' : '') +
-    (facts.email ? '<p><a href="mailto:' + esc(facts.email) + '" data-event="email_click">' + esc(facts.email) + '</a></p>' : '') +
+    (facts.email ? '<p><a href="mailto:' + esc(facts.email) + '" data-event="email_click">' + esc(facts.email) + '</a></p>' : '') + officeAddress(l,facts) +
     '</aside></div><script src="/form.js" defer></script>';
   if (page.id === 'H08') return '<div class="page-lead">' + p(tr(l,
     'An enquiry can contain contact details, a suburb, a description and optional photographs. These are used to assess and respond, not placed in public content or analytics events.',
@@ -476,7 +477,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=20260923-reference-refresh">' +
+    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=20260923-office-refresh">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     (base ? '' : '<div class="preview-bar">' + tr(l,
@@ -494,7 +495,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '<footer class="site-footer"><div class="footer-inner">' +
     '<div class="footer-group footer-identity"><img class="footer-logo" src="/assets/mel-one-logo.jpg" width="940" height="940" alt="Mel One"><p class="footer-brand">' + brand + '</p><p>' +
     tr(l, 'Residential timber repairs and maintenance, with the job scope confirmed before booking.', '住宅木作维修与保养；预约前先确认实际工作范围。') +
-    '</p><p>' + esc(facts.legalEntity || 'Mel One Property Maintenance Pty Ltd') + '<br>ABN 39 666 325 408 · ACN 666 325 408</p></div>' +
+    '</p><p>' + esc(facts.legalEntity || 'Mel One Property Maintenance Pty Ltd') + '<br>ABN 39 666 325 408 · ACN 666 325 408</p>' + officeAddress(l,facts) + '</div>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Service links', '服务链接') + '"><h2>' + tr(l, 'Services', '木工服务') + '</h2>' +
     services.filter(s => ['S05','S01','S02','S07','S09'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a href="' + servicePath(s,l) + '">' + esc(shortName(s,l)) + '</a>').join('') +
     '<a href="' + href('/services/',l) + '">' + tr(l, 'All nine services', '全部九项服务') + '</a></nav>' +

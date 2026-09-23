@@ -21,3 +21,11 @@ test('real-work intro images remain in their service galleries', () => {
     assert.equal((html.match(new RegExp(image, 'g')) ?? []).length, 2);
   }
 });
+
+test('confirmed Sydney CBD office address appears consistently without claiming walk-in service', () => {
+  for (const path of ['/', '/zh/', '/about/', '/zh/about/', '/contact/', '/zh/contact/']) {
+    const html = renderPage(path, facts).html;
+    assert.match(html, /9 Castlereagh Street, Sydney CBD/);
+    assert.doesNotMatch(html, /walk-ins welcome|欢迎直接到访/);
+  }
+});

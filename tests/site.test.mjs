@@ -43,7 +43,7 @@ test('all nine service entrances have imagery while generated scenes stay out of
     const home = renderPage(prefix + '/', facts).html;
     assert.equal((home.match(/class="service-card"/g) || []).length, 9);
     assert.equal((home.match(/class="case-card"/g) || []).length, 5);
-    assert.match(home, /\/assets\/carpentry-work-scene\.webp/);
+    assert.match(home, /<figure class="hero-photo"><img src="\/assets\/real-work\/fence-timber-work\.jpg"/);
     assert.doesNotMatch(home, /AI-generated|AI场景示意|示意图/);
     for (const [id, image] of Object.entries(generated)) {
       const page = pages.find(p => p.id === id && p.locale === locale);

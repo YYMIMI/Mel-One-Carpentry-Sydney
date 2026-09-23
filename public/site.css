@@ -449,3 +449,62 @@ form .button { justify-self: start }
   .service-menu-group { padding: .9rem }
   .home-hero { border-radius: 2.2rem }
 }
+
+/* Home: real field work first, with a deep-ink frame against the warm site. */
+.home-hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); background: #172d33; color: #fff; box-shadow: 0 28px 65px #172d3326 }
+.home-hero .hero-copy { position: relative; z-index: 1 }
+.home-hero .hero-copy .eyebrow { color: #e5b87f }
+.home-hero .hero-intro { color: #e0e9e5; max-width: 45ch }
+.home-hero .hero-copy h1 { font-size: clamp(2.55rem, 3.7vw, 4.25rem); letter-spacing: -.035em; line-height: 1.08; max-width: 19ch }
+.home-hero .hero-actions { gap: .8rem; align-items: stretch }
+.home-hero .hero-actions .button { min-height: 3.8rem; font-size: 1.06rem }
+.home-hero .hero-actions .button-primary { background: #e0ad70; color: #172d33 }
+.home-hero .hero-actions .button-primary:hover { background: #f0c690 }
+.home-hero .hero-actions .button-call { color: #fff; background: transparent; border-color: #d5e2de }
+.home-hero .hero-actions .button-call:hover { color: var(--ink); background: #edf2ed }
+.home-hero .hero-actions .text-link { color: #f3d5ac; align-self: center; margin-left: .2rem }
+.home-hero .hero-photo { border-radius: 10rem 0 0 2.25rem; background: #66756b }
+.home-hero .hero-photo img { object-position: 50% 48%; filter: saturate(.82) contrast(1.04) }
+.home-inquiry { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; padding: clamp(1.6rem, 4vw, 4rem); background: #e4eae0; border-radius: 2.25rem }
+.home-inquiry-copy { position: sticky; top: 2rem; padding-block: 1.5rem }
+.home-inquiry-copy h2 { font-size: clamp(2.15rem, 3.4vw, 3.9rem); line-height: 1.1; letter-spacing: -.025em; max-width: 12ch }
+.home-inquiry-copy p { max-width: 35ch }
+.home-inquiry-note { padding-top: 1rem; border-top: 1px solid #aebfb4; font-size: .94rem; color: var(--ink-soft) }
+.home-inquiry form { box-shadow: 0 20px 50px #20343d13; border-color: #cfd9cf }
+.home-inquiry form .button { min-width: min(100%, 16rem) }
+.selected-work { padding-block: clamp(2rem, 5vw, 4.5rem) }
+.selected-work .section-heading { align-items: end }
+.case-scroll { display: flex; justify-content: flex-end; gap: .65rem; margin: -.5rem 0 1.15rem }
+.case-scroll-control { width: 3.25rem; height: 3.25rem; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 1.45rem; cursor: pointer; transition: background .2s, transform .2s }
+.case-scroll-control:hover { background: var(--sage); transform: translateY(-2px) }
+.case-scroll-control:active { transform: translateY(0) }
+.case-grid { display: flex; gap: 1rem; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; scroll-padding-inline: .2rem; padding: .2rem .2rem 1.35rem }
+.case-grid .case-card, .case-grid .case-card:first-child { flex: 0 0 clamp(16rem, 30vw, 25rem); height: clamp(20rem, 33vw, 29rem); border-radius: 2rem; scroll-snap-align: start }
+.case-grid .case-card:first-child { flex-basis: clamp(19rem, 39vw, 34rem) }
+.case-grid .case-card img { object-position: center }
+.case-grid .case-card:first-child h3 { font-size: clamp(1.45rem, 2.3vw, 2rem) }
+@media (max-width: 1100px) and (min-width: 701px) {
+  .header-inner { flex-wrap: wrap }
+  .menu-toggle { display: block; margin-left: auto; border-radius: 999px; padding: .6rem 1.2rem; font-weight: 800 }
+  .header-inner nav { display: none; order: 4; width: 100%; margin-left: 0; padding: .8rem 0; justify-content: flex-start }
+  .header-inner nav.is-open { display: flex }
+  .language { margin-left: 0; border: 0 }
+  .home-hero .hero-copy { padding: 3rem }
+}
+@media (max-width: 850px) {
+  .home-inquiry { grid-template-columns: 1fr }
+  .home-inquiry-copy { position: static; padding: 0 }
+  .home-inquiry-copy h2 { max-width: 20ch }
+}
+@media (max-width: 700px) {
+  .home-hero { grid-template-columns: 1fr; color: #fff; background: #172d33 }
+  .home-hero .hero-photo { border-radius: 7rem 0 0 0 }
+  .home-hero .hero-copy h1 { font-size: clamp(2.5rem, 9vw, 3.5rem) }
+  .home-hero .hero-actions .button { width: 100% }
+  .home-inquiry { margin-inline: .7rem; padding: 1.5rem; border-radius: 2rem }
+  .home-inquiry form { padding: 1.25rem }
+  .case-grid { grid-template-columns: none; grid-auto-rows: auto }
+  .case-grid .case-card, .case-grid .case-card:first-child { flex-basis: min(78vw, 20rem); height: 22rem }
+  .case-grid .case-card:first-child { flex-basis: min(83vw, 22rem) }
+}
+@media (prefers-reduced-motion: reduce) { .case-grid { scroll-behavior: auto } }

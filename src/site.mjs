@@ -233,7 +233,7 @@ function selectedWork(l, facts, production) {
   return '<section id="selected-work" class="homepage-section selected-work"><div class="section-heading"><div><p class="eyebrow">' +
     tr(l, 'From our real jobs', '我们的真实案例') + '</p><h2>' + tr(l, 'A closer look at the work', '从细节，看实际木作') +
     '</h2></div><p>' + tr(l, 'Window frames, doors, interior panels and cupboard details. See real photos alongside the relevant repair and finishing options.',
-      '窗框、门板、室内板件与柜门细节。结合真实照片，了解对应的维修、更换及刷漆翻新范围。') + '</p></div><div class="case-grid">' +
+      '窗框、门板、室内板件与柜门细节。结合真实照片，了解对应的维修、更换及刷漆翻新范围。') + '</p></div><div class="case-scroll"><button class="case-scroll-control" type="button" data-direction="previous" aria-label="' + tr(l, 'Previous work photos', '向前查看案例照片') + '">←</button><button class="case-scroll-control" type="button" data-direction="next" aria-label="' + tr(l, 'Next work photos', '向后查看案例照片') + '">→</button></div><div class="case-grid" tabindex="0" aria-label="' + tr(l, 'Real work photo gallery', '真实施工照片列表') + '">' +
     items.map(([id, name, en, zh]) => '<a class="case-card" href="' + servicePath(services.find(s => s.id === id), l) +
       '#case-photos"><img src="/assets/real-work/' + name + '" width="1280" height="1707" loading="lazy" decoding="async" alt="' +
       esc(tr(l, en, zh)) + '"><div><h3>' + esc(tr(l, en, zh)) + '</h3><span>' + tr(l, 'View photos & service details', '查看照片与服务详情') +
@@ -388,14 +388,14 @@ function supportBody(page, l, facts, selected, production) {
     tr(l, 'Residential timber work · Sydney', '悉尼住宅木作') + '</p><h1>' + esc(page.h1) + '</h1><p class="hero-intro">' +
     tr(l, 'From worn window frames and sticking doors to damaged fences and decks. Share a few photos and your suburb to discuss repairs, replacement or timber refinishing.',
       '从老旧窗框、开关不顺的木门，到受损围栏与Deck。发来几张照片和所在地区，一起确认维修、更换或木作刷漆翻新的范围。') +
-    '</p><div class="hero-actions">' + cta(l) + '<a class="text-link" href="' + href('/services/', l) + '">' +
-    tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/carpentry-work-scene.webp" width="1536" height="1024" alt="' +
-    tr(l, 'Carpenter measuring a timber door frame', '木工测量木门框') +
+    '</p><div class="hero-actions"><a class="button button-primary" href="#inquiry">' + tr(l, 'Send a repair enquiry', '发送木作询价') + '</a>' + (facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + tr(l, 'Call ', '致电 ') + esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3')) + '</a>' : '') + '<a class="text-link" href="' + href('/services/', l) + '">' +
+    tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/real-work/fence-timber-work.jpg" width="1280" height="1707" alt="' +
+    tr(l, 'Timber fence boards and support timber from a supplied work photo', '提供的现场照片：木围栏板与支撑木条') +
     '" fetchpriority="high"></figure></div><div class="service-highlights"><p><strong>' + tr(l, 'Your photos, a clearer enquiry', '用照片，把问题说清楚') +
     '</strong><span>' + tr(l, 'Upload the affected timber and a wider view.', '上传受损细节及周边全景。') + '</span></p><p><strong>' +
     tr(l, 'English & Chinese', '中英文咨询') + '</strong><span>' + tr(l, 'Read and enquire in your preferred language.', '按习惯的语言查看服务及询价。') +
     '</span></p><p><strong>' + tr(l, 'Scope before a booking', '先确认范围，再安排') + '</strong><span>' +
-    tr(l, 'Discuss the timber, finish and suburb together.', '一起确认木作、表面处理与所在地区。') + '</span></p></div><section class="homepage-section"><div class="section-heading"><p class="eyebrow">' +
+    tr(l, 'Discuss the timber, finish and suburb together.', '一起确认木作、表面处理与所在地区。') + '</span></p></div><section class="homepage-section home-inquiry"><div class="home-inquiry-copy"><p class="eyebrow">' + tr(l, 'A clear first step', '先把问题说清楚') + '</p><h2>' + tr(l, 'Show us the timber that needs attention.', '告诉我们哪一处木作需要处理。') + '</h2><p>' + tr(l, 'Tell us the suburb and what is happening. A close-up and a wider photo can help us discuss the scope; photos are optional.', '告诉我们所在 suburb 和遇到的问题。局部与全景照片有助于讨论工作范围；照片不是必填。') + '</p><p class="home-inquiry-note">' + (production ? tr(l, 'We confirm the work scope before a booking.', '预约前会确认实际工作范围。') : tr(l, 'We confirm scope before a booking. Preview enquiries do not prove inbox delivery.', '预约前会确认工作范围。预览表单不代表真实收件箱已收到。')) + '</p></div>' + contactForm(l, '') + '</section><script src="/form.js" defer></script><section class="homepage-section"><div class="section-heading"><p class="eyebrow">' +
     tr(l, 'Repairs, replacement & finishing', '维修、更换与表面翻新') + '</p><h2>' + tr(l, 'What needs repairing?', '哪一处木作需要处理？') +
     '</h2></div>' + cards(l, facts, production) + '</section><section class="process-strip"><h2>' + tr(l, 'From problem to scope', '从问题到工作范围') +
     '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与suburb。') +
@@ -560,7 +560,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260923-brand-links">' +
+    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260923-home-refresh">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     (base ? '' : '<div class="preview-bar">' + tr(l,

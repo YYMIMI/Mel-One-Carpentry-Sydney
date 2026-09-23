@@ -71,8 +71,10 @@ function repairDecisions(l) {
     tr(l, 'Start with the symptom', '先从眼前的问题开始') + '</p><h2>' + tr(l, 'What does the damage mean for your next step?', '不同损坏，下一步也不同') +
     '</h2></div><p>' + tr(l, 'These are starting points, not a diagnosis from a photograph. Choose the closest situation to see what should be checked.',
       '以下是判断起点，不是凭照片作诊断。选择最接近的情况，看看应先确认什么。') + '</p></div><div class="decision-grid">' +
-    choices.map(([en, detail, zh, zhDetail, path]) => '<article><h3>' + tr(l, en, zh) + '</h3>' + p(tr(l, detail, zhDetail)) +
-      '<a class="text-link" href="' + href(path, l) + '">' + tr(l, 'See the relevant service', '查看对应服务') + '</a></article>').join('') +
+    choices.map(([en, detail, zh, zhDetail, path], index) => '<article><h3>' + tr(l, en, zh) + '</h3>' + p(tr(l, detail, zhDetail)) +
+      '<a class="text-link" href="' + href(path, l) + '">' + tr(l, 'See the relevant service', '查看对应服务') + '</a>' +
+      (index === 0 ? '<a class="text-link" href="' + href('/services/timber-window-repairs/', l) + '">' +
+        tr(l, 'For timber windows', '木窗相关维修') + '</a>' : '') + '</article>').join('') +
     '</div></section>';
 }
 function conversionRail(l, facts) {
@@ -442,13 +444,17 @@ function supportBody(page, l, facts, selected, production) {
       '初次询价尽量说明构件、可见损坏、地区和安全通道。之后才能判断维修、局部更换或扩大检查。油漆、清运和其他工种工作应写进书面范围。'))) +
     section('company', tr(l, 'Company and contact', '公司与联系资料'), p(tr(l,
       'This Sydney carpentry service is operated by Mel One Property Maintenance Pty Ltd, ABN 39 666 325 408 and ACN 666 325 408. Contact Felix2 on 0403 202 949 or handyman.kevinlee@gmail.com. Enquiries are taken Monday to Sunday, 09:00–21:00 Sydney time; the actual job and appointment are confirmed individually.',
-      '悉尼木工服务由 Mel One Property Maintenance Pty Ltd 经营，ABN 39 666 325 408，ACN 666 325 408。联系 Felix2：0403 202 949，handyman.kevinlee@gmail.com。询价时间为悉尼时间周一至周日 09:00–21:00；具体工作和预约须分别确认。')) + officeAddress(l,facts)) +
+      '悉尼木工服务由 Mel One Property Maintenance Pty Ltd 经营，ABN 39 666 325 408，ACN 666 325 408。联系 Felix2：0403 202 949，handyman.kevinlee@gmail.com。询价时间为悉尼时间周一至周日 09:00–21:00；具体工作和预约须分别确认。')) +
+      '<p><a class="text-link" href="https://abr.business.gov.au/ABN/View?id=39666325408" target="_blank" rel="noopener noreferrer">' +
+      tr(l, 'Check this ABN on the Australian Business Register', '在澳大利亚商业登记册核对该 ABN') + '</a></p>' + officeAddress(l,facts)) +
     section('insurance', tr(l, 'Insurance and work scope', '保险与工作范围'), p(tr(l,
       'The company holds Chubb public and products liability cover. The certificate on file records a limit of AUD 20 million for 13 April 2026 to 13 April 2027. Cover for a particular job remains subject to the policy terms, exclusions and confirmed scope; ask us for current evidence if needed.',
       '公司持有 Chubb 公众及产品责任保险。现有证明文件记录保额为澳币 2,000 万元，有效期为 2026 年 4 月 13 日至 2027 年 4 月 13 日。具体工作是否承保仍以保单条款、除外责任及确定的工作范围为准；如需现行证明可向我们索取。'))) +
     section('proof', tr(l, 'Evidence before promises', '有依据再作承诺'), p(tr(l,
       'The service pages show real work photos and explain what the images can and cannot establish. We do not assign an unverified suburb or finished outcome to a photograph.',
-      '服务页展示真实施工照片，也说明照片能证明和不能证明的内容。未经核实，不把照片归属到具体郊区，也不据此宣称完工结果。')));
+      '服务页展示真实施工照片，也说明照片能证明和不能证明的内容。未经核实，不把照片归属到具体郊区，也不据此宣称完工结果。')) +
+      '<p><a class="text-link" href="' + href('/#selected-work',l) + '">' +
+      tr(l, 'Browse the real-work photo collection', '查看真实施工照片') + '</a></p>');
   if (page.id === 'H06') return '<div class="page-lead">' + p(tr(l,
     'These are starting points. A photo and location can change the repair method and quote.',
     '以下是判断起点；照片和现场位置可能改变维修方法与报价。')) + '</div>' + faq([
@@ -479,7 +485,8 @@ function supportBody(page, l, facts, selected, production) {
         '关于我们页面列出经营公司、ABN、ACN及现有保险证明和适用边界。若工程或物业管理方需要，可索取现行证明；具体承保仍以保单条款与确定的工作范围为准。')]
     ]) + '<p class="below-faq"><a class="text-link" href="' + href('/services/', l) + '">' +
     tr(l, 'Questions specific to each component', '查看各构件专属问题') + '</a> · <a class="text-link" href="' + href('/about/', l) + '">' +
-    tr(l, 'Company and insurance', '公司与保险') + '</a> · <a class="text-link" href="' + href('/contact/', l) + '">' +
+    tr(l, 'Company and insurance', '公司与保险') + '</a> · <a class="text-link" href="' + href('/services/timber-fence-repairs/', l) + '">' +
+    tr(l, 'Fence maintenance questions', '木围栏保养问题') + '</a> · <a class="text-link" href="' + href('/contact/', l) + '">' +
     tr(l, 'Ask about your job', '咨询你的项目') + '</a></p>';
   if (page.id === 'H07') return '<div class="page-lead">' + p(tr(l,
     'Describe the timber issue and suburb. Photos are optional; do not enter a full street address. At least one working contact method is needed for a reply.',
@@ -553,7 +560,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=20260923-customer-concerns">' +
+    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260923-brand-links">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     (base ? '' : '<div class="preview-bar">' + tr(l,

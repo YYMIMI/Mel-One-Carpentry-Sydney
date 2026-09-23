@@ -1,6 +1,6 @@
 import { services, popularAreaCandidates } from './content.mjs';
 import { suburbs, suburbSlug } from './suburbs.mjs';
-import { rfqForm, suburbScope, suburbMap } from './rfq.mjs';
+import { rfqForm, suburbScope, suburbMap, suburbOptionsSection } from './rfq.mjs';
 
 const support = [
   ['H00', '/', 'Carpentry Repairs, Replacements & Improvements in Sydney', '悉尼住宅木工维修、更换与改造'],
@@ -314,30 +314,27 @@ function fenceMaintenance(l, facts) {
 function suburbBody(page,l,facts,production) {
   const a=page.area;
   const primary=services.find(s=>s.id===a.service);
-  const query='?suburb='+encodeURIComponent(a.name)+'&amp;service='+a.service;
+  const query='?suburb='+encodeURIComponent(a.name);
   const localCta='<a class="button button-primary" href="'+href('/contact/',l)+query+'">'+tr(l,'Ask about work in '+a.name,'咨询 '+a.name+' 的木工工作')+'</a>';
   return '<nav aria-label="'+tr(l,'Breadcrumb','当前位置')+'"><a href="'+href('/areas/',l)+'">'+tr(l,'Service areas','服务地区')+'</a> / '+esc(a.name)+'</nav>'+
     '<div class="page-lead">'+p(tr(l,'Need timber repairs in '+a.name+'? Start with the affected part, see which service fits and tell us what is happening at your property.',
-      '在 '+a.name+' 需要木作维修？先看受损部位和对应服务，再告诉我们现场遇到的问题。'))+'<a class="button button-primary" href="#suburb-rfq">'+tr(l,'Prepare a '+a.name+' enquiry','整理 '+a.name+' 询价')+'</a></div>'+
+      '在 '+a.name+' 需要木作维修？先看受损部位和对应服务，再告诉我们现场遇到的问题。'))+localCta+'</div>'+
     section('local-enquiry',tr(l,'A useful enquiry example','询价准备示例'),p(tr(l,a.en,a.zh))+
-      p(tr(l,'Use this example to prepare your enquiry. If your timber problem is different, choose the affected component below and tell us what has changed at your property.',
-        '可参考这个情境整理询价。如果你的木作问题不同，请从下方选择受影响构件，并说明现场发生了什么变化。'))+
+      p(primary[l].assessment)+
       '<a class="text-link" href="'+servicePath(primary,l)+'">'+esc(shortName(primary,l))+'</a>')+
-    suburbScope(a,l,primary)+
-    section('choose-service',tr(l,'Related repair guides','相关维修指南'),'<div class="related-links">'+[primary,...services.filter(s=>primary.related.includes(s.id))].map(s=>'<a href="'+servicePath(s,l)+'">'+esc(shortName(s,l))+'</a>').join('')+'</div><p><a href="'+href('/services/',l)+'">'+tr(l,'Explore all timber services','查看所有木作服务')+'</a></p>')+
+    section('choose-service',tr(l,'Choose by the timber that needs work','按需要处理的木构件选择'),cards(l,facts,production))+
     section('visit-details',tr(l,'Preparing access and the quote','整理通道与报价资料'),
       p(tr(l,'Include '+a.name+' in your enquiry, a wide photo, a close-up of each fault and approximate dimensions. Mention any shared access, stairs, parking or property-manager arrangements that apply to your property. You do not need to publish a full street address.',
         '询价请注明 '+a.name+'，提供全景、每类损坏的近照及大致尺寸。如涉及共用通道、楼梯、停车或物业管理安排，请一并说明；不需要公开完整街道地址。'))+
-      p(tr(l,'The work, travel and availability are confirmed before booking. Timber repairs, agreed finishing, replacement materials and waste removal should be itemised; a suburb page is not a local office or an attendance-time guarantee.',
-        '预约前确认工作范围、出行和时间。木材维修、同意的表面处理、更换材料及清运应分项说明；郊区页面不代表当地设有办公室，也不是到场时间保证。'))+localCta)+
-    rfqForm(l,facts,a)+suburbMap(a,l)+
+      p(tr(l,'Mark which timber you want to keep and which parts may need replacement. Ask the quote to separate timber, hardware, finishing and removal of old materials so you can compare the same scope of work.',
+        '标出希望保留及可能需要更换的木材。让报价分开写木材、五金、表面收尾和旧料清运，方便按相同工作范围比较方案。'))+localCta)+
     section('other-locations',tr(l,'Other Sydney areas','其他悉尼服务地区'),
       '<div class="related-links">'+a.otherNames.filter(name=>!production || facts.approvedAreas?.some(area=>area.name===name && area.coverage_status==='APPROVED' && area.public_copy_approved && area.area_page_publish_approved)).map(name=>'<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join('')+'</div>')+
-    section('questions',tr(l,'Questions about this repair','这类维修的常见问题'),faq([
-      ...primary[l].faq,
+    section('questions',tr(l,'Before sending your enquiry','发送询价前'),faq([
       [tr(l,'Can I ask about fence maintenance here?','这里可以咨询围栏保养吗？'),tr(l,'Yes. Describe posts, rails, boards and fixings, then use the timber fence maintenance page to prepare photos. Confirm the work at your location before booking.','可以。说明立柱、横梁、木板及固定件情况，并按木围栏保养页准备照片；预约前确认当地工作范围。')],
-      [tr(l,'Can I include several timber repairs in one '+a.name+' enquiry?','在 '+a.name+' 的多项木作维修可以一起询价吗？'),tr(l,'Yes. Number each item, give its location within the property and provide a separate overview. We can discuss priorities and separate repairs, matching materials and finishing so you can see what each part of the quote covers.','可以。请逐项编号，说明在物业内的位置，并分别提供全景。可一起讨论处理优先顺序，将维修、材料匹配和表面处理分列，方便看清每一项报价包含什么。')]
-    ]));
+      [tr(l,'Do the project photographs prove a job in '+a.name+'?','网站照片是否代表 '+a.name+' 的工程？'),tr(l,'No location is assigned to a photograph without confirmation. Service-page photographs illustrate the real work supplied by the business, not evidence of a job in every suburb.','未确认的照片不会标上郊区。服务页展示公司提供的真实工作照片，不代表每个郊区都有对应案例。')]
+    ])) +
+    suburbScope(a,l,primary)+suburbOptionsSection(a,l)+rfqForm(l,facts,a)+suburbMap(a,l);
 }
 
 function serviceBody(page, l, facts, production) {
@@ -427,8 +424,8 @@ function supportBody(page, l, facts, selected, production) {
       '若多处木构件受损，可先看腐木页，或提供安全拍摄的全景与文字描述，再确认应由哪个服务范围处理。')));
   if (page.id === 'H02') {
     return '<div class="page-lead">' + p(tr(l,
-      'Tell us the suburb and the timber problem. We confirm travel, access and which work can be offered there before any booking. A postcode or nearby area is not enough to assume attendance.',
-      '请提供suburb及木作问题。预约前需核对能否到达、现场通道以及当地可做的工作；邮编或相邻地名不能直接当作出勤承诺。')) +
+      'Choose your Sydney suburb to see carpentry repair questions, service guides and what helps with a useful quote. Describe the affected timber, photos and access for materials.',
+      '选择所在的悉尼地区，查看木作维修问题、相关服务及报价资料。说明受损木材、照片和材料进出的通道，有助于更清楚地讨论工作范围。')) +
       cta(l) + '</div>' + (approved.length ? section('confirmed', tr(l, 'Places we can discuss work', '可咨询木工服务的地区'),
         '<ul class="area-list">' + approved.map(name => '<li>' + esc(name) + '</li>').join('') + '</ul>') : '') +
       (production ? '' : section('ask', tr(l, 'Sydney areas we hear from', '悉尼服务地区'),
@@ -437,10 +434,7 @@ function supportBody(page, l, facts, selected, production) {
         areaCards(l, popularAreaCandidates))) +
       section('choose-work', tr(l, 'Choose by the timber problem', '按木作问题选择服务'),
         p(tr(l, 'Your suburb helps us plan the job; the damaged timber tells us which repair to discuss. Choose the affected part below, or send us a photo if you are unsure.',
-          '所在地区有助于安排工作；受损木构件决定要讨论哪种维修。可按部位选择下方服务，不确定时也可发照片说明。')) + cards(l, facts, production)) +
-      section('specific', tr(l, 'Service and suburb must both fit', '服务项目和地区要分别核对'), p(tr(l,
-        'Even when a location is confirmed, not every specialist task is necessarily available there. Unknown locations can still be submitted for an answer rather than being automatically rejected.',
-        '即使某地获准，也不代表每项专门工作都能在那里做。未知地区仍可询问，不会自动拒绝。')));
+          '所在地区有助于安排工作；受损木构件决定要讨论哪种维修。可按部位选择下方服务，不确定时也可发照片说明。')) + cards(l, facts, production));
   }
   if (page.id === 'H03') return '<div class="page-lead">' + p(tr(l,
     'The work here is organised around residential timber components and clear hand-offs. We identify who is responsible for assessment and any regulated or specialist work before confirming a job.',

@@ -1,4 +1,5 @@
 import { services } from './content.mjs';
+import { suburbOptions } from './suburb-options.mjs';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const tr = (l,en,zh) => l === 'zh' ? zh : en;
 
@@ -28,5 +29,11 @@ export function suburbScope(area, l, service) {
 
 export function suburbMap(area, l) {
   const query = encodeURIComponent(area.name+', NSW, Australia');
-  return '<section class="content-section" id="area-map"><h2>'+esc(tr(l,area.name+' service-area map',area.name+' 服务地区地图'))+'</h2><p>'+esc(tr(l,area.region,area.regionZh))+' · '+tr(l,'Use the map to identify the area for your enquiry. It marks the locality, not a Mel One branch or completed job. We confirm travel and access before booking.','地图用于确认询价地区，标示的是地理区域，不是Mel One分店或已完成工程。预约前会确认出行和现场通道。')+'</p><iframe class="suburb-map" title="'+esc(tr(l,'Map of '+area.name,area.name+' 地区地图'))+'" src="https://www.google.com/maps?q='+query+'&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><p><a href="https://www.google.com/maps/search/?api=1&amp;query='+query+'" target="_blank" rel="noopener">'+tr(l,'Open '+area.name+' in Google Maps','在Google Maps查看 '+area.name)+'</a></p></section>';
+  return '<section class="content-section" id="area-map"><h2>'+esc(tr(l,area.name+' area map',area.name+' 地区地图'))+'</h2><p>'+esc(tr(l,area.region,area.regionZh))+' · '+tr(l,'Check the suburb and nearby streets when describing access for timber, tools and removal of old materials. An exact address is only needed when arranging the work.','查看所在地区及附近道路，询价时说明木材、工具和拆旧材料怎样进出。安排工作时再提供准确地址即可。')+'</p><iframe class="suburb-map" title="'+esc(tr(l,'Map of '+area.name,area.name+' 地区地图'))+'" src="https://www.google.com/maps?q='+query+'&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><p><a href="https://www.google.com/maps/search/?api=1&amp;query='+query+'" target="_blank" rel="noopener">'+tr(l,'Open '+area.name+' in Google Maps','在Google Maps查看 '+area.name)+'</a></p></section>';
+}
+
+export function suburbOptionsSection(area, l) {
+  const copy = suburbOptions[area.slug];
+  if (!copy) throw new Error('Missing repair comparison: '+area.slug);
+  return '<section class="content-section" id="repair-options"><h2>'+tr(l,'Compare repair options for this job','这项工作怎样比较方案')+'</h2><p>'+esc(copy[l])+'</p></section>';
 }

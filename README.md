@@ -1,5 +1,21 @@
 # Sydney carpentry — isolated bilingual preview
 
+## Vercel page deployment
+
+`vercel.json` selects the custom static build (`node scripts/build.mjs`) and the
+generated `dist` output directory. Import the repository root containing
+`package.json`, with Framework Preset **Other**. Do not deploy `public` as the
+output directory: it contains source assets, but no generated homepage.
+The explicit settings prevent an apparently successful deployment that returns
+404 for `/`, `/zh/` and the other generated pages.
+
+This deploys the current noindex preview pages. It does not enable the separate
+production/indexing gate or migrate `src/worker.mjs`. The enquiry backend uses
+Cloudflare D1/R2 bindings and a Worker; Vercel does not run that Worker merely
+because `wrangler.jsonc` exists. Before treating the Vercel site as a live enquiry
+channel, connect a compatible backend and verify real recipient delivery and
+private photo storage. Never report a static-page deployment as a working form.
+
 This is a locally runnable bilingual Sydney carpentry website implementation, but **not a published business website**. It was developed from the owner's supplied planning materials, real work photos and subsequent requirements. The private research source package and local QA reports are intentionally not committed to the public code repository; the runnable source, tests and public images are included. No other city or roofing project is part of this codebase.
 
 ## Open the preview

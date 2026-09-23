@@ -47,6 +47,44 @@ const officeAddress = (l, facts) => facts.officeAddress ? '<p class="office-addr
 const shortName = (s, l) => s.id === 'S05' ? tr(l, 'Timber fence maintenance & repairs', '木围栏保养与维修') : s[l].h1.replace(l === 'zh' ? /^悉尼/ : / in Sydney$/, '');
 const cta = (l, id = '') => '<a class="button button-primary" href="' + href('/contact/', l) +
   '?service=' + encodeURIComponent(id) + '">' + tr(l, 'Send photos & request a quote', '上传照片，咨询维修报价') + '</a>';
+const mapsUrl = facts => 'https://www.google.com/maps?q=' + encodeURIComponent(facts.officeAddress) + '&output=embed';
+const mapsLink = facts => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(facts.officeAddress);
+function officeMap(l, facts) {
+  if (!facts.officeAddress) return '';
+  return '<section class="office-map" id="office-location"><div class="office-map-copy"><p class="eyebrow">' +
+    tr(l, 'Sydney CBD office', '悉尼 CBD 办公地址') + '</p><h2>' + tr(l, 'Find the office address', '查看悉尼办公室位置') +
+    '</h2>' + officeAddress(l, facts) + p(tr(l,
+      'This is our office address, not a promise of walk-in appointments or a separate office in each service suburb. Timber work is arranged after the location and scope are confirmed.',
+      '这里是办公室地址，不代表无需预约可到访，也不代表每个服务地区都有办公室。木作安排须先确认地点与工作范围。')) +
+    '<a class="text-link" href="' + esc(mapsLink(facts)) + '" target="_blank" rel="noopener noreferrer">' +
+    tr(l, 'Open the office location in Google Maps', '在谷歌地图打开办公室位置') + '</a></div><div class="office-map-frame">' +
+    '<iframe title="' + tr(l, 'Map of the Sydney CBD office', '悉尼 CBD 办公室地图') + '" src="' +
+    esc(mapsUrl(facts)) + '" width="600" height="400" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div></section>';
+}
+function repairDecisions(l) {
+  const choices = [
+    ['A door or window no longer closes well', 'Check the frame, hinges and signs of moisture before assuming the whole unit needs replacing.', '门窗关不顺', '先看门窗框、铰链及受潮迹象，不要直接假定要整套更换。', '/services/timber-door-frame-repairs/'],
+    ['Outdoor timber feels loose or soft', 'A fence, gate or deck needs its fixings and supporting timber checked before a cosmetic finish is discussed.', '户外木构件松动或发软', '围栏、木闸门或 Deck 应先看固定件和支撑木材，再讨论外观收尾。', '/services/timber-fence-repairs/'],
+    ['You are unsure whether to repair or replace', 'Show the whole component and the damaged area. The sound timber around it determines whether a local repair is sensible.', '不确定该修还是换', '拍下整个构件及损坏局部；周围木材是否稳固，才影响局部维修是否合适。', '/services/rotten-timber-repairs/'],
+  ];
+  return '<section class="homepage-section repair-decisions" id="repair-decisions"><div class="section-heading"><div><p class="eyebrow">' +
+    tr(l, 'Start with the symptom', '先从眼前的问题开始') + '</p><h2>' + tr(l, 'What does the damage mean for your next step?', '不同损坏，下一步也不同') +
+    '</h2></div><p>' + tr(l, 'These are starting points, not a diagnosis from a photograph. Choose the closest situation to see what should be checked.',
+      '以下是判断起点，不是凭照片作诊断。选择最接近的情况，看看应先确认什么。') + '</p></div><div class="decision-grid">' +
+    choices.map(([en, detail, zh, zhDetail, path]) => '<article><h3>' + tr(l, en, zh) + '</h3>' + p(tr(l, detail, zhDetail)) +
+      '<a class="text-link" href="' + href(path, l) + '">' + tr(l, 'See the relevant service', '查看对应服务') + '</a></article>').join('') +
+    '</div></section>';
+}
+function conversionRail(l, facts) {
+  const call = facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' +
+    tr(l, 'Call ', '致电 ') + esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3')) + '</a>' : '';
+  return '<aside class="site-conversion" aria-label="' + tr(l, 'Get a repair quote', '咨询木作维修') + '"><div><p class="eyebrow">' +
+    tr(l, 'Ready to explain the job?', '准备说明维修问题？') + '</p><h2>' + tr(l, 'Tell us what needs attention.', '告诉我们哪一处需要处理。') +
+    '</h2><p>' + tr(l, 'Share the timber problem and suburb. Photos help, but are optional.', '说明木构件问题和所在地区；照片有帮助，但不是必填。') +
+    '</p></div><div class="site-conversion-actions">' + call + cta(l) + '</div></aside>' +
+    '<div class="mobile-contact-dock" aria-label="' + tr(l, 'Quick contact', '快捷联系') + '">' + call +
+    '<a class="button button-primary" href="' + href('/contact/', l) + '">' + tr(l, 'Photo quote', '照片询价') + '</a></div>';
+}
 const serviceOrder = ['S05', 'S01', 'S02', 'S06', 'S07', 'S03', 'S04', 'S08', 'S09'];
 const serviceImages = {
   S01: ['/assets/real-work/window-multipane.jpg', 'Timber window and sill', '木窗与窗台', 1280, 1707],
@@ -361,7 +399,7 @@ function supportBody(page, l, facts, selected, production) {
     '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与suburb。') +
     '</p><p>' + tr(l, 'Share safe photos and access details.', '从安全位置提供照片和通道信息。') +
     '</p><p>' + tr(l, 'Confirm the work, exclusions and written quote.', '再确认工作、排除项与书面报价。') +
-    '</p></div></section>' + concernsSection(l) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
+    '</p></div></section>' + repairDecisions(l) + concernsSection(l) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
     tr(l, 'Check your area before arranging work', '安排前确认服务地区') + '</h2>' +
     p(production ? tr(l, 'These locations have been approved for the listed work. We still confirm access and scope before a booking.',
       '以下地点已有相应服务批准；预约前仍需确认通道及工作范围。') : tr(l,
@@ -369,7 +407,7 @@ function supportBody(page, l, facts, selected, production) {
       '悉尼常见地名可作为询价入口，并非所有地区都已承诺出勤。')) +
     (production ? '<ul class="area-list">' + approved.map(name => '<li>' + esc(name) + '</li>').join('') + '</ul>' :
       areaCards(l, popularAreaCandidates.filter(group => ['Sydney CBD & Inner City', 'Inner West', 'Lower North Shore', 'Parramatta & Surrounds'].includes(group.en)))) +
-    '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'Check a suburb', '查看地区查询方式') + '</a></section><section class="quote-band"><div><p class="eyebrow">' +
+    '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'Check a suburb', '查看地区查询方式') + '</a></section>' + officeMap(l, facts) + '<section class="quote-band"><div><p class="eyebrow">' +
     tr(l, 'Start with what you can see', '从看得见的问题开始') + '</p><h2>' + tr(l, 'Show us what needs attention.', '把需要处理的地方发给我们。') +
     '</h2><p>' + tr(l, 'A wide photo, a close-up and your suburb help us understand the next step. Not sure which service fits? Describe the problem in your enquiry.',
       '一张全景、一张细节，再加上所在地区，有助于确认下一步。不确定属于哪项服务，也可以直接描述问题。') + '</p></div>' + cta(l) + '</section>';
@@ -453,7 +491,7 @@ function supportBody(page, l, facts, selected, production) {
     businessContact(l,facts) +
     (facts.telephone ? '<p><a href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + esc(facts.telephone) + '</a></p>' : '') +
     (facts.email ? '<p><a href="mailto:' + esc(facts.email) + '" data-event="email_click">' + esc(facts.email) + '</a></p>' : '') + officeAddress(l,facts) +
-    '</aside></div><script src="/form.js" defer></script>';
+    '</aside></div>' + officeMap(l, facts) + '<script src="/form.js" defer></script>';
   if (page.id === 'H08') return '<div class="page-lead">' + p(tr(l,
     'An enquiry can contain contact details, a suburb, a description and optional photographs. These are used to assess and respond, not placed in public content or analytics events.',
     '询价可能包含联系方式、suburb、问题描述与可选照片。这些资料用于评估和回复，不会进入公开网页正文或分析事件。')) +
@@ -529,7 +567,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     links + '</nav><a class="language" lang="' + (l === 'en' ? 'zh-Hans' : 'en-AU') +
     '" hreflang="' + (l === 'en' ? 'zh-Hans' : 'en-AU') + '" href="' + page.alternate + '">' +
     (l === 'en' ? '中文' : 'English') + '</a></div></header>' +
-    '<main id="main" class="' + (page.id === 'H00' ? 'home-main' : 'page-main') + '">' + main + '</main>' +
+    '<main id="main" class="' + (page.id === 'H00' ? 'home-main' : 'page-main') + '">' + main + '</main>' + conversionRail(l, facts) +
     '<footer class="site-footer"><div class="footer-inner">' +
     '<div class="footer-group footer-identity"><img class="footer-logo" src="/assets/mel-one-logo.jpg" width="940" height="940" alt="Mel One"><p class="footer-brand">' + brand + '</p><p>' +
     tr(l, 'Residential timber repairs and maintenance, with the job scope confirmed before booking.', '住宅木作维修与保养；预约前先确认实际工作范围。') +

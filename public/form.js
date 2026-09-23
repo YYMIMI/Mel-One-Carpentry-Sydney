@@ -1,6 +1,6 @@
 (() => {
   const form = document.getElementById('inquiry');
-  if (!form) return;
+  if (!form || form.hasAttribute('data-rfq-email')) return;
   // Static pages are built without query strings; restore the service chosen in a CTA.
   const requestedService = new URLSearchParams(location.search).get('service');
   if (requestedService && [...form.elements.serviceId.options].some(option => option.value === requestedService)) {

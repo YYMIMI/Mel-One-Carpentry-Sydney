@@ -508,3 +508,19 @@ form .button { justify-self: start }
   .case-grid .case-card:first-child { flex-basis: min(83vw, 22rem) }
 }
 @media (prefers-reduced-motion: reduce) { .case-grid { scroll-behavior: auto } }
+
+/* Area enquiry guidance follows the existing site palette and type scale. */
+.rfq-guidance-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.6rem }
+.rfq-guidance-grid article { padding: 1.4rem; background: #f2eee6; border-radius: 1rem; border-top: 3px solid #9d6844 }
+.rfq-guidance-grid h3 { margin-top: 0; font-size: 1.1rem; line-height: 1.4 }
+.rfq-guidance-grid p { font-size: 1rem; line-height: 1.75 }
+.rfq-form { max-width: 100%; margin-block: 2rem; padding: clamp(1.25rem, 3vw, 2.75rem); border: 1px solid #cfc4b6; border-radius: 1.5rem; background: #fffdf8; scroll-margin-top: 8rem }
+.rfq-form h2 { margin-top: 0 }
+.rfq-form input, .rfq-form textarea, .rfq-form select { width: 100%; min-width: 0; box-sizing: border-box; font: inherit }
+.rfq-form textarea { resize: vertical }
+.rfq-form a { overflow-wrap: anywhere }
+.rfq-note { font-size: .95rem; color: #4f5b5c }
+.rfq-result { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #cfc4b6 }
+.rfq-result[hidden] { display: none }
+.suburb-map { display: block; width: 100%; height: 340px; border: 0; border-radius: 1rem; background: #eee9df }
+@media (max-width: 760px) { .rfq-guidance-grid { grid-template-columns: 1fr } .rfq-form .form-grid { grid-template-columns: 1fr } .suburb-map { height: 280px } .rfq-result .hero-actions { flex-direction: column; align-items: stretch } }

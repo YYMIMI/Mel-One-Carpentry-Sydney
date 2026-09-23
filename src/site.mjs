@@ -1,5 +1,6 @@
 import { services, popularAreaCandidates } from './content.mjs';
 import { suburbs, suburbSlug } from './suburbs.mjs';
+import { rfqForm, suburbScope, suburbMap } from './rfq.mjs';
 
 const support = [
   ['H00', '/', 'Carpentry Repairs, Replacements & Improvements in Sydney', '悉尼住宅木工维修、更换与改造'],
@@ -42,8 +43,8 @@ function concernsSection(l) {
     '</div><div class="concern-actions"><a class="text-link" href="' + href('/faq/',l) + '">' + tr(l, 'Read more practical answers', '查看更多实际问题') +
     '</a><a class="button button-primary" href="' + href('/contact/',l) + '">' + tr(l, 'Describe your job', '说明你的维修情况') + '</a></div></section>';
 }
-function homeInquirySection(l) {
-  return '<section class="homepage-section home-inquiry"><div class="home-inquiry-copy"><p class="eyebrow">' + tr(l, 'Ready to take the next step?', '想好下一步怎么处理了吗？') + '</p><h2>' + tr(l, 'Tell us what is wrong with the timber.', '告诉我们木作哪里出了问题。') + '</h2><p>' + tr(l, 'Choose the closest service, describe what has changed and tell us your suburb. A close-up and a wider photo help us understand the job; photos are optional.', '选择最接近的服务，说明哪里出了问题及所在地区。局部和全景照片有助于了解情况；照片不是必填。') + '</p><p class="home-inquiry-note">' + tr(l, 'We will discuss the work and what a quote needs to cover before arranging a visit.', '安排上门前，先沟通需要处理的工作及报价应包含的项目。') + '</p></div>' + contactForm(l, '') + '</section><script src="/form.js" defer></script>';
+function homeInquirySection(l, facts) {
+  return '<section class="homepage-section home-inquiry"><div class="home-inquiry-copy"><p class="eyebrow">' + tr(l, 'Ready to take the next step?', '想好下一步怎么处理了吗？') + '</p><h2>' + tr(l, 'Tell us what is wrong with the timber.', '告诉我们木作哪里出了问题。') + '</h2><p>' + tr(l, 'Choose the closest service, describe what has changed and tell us your suburb. A close-up and a wider photo help us understand the job; photos are optional.', '选择最接近的服务，说明哪里出了问题及所在地区。局部和全景照片有助于了解情况；照片不是必填。') + '</p><p class="home-inquiry-note">' + tr(l, 'We will discuss the work and what a quote needs to cover before arranging a visit.', '安排上门前，先沟通需要处理的工作及报价应包含的项目。') + '</p></div>' + contactForm(l, '', facts) + '</section><script src="/form.js" defer></script>';
 }
 const servicePath = (s, l) => href('/services/' + s.slug + '/', l);
 const officeAddress = (l, facts) => facts.officeAddress ? '<p class="office-address"><strong>' + tr(l, 'Sydney office', '悉尼办公室') + '</strong><br><span>' + esc(facts.officeAddress) + '</span></p>' : '';
@@ -313,26 +314,29 @@ function fenceMaintenance(l, facts) {
 function suburbBody(page,l,facts,production) {
   const a=page.area;
   const primary=services.find(s=>s.id===a.service);
-  const query='?suburb='+encodeURIComponent(a.name);
+  const query='?suburb='+encodeURIComponent(a.name)+'&amp;service='+a.service;
   const localCta='<a class="button button-primary" href="'+href('/contact/',l)+query+'">'+tr(l,'Ask about work in '+a.name,'咨询 '+a.name+' 的木工工作')+'</a>';
   return '<nav aria-label="'+tr(l,'Breadcrumb','当前位置')+'"><a href="'+href('/areas/',l)+'">'+tr(l,'Service areas','服务地区')+'</a> / '+esc(a.name)+'</nav>'+
     '<div class="page-lead">'+p(tr(l,'Need timber repairs in '+a.name+'? Start with the affected part, see which service fits and tell us what is happening at your property.',
-      '在 '+a.name+' 需要木作维修？先看受损部位和对应服务，再告诉我们现场遇到的问题。'))+localCta+'</div>'+
+      '在 '+a.name+' 需要木作维修？先看受损部位和对应服务，再告诉我们现场遇到的问题。'))+'<a class="button button-primary" href="#suburb-rfq">'+tr(l,'Prepare a '+a.name+' enquiry','整理 '+a.name+' 询价')+'</a></div>'+
     section('local-enquiry',tr(l,'A useful enquiry example','询价准备示例'),p(tr(l,a.en,a.zh))+
-      p(tr(l,'This is a repair scenario to help describe your job, not a claim about typical damage or a completed project in this suburb. Other timber tasks are listed below.',
-        '这是帮助描述工作的维修情境，并非声称本区普遍有这种损坏或展示当地已完成工程。其他木作需求也可从下方服务进入。'))+
+      p(tr(l,'Use this example to prepare your enquiry. If your timber problem is different, choose the affected component below and tell us what has changed at your property.',
+        '可参考这个情境整理询价。如果你的木作问题不同，请从下方选择受影响构件，并说明现场发生了什么变化。'))+
       '<a class="text-link" href="'+servicePath(primary,l)+'">'+esc(shortName(primary,l))+'</a>')+
-    section('choose-service',tr(l,'Choose by the timber that needs work','按需要处理的木构件选择'),cards(l,facts,production))+
+    suburbScope(a,l,primary)+
+    section('choose-service',tr(l,'Related repair guides','相关维修指南'),'<div class="related-links">'+[primary,...services.filter(s=>primary.related.includes(s.id))].map(s=>'<a href="'+servicePath(s,l)+'">'+esc(shortName(s,l))+'</a>').join('')+'</div><p><a href="'+href('/services/',l)+'">'+tr(l,'Explore all timber services','查看所有木作服务')+'</a></p>')+
     section('visit-details',tr(l,'Preparing access and the quote','整理通道与报价资料'),
       p(tr(l,'Include '+a.name+' in your enquiry, a wide photo, a close-up of each fault and approximate dimensions. Mention any shared access, stairs, parking or property-manager arrangements that apply to your property. You do not need to publish a full street address.',
         '询价请注明 '+a.name+'，提供全景、每类损坏的近照及大致尺寸。如涉及共用通道、楼梯、停车或物业管理安排，请一并说明；不需要公开完整街道地址。'))+
       p(tr(l,'The work, travel and availability are confirmed before booking. Timber repairs, agreed finishing, replacement materials and waste removal should be itemised; a suburb page is not a local office or an attendance-time guarantee.',
         '预约前确认工作范围、出行和时间。木材维修、同意的表面处理、更换材料及清运应分项说明；郊区页面不代表当地设有办公室，也不是到场时间保证。'))+localCta)+
+    rfqForm(l,facts,a)+suburbMap(a,l)+
     section('other-locations',tr(l,'Other Sydney areas','其他悉尼服务地区'),
       '<div class="related-links">'+a.otherNames.filter(name=>!production || facts.approvedAreas?.some(area=>area.name===name && area.coverage_status==='APPROVED' && area.public_copy_approved && area.area_page_publish_approved)).map(name=>'<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join('')+'</div>')+
-    section('questions',tr(l,'Before sending your enquiry','发送询价前'),faq([
+    section('questions',tr(l,'Questions about this repair','这类维修的常见问题'),faq([
+      ...primary[l].faq,
       [tr(l,'Can I ask about fence maintenance here?','这里可以咨询围栏保养吗？'),tr(l,'Yes. Describe posts, rails, boards and fixings, then use the timber fence maintenance page to prepare photos. Confirm the work at your location before booking.','可以。说明立柱、横梁、木板及固定件情况，并按木围栏保养页准备照片；预约前确认当地工作范围。')],
-      [tr(l,'Do the project photographs prove a job in '+a.name+'?','网站照片是否代表 '+a.name+' 的工程？'),tr(l,'No location is assigned to a photograph without confirmation. Service-page photographs illustrate the real work supplied by the business, not evidence of a job in every suburb.','未确认的照片不会标上郊区。服务页展示公司提供的真实工作照片，不代表每个郊区都有对应案例。')]
+      [tr(l,'Can I include several timber repairs in one '+a.name+' enquiry?','在 '+a.name+' 的多项木作维修可以一起询价吗？'),tr(l,'Yes. Number each item, give its location within the property and provide a separate overview. We can discuss priorities and separate repairs, matching materials and finishing so you can see what each part of the quote covers.','可以。请逐项编号，说明在物业内的位置，并分别提供全景。可一起讨论处理优先顺序，将维修、材料匹配和表面处理分列，方便看清每一项报价包含什么。')]
     ]));
 }
 
@@ -359,7 +363,8 @@ function serviceBody(page, l, facts, production) {
     related.map(s => '<a href="' + servicePath(s, l) + '">' + esc(shortName(s, l)) + '</a>').join('') + '</div></div>';
 }
 
-function contactForm(l, selected) {
+function contactForm(l, selected, facts = {}) {
+  if (facts.publicEmailDrafts) return rfqForm(l, facts, null, selected);
   return '<form id="inquiry" action="/api/inquiry" method="post" enctype="multipart/form-data" novalidate>' +
     '<input type="hidden" name="locale" value="' + l + '"><input type="hidden" name="idempotencyKey" value="">' +
     '<div class="honeypot" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>' +
@@ -404,7 +409,7 @@ function supportBody(page, l, facts, selected, production) {
     '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与suburb。') +
     '</p><p>' + tr(l, 'Share safe photos and access details.', '从安全位置提供照片和通道信息。') +
     '</p><p>' + tr(l, 'Confirm the work, exclusions and written quote.', '再确认工作、排除项与书面报价。') +
-    '</p></div></section>' + repairDecisions(l) + concernsSection(l) + homeInquirySection(l) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
+    '</p></div></section>' + repairDecisions(l) + concernsSection(l) + homeInquirySection(l, facts) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
     tr(l, 'Check your area before arranging work', '安排前确认服务地区') + '</h2>' +
     p(tr(l, 'Tell us your suburb and what needs repair. We will confirm the work, access and timing with you before booking.',
       '告诉我们所在地区和需要维修的部位；预约前会一起确认工作内容、通道与时间。')) +
@@ -492,10 +497,10 @@ function supportBody(page, l, facts, selected, production) {
   if (page.id === 'H07') return '<div class="page-lead">' + p(tr(l,
     'Describe the timber issue and suburb. Photos are optional; do not enter a full street address. At least one working contact method is needed for a reply.',
     '请说明木作问题及suburb。照片可选，无需输入完整街道地址；至少留一种有效联系方式以便回复。')) +
-    '</div><div class="contact-layout"><div>' + contactForm(l, selected) +
+    '</div><div class="contact-layout"><div>' + contactForm(l, selected, facts) +
     '</div><aside class="aside-note"><h2>' + tr(l, 'Before you send', '发送前请留意') + '</h2>' + p(tr(l,
-      'Only share images you may provide. Avoid faces, number plates and documents. Online replies are not yet available; please call for a response.',
-      '只提交有权提供的照片，避开人脸、车牌和文件。目前网上询价尚不能保证收到回复；如需答复请致电。')) +
+      'Only share images you may provide. Avoid faces, number plates and documents. Review and send your draft through your email app, or call us to discuss the work.',
+      '只分享有权提供的照片，避开人脸、车牌和文件。请在电邮软件中核对并发送草稿，也可致电讨论工作。')) +
     businessContact(l,facts) +
     (facts.telephone ? '<p><a href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + esc(facts.telephone) + '</a></p>' : '') +
     (facts.email ? '<p><a href="mailto:' + esc(facts.email) + '" data-event="email_click">' + esc(facts.email) + '</a></p>' : '') + officeAddress(l,facts) +
@@ -504,8 +509,11 @@ function supportBody(page, l, facts, selected, production) {
     'An enquiry can contain contact details, a suburb, a description and optional photographs. These are used to assess and respond, not placed in public content or analytics events.',
     '询价可能包含联系方式、suburb、问题描述与可选照片。这些资料用于评估和回复，不会进入公开网页正文或分析事件。')) +
     '</div>' + section('handling', tr(l, 'Handling and access', '处理与访问'), p(tr(l,
-      'Uploaded photographs are stored privately. Please do not include faces, number plates or documents. For questions about information you have sent, contact us by phone or email.',
-      '上传的照片存放在私有空间。请不要包含人脸、车牌或文件。如需询问已提交资料的处理方式，请通过电话或电邮联系我们。'))) +
+      facts.publicEmailDrafts ? 'The enquiry builder prepares a draft in your browser. It does not upload photos or send your enquiry. When you choose to send, your email provider handles the email and attachments. We use received enquiries to assess and reply. For questions about your information, call or email us.' : 'Uploaded photographs are stored privately. Please do not include faces, number plates or documents. For questions about information you have sent, contact us by phone or email.',
+      facts.publicEmailDrafts ? '询价工具在浏览器中整理草稿，不上传照片或自动发送资料。你选择发送时，由电邮服务商处理邮件与附件。我们将收到的询价用于评估和回复。如需询问资料处理，请电话或电邮联系。' : '上传的照片存放在私有空间。请不要包含人脸、车牌或文件。如需询问已提交资料的处理方式，请通过电话或电邮联系我们。'))) +
+    section('maps-privacy', tr(l, 'Maps', '地图'), p(tr(l,
+      'Embedded maps are provided by Google. Loading or opening a map connects your browser to Google and is subject to its privacy practices. The suburb map shows an area, not your precise address.',
+      '嵌入地图由Google提供。加载或打开地图时，浏览器会连接Google，其资料处理适用Google的隐私规则。郊区地图显示地区，不是你的精确地址。'))) +
     section('contact-privacy', tr(l, 'Questions about your data', '资料相关问题'), p(tr(l,
       'Call or email us using the contact details shown on this website.',
       '请使用本网站显示的电话或电邮联系我们。')));
@@ -516,14 +524,29 @@ function structuredData(page, facts, base) {
   if (!base || !facts.brand) return '';
   const provider = base + '/#organization';
   const graph = [
-    { '@type': 'Organization', '@id': provider, name: facts.brand, url: base + '/' },
+    { '@type': 'Organization', '@id': provider, name: facts.brand, url: base + '/',
+      ...(facts.legalEntity ? { legalName: facts.legalEntity } : {}),
+      ...(facts.telephone ? { telephone: facts.telephone } : {}),
+      ...(facts.email ? { email: facts.email } : {}),
+      ...(facts.officeAddress ? { address: { '@type': 'PostalAddress', streetAddress: facts.officeAddress, addressRegion: 'NSW', addressCountry: 'AU' } } : {}),
+    },
     { '@type': 'WebSite', '@id': base + '/#website', url: base + '/', name: facts.brand, publisher: { '@id': provider } },
+    { '@type': 'WebPage', '@id': base + page.path + '#webpage', url: base + page.path, name: page.h1,
+      inLanguage: page.locale === 'zh' ? 'zh-Hans' : 'en-AU', isPartOf: { '@id': base + '/#website' },
+      about: { '@id': page.area || page.id.startsWith('S') ? base + page.path + '#service' : provider },
+    },
   ];
-  if (page.id.startsWith('S') && facts.approvedServices?.includes(page.id)) graph.push({
+  if (page.id.startsWith('S') && (facts.indexingAuthorized || facts.approvedServices?.includes(page.id))) graph.push({
     '@type': 'Service', '@id': base + page.path + '#service', name: page.h1, url: base + page.path,
-    provider: { '@id': provider }, areaServed: (facts.approvedAreas ?? [])
+    provider: { '@id': provider }, areaServed: facts.indexingAuthorized ? [{ '@type': 'Place', name: 'Sydney, NSW, Australia' }] : (facts.approvedAreas ?? [])
       .filter(a => a.coverage_status === 'APPROVED' && a.public_copy_approved && a.approved_service_ids?.includes(page.id))
       .map(a => ({ '@type': 'Place', name: a.name })),
+  });
+  if (page.area) graph.push({
+    '@type': 'Service', '@id': base + page.path + '#service', name: page.h1, url: base + page.path,
+    serviceType: page.locale === 'zh' ? '住宅木作维修询价' : 'Residential timber repair enquiries',
+    provider: { '@id': provider }, areaServed: { '@type': 'Place', name: page.area.name + ', NSW, Australia' },
+    description: page.area[page.locale],
   });
   if (page.id !== 'H00') graph.push({ '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: page.locale === 'zh' ? '首页' : 'Home', item: base + href('/', page.locale) },
@@ -533,19 +556,21 @@ function structuredData(page, facts, base) {
     JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c') + '</script>';
 }
 
-export function renderPage(inputPath, facts, { production = false } = {}) {
+export function renderPage(inputPath, facts, { production = false, indexable = false } = {}) {
+  if (indexable) facts = { ...facts, publicEmailDrafts: true };
   const url = new URL(inputPath, 'https://local.invalid');
   const page = pages.find(item => item.path === url.pathname);
   if (!page || (production && page.area && !facts.approvedAreas?.some(a=>a.name===page.area.name && a.coverage_status==='APPROVED' && a.public_copy_approved && a.area_page_publish_approved)) || (production && page.id.startsWith('S') && !facts.approvedServices?.includes(page.id)))
     return { status: 404, html: '<!doctype html><title>Not found</title><h1>Page not found</h1>' };
   const l = page.locale;
-  const base = production && facts.domain && productionGaps(facts).length === 0 ? facts.domain : null;
+  const base = facts.domain && ((indexable && facts.indexingAuthorized) || (production && productionGaps(facts).length === 0)) ? facts.domain : null;
   const canonical = base ? '<link rel="canonical" href="' + esc(base + page.path) + '">' +
     '<link rel="alternate" hreflang="en-AU" href="' + esc(base + (l === 'en' ? page.path : page.alternate)) + '">' +
-    '<link rel="alternate" hreflang="zh-Hans" href="' + esc(base + (l === 'zh' ? page.path : page.alternate)) + '">' : '';
+    '<link rel="alternate" hreflang="zh-Hans" href="' + esc(base + (l === 'zh' ? page.path : page.alternate)) + '">'+
+    '<link rel="alternate" hreflang="x-default" href="' + esc(base + (l === 'en' ? page.path : page.alternate)) + '">' : '';
   const description = page.content?.lead ?? tr(l,
-    'Find the right residential timber repair, understand the scope and send a clear Sydney carpentry enquiry.',
-    '了解住宅木作的损坏与工作范围，并按构件和地区发起悉尼木工询价。');
+    page.h1 + '. Find the right residential timber repair, understand the scope and prepare your Sydney carpentry enquiry.',
+    page.h1 + '。了解住宅木作问题与工作范围，并按构件和地区整理悉尼木工询价。');
   const selected = url.searchParams.get('service') ?? '';
   const body = page.area ? suburbBody(page,l,facts,production) : page.id.startsWith('S') ? serviceBody(page, l, facts, production) : supportBody(page, l, facts, selected, production);
   const main = page.id === 'H00' ? body : '<div class="page-header"><p class="eyebrow">' +
@@ -560,8 +585,8 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
   const html = '<!doctype html><html lang="' + (l === 'zh' ? 'zh-Hans' : 'en-AU') +
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
-    esc(description) + '">' + (base ? '' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260923-home-refresh">' +
+    esc(description) + '">' + (base ? '<meta name="robots" content="index,follow,max-image-preview:large"><link rel="describedby" href="/llms.txt" type="text/plain">' : '<meta name="robots" content="noindex,nofollow">') + canonical +
+    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260923-area-rfq">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     '' +

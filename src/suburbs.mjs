@@ -1,6 +1,7 @@
 // Individual enquiry briefs, not claims about local housing stock or completed jobs.
 // Geography membership comes from the existing v3 research-backed directory.
 import {popularAreaCandidates} from './content.mjs';
+import {suburbDetails} from './suburb-details.mjs';
 export const suburbSlug = name => name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const briefs = [
  ['S01','If access is through a managed building, describe the window location and any lift or loading arrangements before arranging a timber-frame inspection.','若需经物业管理的建筑进入，请说明木窗位置、电梯及装卸安排，便于安排窗框检查。'],
@@ -63,5 +64,7 @@ const briefs = [
 let index=0;
 export const suburbs=popularAreaCandidates.flatMap(group=>group.names.map(name=>{
  const [service,en,zh]=briefs[index++];
- return {name,slug:suburbSlug(name),region:group.en,regionZh:group.zh,service,en,zh,otherNames:group.names.filter(n=>n!==name)};
+ const slug = suburbSlug(name);
+ if (!suburbDetails[slug]) throw new Error('Missing suburb editorial detail: ' + slug);
+ return {name,slug,region:group.en,regionZh:group.zh,service,en,zh,detail:suburbDetails[slug],otherNames:group.names.filter(n=>n!==name)};
 }));

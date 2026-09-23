@@ -1,0 +1,25 @@
+{
+  "name": "sydney-carpentry-local-preview",
+  "main": "src/worker.mjs",
+  "compatibility_date": "2026-09-22",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sydney-carpentry-inquiries-local",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "UPLOADS",
+      "bucket_name": "sydney-carpentry-private-uploads-local"
+    }
+  ],
+  "triggers": { "crons": [ "*/10 * * * *" ] }
+}

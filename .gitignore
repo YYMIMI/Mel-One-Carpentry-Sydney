@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.wrangler/
+.env
+.dev.vars
+*.log
+source-package/
+reports/
+premium-audit.json
+public/assets/timber-joinery.webp

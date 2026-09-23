@@ -1,0 +1,21 @@
+{
+  "brand": "Mel One",
+  "contactName": "Felix2",
+  "serviceHours": "09:00–21:00",
+  "legalEntity": null,
+  "domain": null,
+  "telephone": "0403202949",
+  "email": "handyman.kevinlee@gmail.com",
+  "inquiryRecipient": null,
+  "approvedServices": [],
+  "approvedAreas": [],
+  "privacyPolicyApproved": false,
+  "productionAuthorized": false,
+  "gbp": {
+    "enabled": false,
+    "placeId": null,
+    "profileUrl": null,
+    "mapsUrl": null,
+    "reviewUrl": null
+  }
+}

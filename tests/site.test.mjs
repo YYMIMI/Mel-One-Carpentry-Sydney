@@ -66,7 +66,7 @@ test('interior shelving task has an actual bilingual answer, not only a keyword 
 
 test('production gate lists missing identity, contacts, scope, recipient and authorization without inventing them', () => {
   const gaps = productionGaps(facts);
-  assert.deepEqual(gaps, ['brand', 'domain', 'telephone-or-email', 'inquiryRecipient', 'approvedServices', 'approvedAreas', 'productionAuthorized']);
+  assert.deepEqual(gaps, ['brand', 'domain', 'telephone-or-email', 'inquiryRecipient', 'approvedServices', 'approvedAreas', 'areaBatchIncomplete', 'productionAuthorized']);
 });
 
 test('an unapproved suburb has a preview page but is not a production service promise', () => {
@@ -174,7 +174,7 @@ test('window refinishing case photos and scope are visible on both window Owner 
   const photos = ['window-multipane.jpg', 'window-two-pane.jpg', 'window-frame-sill.jpg', 'window-sliding-frame.jpg'];
   for (const path of ['/services/timber-window-repairs/', '/zh/services/timber-window-repairs/']) {
     const html = renderPage(path, facts).html;
-    for (const photo of photos) assert.equal(html.split('/assets/real-work/' + photo).length - 1, 1, `${path}: ${photo}`);
+    for (const photo of photos) assert.equal(html.split('/assets/real-work/' + photo).length - 1, photo === 'window-multipane.jpg' ? 2 : 1, `${path}: ${photo}`);
     assert.match(html, path.startsWith('/zh') ? /窗框.*刷漆|刷漆.*窗框/ : /timber.window.frames.*repaint|repaint.*timber.window.frames/i);
   }
   assert.doesNotMatch(renderPage('/services/timber-door-frame-repairs/', facts).html, /window-multipane\.jpg/);
@@ -184,7 +184,7 @@ test('door refinishing and compatible lock hardware case photos stay on both doo
   const photos = ['door-trim.jpg', 'door-bathroom-leaf.jpg', 'door-open-leaf.jpg', 'door-hall-frame.jpg', 'door-panel-lock-bore.jpg', 'door-latch-work.jpg'];
   for (const path of ['/services/timber-door-frame-repairs/', '/zh/services/timber-door-frame-repairs/']) {
     const html = renderPage(path, facts).html;
-    for (const photo of photos) assert.equal(html.split('/assets/real-work/' + photo).length - 1, 1, `${path}: ${photo}`);
+    for (const photo of photos) assert.equal(html.split('/assets/real-work/' + photo).length - 1, photo === 'door-open-leaf.jpg' ? 2 : 1, `${path}: ${photo}`);
     assert.match(html, path.startsWith('/zh') ? /相容.*锁舌|相容.*门锁/ : /compatible.*latch|compatible.*lockset/i);
     assert.match(html, path.startsWith('/zh') ? /紧急开锁/ : /emergency lockout/i);
   }
@@ -195,7 +195,7 @@ test('detached interior panels appear on the interior Owner without implying who
   for (const path of ['/services/interior-carpentry/', '/zh/services/interior-carpentry/']) {
     const html = renderPage(path, facts).html;
     for (const photo of ['interior-panels-prep.jpg', 'interior-panels-painted.jpg']) {
-      assert.equal(html.split('/assets/real-work/' + photo).length - 1, 1, `${path}: ${photo}`);
+      assert.equal(html.split('/assets/real-work/' + photo).length - 1, photo === 'interior-panels-prep.jpg' ? 2 : 1, `${path}: ${photo}`);
     }
     assert.match(html, path.startsWith('/zh') ? /不等于整屋刷漆/ : /not a whole-home painting offer/i);
   }
@@ -213,7 +213,7 @@ test('an approved region alone cannot imply every service or public area copy', 
 });
 
 test('production metadata uses the clean same-language URL only when facts and approval are complete', () => {
-  const approved = { ...facts, brand: 'Approved Brand', domain: 'https://carpentry.example.test', telephone: '+61290000000', inquiryRecipient: 'team@example.test', approvedServices: ['S01'], approvedAreas: [{ name: 'Chatswood', coverage_status: 'APPROVED', approved_service_ids: ['S01'], public_copy_approved:true }], productionAuthorized: true };
+  const approved = { ...facts, brand: 'Approved Brand', domain: 'https://carpentry.example.test', telephone: '+61290000000', inquiryRecipient: 'team@example.test', approvedServices: ['S01'], approvedAreas: pages.filter(page => page.area && page.locale === 'en').map(page => ({ name: page.area.name, coverage_status: 'APPROVED', approved_service_ids: ['S01'], public_copy_approved: true })), productionAuthorized: true };
   const page = renderPage('/zh/services/timber-window-repairs/?utm_source=test', approved, { production: true });
   assert.match(page.html, /rel="canonical" href="https:\/\/carpentry\.example\.test\/zh\/services\/timber-window-repairs\/"/);
   assert.match(page.html, /hreflang="en-AU" href="https:\/\/carpentry\.example\.test\/services\/timber-window-repairs\/"/);

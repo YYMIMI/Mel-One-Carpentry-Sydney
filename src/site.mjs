@@ -151,7 +151,6 @@ function caseGallery(pageId, l) {
   if (!group) return '';
   return section('case-photos', tr(l, ...group.title),
     p(tr(l, ...group.intro)) + '<div class="work-gallery">' + group.photos
-      .filter(([name]) => !serviceImages[pageId]?.[0].endsWith('/' + name))
       .map(([name, enAlt, zhAlt, enCaption, zhCaption, width, height]) =>
       '<figure class="work-photo work-photo--three-four"><img src="/assets/real-work/' + name + '" width="' + width + '" height="' + height +
       '" loading="lazy" decoding="async" alt="' + esc(tr(l, enAlt, zhAlt)) + '"><figcaption>' +
@@ -205,6 +204,7 @@ export function productionGaps(facts) {
   if (!facts.approvedServices?.length) gaps.push('approvedServices');
   const areas = facts.approvedAreas?.filter(a => a.coverage_status === 'APPROVED') ?? [];
   if (!areas.length) gaps.push('approvedAreas');
+  if (areas.length !== suburbs.length || suburbs.some(suburb => !areas.some(area => area.name === suburb.name && area.public_copy_approved))) gaps.push('areaBatchIncomplete');
   if (areas.some(a => !a.approved_service_ids?.length || a.approved_service_ids.some(id => !facts.approvedServices?.includes(id)))) gaps.push('areaServiceMatrix');
   if (areas.some(a => !a.public_copy_approved)) gaps.push('areaCopyApproval');
   if (!facts.productionAuthorized) gaps.push('productionAuthorized');
@@ -378,9 +378,15 @@ function supportBody(page, l, facts, selected, production) {
     '</div>' + section('approach', tr(l, 'How a job is scoped', '如何界定工作'), p(tr(l,
       'An initial enquiry includes the component, damage, suburb and safe access. Repair, local replacement or a wider assessment then becomes a defined decision. Finishing, disposal and another trade’s work belong in the written scope.',
       '初次询价尽量说明构件、可见损坏、地区和安全通道。之后才能判断维修、局部更换或扩大检查。油漆、清运和其他工种工作应写进书面范围。'))) +
+    section('company', tr(l, 'Company and contact', '公司与联系资料'), p(tr(l,
+      'This Sydney carpentry service is operated by Mel One Property Maintenance Pty Ltd, ABN 39 666 325 408 and ACN 666 325 408. Contact Felix2 on 0403 202 949 or handyman.kevinlee@gmail.com. Enquiries are taken Monday to Sunday, 09:00–21:00 Sydney time; the actual job and appointment are confirmed individually.',
+      '悉尼木工服务由 Mel One Property Maintenance Pty Ltd 经营，ABN 39 666 325 408，ACN 666 325 408。联系 Felix2：0403 202 949，handyman.kevinlee@gmail.com。询价时间为悉尼时间周一至周日 09:00–21:00；具体工作和预约须分别确认。'))) +
+    section('insurance', tr(l, 'Insurance and work scope', '保险与工作范围'), p(tr(l,
+      'The company holds Chubb public and products liability cover. The certificate on file records a limit of AUD 20 million for 13 April 2026 to 13 April 2027. Cover for a particular job remains subject to the policy terms, exclusions and confirmed scope; ask us for current evidence if needed.',
+      '公司持有 Chubb 公众及产品责任保险。现有证明文件记录保额为澳币 2,000 万元，有效期为 2026 年 4 月 13 日至 2027 年 4 月 13 日。具体工作是否承保仍以保单条款、除外责任及确定的工作范围为准；如需现行证明可向我们索取。'))) +
     section('proof', tr(l, 'Evidence before promises', '有依据再作承诺'), p(tr(l,
-      'Team identities, licences, completed jobs, warranties and response times need current records before they appear as business claims.',
-      '团队身份、资格、已完成项目、保修与响应时间，都需要现行记录支持，才能作为商家承诺展示。')));
+      'The service pages show real work photos and explain what the images can and cannot establish. We do not assign an unverified suburb or finished outcome to a photograph.',
+      '服务页展示真实施工照片，也说明照片能证明和不能证明的内容。未经核实，不把照片归属到具体郊区，也不据此宣称完工结果。')));
   if (page.id === 'H06') return '<div class="page-lead">' + p(tr(l,
     'These are starting points. A photo and location can change the repair method and quote.',
     '以下是判断起点；照片和现场位置可能改变维修方法与报价。')) + '</div>' + faq([
@@ -470,7 +476,7 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css">' +
+    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=20260923-soft">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     (base ? '' : '<div class="preview-bar">' + tr(l,
@@ -485,13 +491,21 @@ export function renderPage(inputPath, facts, { production = false } = {}) {
     '" hreflang="' + (l === 'en' ? 'zh-Hans' : 'en-AU') + '" href="' + page.alternate + '">' +
     (l === 'en' ? '中文' : 'English') + '</a></div></header>' +
     '<main id="main" class="' + (page.id === 'H00' ? 'home-main' : 'page-main') + '">' + main + '</main>' +
-    '<footer class="site-footer"><div><img class="footer-logo" src="/assets/mel-one-logo.jpg" width="940" height="940" alt="Mel One"><p class="footer-brand">' + brand + '</p>' + businessContact(l,facts) + '<p>' +
-    tr(l, 'Timber work enquiries for Sydney homes. Confirm scope and suburb before booking.',
-      '悉尼住宅木作询价；预约前确认工作范围与地区。') +
-    '</p></div><div><a href="' + href('/privacy/', l) + '">' + tr(l, 'Privacy', '隐私政策') +
-    '</a><a href="' + href('/contact/', l) + '">' + tr(l, 'Contact', '联系') + '</a>' +
+    '<footer class="site-footer"><div class="footer-inner">' +
+    '<div class="footer-group footer-identity"><img class="footer-logo" src="/assets/mel-one-logo.jpg" width="940" height="940" alt="Mel One"><p class="footer-brand">' + brand + '</p><p>' +
+    tr(l, 'Residential timber repairs and maintenance, with the job scope confirmed before booking.', '住宅木作维修与保养；预约前先确认实际工作范围。') +
+    '</p><p>' + esc(facts.legalEntity || 'Mel One Property Maintenance Pty Ltd') + '<br>ABN 39 666 325 408 · ACN 666 325 408</p></div>' +
+    '<nav class="footer-group" aria-label="' + tr(l, 'Service links', '服务链接') + '"><h2>' + tr(l, 'Services', '木工服务') + '</h2>' +
+    services.filter(s => ['S05','S01','S02','S07','S09'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a href="' + servicePath(s,l) + '">' + esc(shortName(s,l)) + '</a>').join('') +
+    '<a href="' + href('/services/',l) + '">' + tr(l, 'All nine services', '全部九项服务') + '</a></nav>' +
+    '<nav class="footer-group" aria-label="' + tr(l, 'Areas and work', '地区与案例') + '"><h2>' + tr(l, 'Explore', '了解更多') + '</h2>' +
+    '<a href="' + href('/areas/',l) + '">' + tr(l, '56 Sydney enquiry areas', '56 个悉尼服务地区') + '</a><a href="' + href('/#selected-work',l) + '">' + tr(l, 'Real work photos', '真实施工照片') + '</a><a href="' + href('/faq/',l) + '">' + tr(l, 'Common questions', '常见问题') + '</a></nav>' +
+    '<nav class="footer-group" aria-label="' + tr(l, 'Company and contact', '公司与联系') + '"><h2>' + tr(l, 'Get in touch', '联系我们') + '</h2>' +
+    '<a href="' + href('/contact/',l) + '">' + tr(l, 'Send photos & request a quote', '发送照片并询价') + '</a>' +
     (facts.telephone ? '<a href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + esc(facts.telephone) + '</a>' : '') +
     (facts.email ? '<a href="mailto:' + esc(facts.email) + '" data-event="email_click">' + esc(facts.email) + '</a>' : '') +
+    '<span>' + tr(l, 'Felix2 · Mon–Sun 09:00–21:00 Sydney time', 'Felix2 · 周一至周日 09:00–21:00（悉尼时间）') + '</span>' +
+    '<a href="' + href('/about/',l) + '">' + tr(l, 'About the company', '关于公司') + '</a><a href="' + href('/privacy/',l) + '">' + tr(l, 'Privacy', '隐私政策') + '</a></nav>' +
     '</div></footer><script src="/site.js" defer></script></body></html>';
   return { status: 200, html, page };
 }

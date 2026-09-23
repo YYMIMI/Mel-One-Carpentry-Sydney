@@ -6,6 +6,8 @@ This is a bilingual residential-carpentry enquiry site, not a verified business-
 
 ## Visual direction
 
+The September 23 redesign uses warm paper `#F7F6F1`, off-white `#FFFEFB`, sage `#DFE9E1`, ink `#20343D` and timber `#CC955F`. Cards use a 28–32px radius, larger feature panels 32–36px, and CTAs are pill-shaped. The four-group footer covers identity/contact, services, areas/work and company/privacy. All original supplied work photos remain public, including when a service intro also uses a photo from its gallery. These rules supersede the older navy-and-square layout descriptions below.
+
 The site uses a restrained editorial timber-work register: deep blue ink, white and cool off-white surfaces, and warm timber accents. Serif display headings distinguish task pages; a legible sans body supports long English and Simplified Chinese text. The homepage hero is a generated general work scene; it is not placed in the real-job gallery or tied to a suburb or completed-job claim. The Sydney Roofing local preview informed the city-first hierarchy and problem-to-service navigation only; its brand, phone, images, claims and unapproved suburb routes are not reused.
 
 The bilingual timber door-frame Owner page now includes a four-image portrait-format field-photo strip. Captions describe only visible door/frame/threshold details and the section explicitly avoids asserting a completed repair or location. The visual treatment uses existing surface, border, radius and ink tokens, with four columns on wide screens and fewer columns on narrow screens; natural image dimensions reserve layout space. The two towel-rail photos are real but remain out of the carpentry page system because the current service scope has no bathroom fixture Owner.

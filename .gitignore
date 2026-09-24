@@ -8,3 +8,5 @@ source-package/
 reports/
 premium-audit.json
 public/assets/timber-joinery.webp
+.vercel
+.env*

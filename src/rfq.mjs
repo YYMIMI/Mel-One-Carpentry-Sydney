@@ -7,7 +7,7 @@ export function rfqForm(l, facts, area = null, selected = '') {
   const id = area ? 'suburb-rfq' : 'inquiry';
   const recipient = facts.email || '';
   return '<form id="'+id+'" class="rfq-form" data-rfq-email="'+esc(recipient)+'" data-locale="'+l+'">' +
-    '<h2>'+esc(tr(l, area ? 'Prepare your '+area.name+' RFQ' : 'Prepare your repair enquiry', area ? '整理 '+area.name+' 木作询价' : '整理木作询价资料'))+'</h2>'+
+    '<h2>'+esc(tr(l, area ? 'Tell us about timber repairs in '+area.name : 'Tell us about your timber repair', area ? '说明 '+area.name+' 的木作维修需求' : '说明你的木作维修需求'))+'</h2>'+
     '<p>'+tr(l,'Build an email draft with the scope below. Review it, add photos in your email app and send it to us. Nothing is submitted when you prepare the draft.','填写下方内容整理成电邮草稿。核对后在电邮软件中添加照片，再发送给我们；生成草稿不会自动提交询价。')+'</p>'+
     '<div class="form-grid"><label>'+tr(l,'Suburb','所在地区')+'<input name="suburb" value="'+esc(area?.name || '')+'" autocomplete="address-level2" maxlength="100" required></label>'+
     '<label>'+tr(l,'Timber task','木作项目')+'<select name="service" required><option value="">'+tr(l,'Choose a task','选择项目')+'</option>'+services.map(s=>'<option value="'+s.id+'"'+(s.id===(selected || area?.service)?' selected':'')+'>'+esc(s[l].h1)+'</option>').join('')+'</select></label></div>'+

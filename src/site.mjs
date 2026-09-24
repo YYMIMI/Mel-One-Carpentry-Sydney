@@ -44,7 +44,7 @@ function concernsSection(l) {
     '</a><a class="button button-primary" href="' + href('/contact/',l) + '">' + tr(l, 'Describe your job', '说明你的维修情况') + '</a></div></section>';
 }
 function homeInquirySection(l, facts) {
-  return '<section class="homepage-section home-inquiry"><div class="home-inquiry-copy"><p class="eyebrow">' + tr(l, 'Ready to take the next step?', '想好下一步怎么处理了吗？') + '</p><h2>' + tr(l, 'Tell us what is wrong with the timber.', '告诉我们木作哪里出了问题。') + '</h2><p>' + tr(l, 'Choose the closest service, describe what has changed and tell us your suburb. A close-up and a wider photo help us understand the job; photos are optional.', '选择最接近的服务，说明哪里出了问题及所在地区。局部和全景照片有助于了解情况；照片不是必填。') + '</p><p class="home-inquiry-note">' + tr(l, 'We will discuss the work and what a quote needs to cover before arranging a visit.', '安排上门前，先沟通需要处理的工作及报价应包含的项目。') + '</p></div>' + contactForm(l, '', facts) + '</section><script src="/form.js" defer></script>';
+  return '<section class="homepage-section home-inquiry"><div class="home-inquiry-copy"><p class="eyebrow">' + tr(l, 'Need help with timber repairs?', '木作需要维修？') + '</p><h2>' + tr(l, 'Tell us what is wrong with the timber.', '告诉我们木作哪里出了问题。') + '</h2><p>' + tr(l, 'Choose the closest service, describe what has changed and tell us your suburb. A close-up and a wider photo help us understand the job; photos are optional.', '选择最接近的服务，说明哪里出了问题及所在地区。局部和全景照片有助于了解情况；照片不是必填。') + '</p><p class="home-inquiry-note">' + tr(l, 'We will discuss the work and what a quote needs to cover before arranging a visit.', '安排上门前，先沟通需要处理的工作及报价应包含的项目。') + '</p></div>' + contactForm(l, '', facts) + '</section><script src="/form.js" defer></script>';
 }
 const servicePath = (s, l) => href('/services/' + s.slug + '/', l);
 const officeAddress = (l, facts) => facts.officeAddress ? '<p class="office-address"><strong>' + tr(l, 'Sydney office', '悉尼办公室') + '</strong><br><span>' + esc(facts.officeAddress) + '</span></p>' : '';
@@ -72,7 +72,7 @@ function repairDecisions(l) {
     ['You are unsure whether to repair or replace', 'Show the whole component and the damaged area. The sound timber around it determines whether a local repair is sensible.', '不确定该修还是换', '拍下整个构件及损坏局部；周围木材是否稳固，才影响局部维修是否合适。', '/services/rotten-timber-repairs/'],
   ];
   return '<section class="homepage-section repair-decisions" id="repair-decisions"><div class="section-heading"><div><p class="eyebrow">' +
-    tr(l, 'Start with the symptom', '先从眼前的问题开始') + '</p><h2>' + tr(l, 'What does the damage mean for your next step?', '不同损坏，下一步也不同') +
+    tr(l, 'Show us what has changed', '说说哪里有损坏') + '</p><h2>' + tr(l, 'What kind of repair might this need?', '这些损坏可能需要怎样维修？') +
     '</h2></div><p>' + tr(l, 'These are starting points, not a diagnosis from a photograph. Choose the closest situation to see what should be checked.',
       '以下是判断起点，不是凭照片作诊断。选择最接近的情况，看看应先确认什么。') + '</p></div><div class="decision-grid">' +
     choices.map(([en, detail, zh, zhDetail, path], index) => '<article><h3>' + tr(l, en, zh) + '</h3>' + p(tr(l, detail, zhDetail)) +
@@ -414,8 +414,8 @@ function supportBody(page, l, facts, selected, production) {
       areaCards(l, popularAreaCandidates.filter(group => ['Sydney CBD & Inner City', 'Inner West', 'Lower North Shore', 'Parramatta & Surrounds'].includes(group.en)))) +
     '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'Check a suburb', '查看地区查询方式') + '</a></section>' + officeMap(l, facts) + '<section class="quote-band"><div><p class="eyebrow">' +
     tr(l, 'Start with what you can see', '从看得见的问题开始') + '</p><h2>' + tr(l, 'Show us what needs attention.', '把需要处理的地方发给我们。') +
-    '</h2><p>' + tr(l, 'A wide photo, a close-up and your suburb help us understand the next step. Not sure which service fits? Describe the problem in your enquiry.',
-      '一张全景、一张细节，再加上所在地区，有助于确认下一步。不确定属于哪项服务，也可以直接描述问题。') + '</p></div>' + cta(l) + '</section>';
+    '</h2><p>' + tr(l, 'A wide photo, a close-up and your suburb help us understand the repair you need. Not sure which service fits? Describe the problem in your enquiry.',
+      '提供一张全景、一张细节照片和所在地区，能帮助我们了解需要维修的部位。不确定该选哪项服务，也可以直接描述问题。') + '</p></div>' + cta(l) + '</section>';
   if (page.id === 'H01') return '<div class="page-lead">' + p(tr(l,
     'Choose the damaged component. Each page explains likely questions, repair boundaries and useful quote details, so a window problem does not get lost inside a general wood-rot page.',
     '按受损构件选择页面。木窗、门框、Deck等各有自己的故障判断与报价资料，明确部位的问题不必全部塞进泛腐木页面。')) +

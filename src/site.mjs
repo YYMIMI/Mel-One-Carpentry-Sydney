@@ -1,5 +1,6 @@
 import { services, popularAreaCandidates } from './content.mjs';
 import { serviceWork } from './service-work.mjs';
+import { companyReviews, reviewSource } from './company-reviews.mjs';
 import { suburbs, suburbSlug } from './suburbs.mjs';
 import { rfqForm, suburbScope, suburbMap, suburbOptionsSection } from './rfq.mjs';
 
@@ -82,6 +83,21 @@ function repairDecisions(l, facts = {}, production = false) {
         tr(l, 'For timber windows', '木窗相关维修') + '</a>' : '') +
       (index === 1 ? services.filter(s => ['S06', 'S07'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a class="text-link" href="' + servicePath(s, l) + '">' + esc(shortName(s, l)) + '</a>').join('') : '') + '</article>').join('') +
     '</div></section>';
+}
+function companyFeedback(l, detailed = false) {
+  return '<section class="homepage-section company-feedback" id="customer-feedback"><div class="section-heading"><div><p class="eyebrow">' +
+    tr(l, 'Selected Mel One customer feedback', 'Mel One 客户好评摘选') + '</p><h2>' +
+    tr(l, 'What customers value about working with Mel One', '客户看重的服务细节') + '</h2></div><p>' +
+    tr(l, 'Company-wide feedback from the Mel One Maintenance Google profile in Melbourne. These are not reviews of Sydney carpentry jobs.',
+      '以下摘录来自 Mel One Maintenance 墨尔本 Google 商家资料，反映公司其他地区的服务体验，并非悉尼木工项目评价。') +
+    '</p></div><div class="review-grid">' + companyReviews.map(review => '<figure class="review-card"><p class="eyebrow">' +
+      esc(tr(l, review.context, review.contextZh)) + '</p><blockquote lang="en"><p>“' + esc(review.quote) + '”</p></blockquote>' +
+      (l === 'zh' ? '<p class="review-translation"><span>摘录译文：</span>' + esc(review.translation) + '</p>' : '') +
+      '<figcaption><strong>' + esc(review.author) + '</strong><span>' + esc(reviewSource.name) + ' · ' + tr(l, 'Melbourne', '墨尔本') + '</span></figcaption>' +
+      (detailed ? p(tr(l, review.background, review.backgroundZh)) : '') +
+      '<a class="text-link" href="' + esc(reviewSource.url) + '" target="_blank" rel="noopener noreferrer">' +
+      tr(l, 'Visit the source Google reviews', '前往来源商家的 Google 评价') + '</a></figure>').join('') + '</div><div class="concern-actions">' +
+    (detailed ? cta(l) : '<a class="text-link" href="' + href('/about/', l) + '#customer-feedback">' + tr(l, 'About Mel One and this feedback', '了解公司与评价背景') + '</a>') + '</div></section>';
 }
 function conversionRail(l, facts) {
   const call = facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' +
@@ -412,7 +428,7 @@ function supportBody(page, l, facts, selected, production) {
     '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与suburb。') +
     '</p><p>' + tr(l, 'Share safe photos and access details.', '从安全位置提供照片和通道信息。') +
     '</p><p>' + tr(l, 'Confirm the work, exclusions and written quote.', '再确认工作、排除项与书面报价。') +
-    '</p></div></section>' + repairDecisions(l, facts, production) + concernsSection(l) + homeInquirySection(l, facts) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
+    '</p></div></section>' + repairDecisions(l, facts, production) + concernsSection(l) + companyFeedback(l) + homeInquirySection(l, facts) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
     tr(l, 'Check your area before arranging work', '安排前确认服务地区') + '</h2>' +
     p(tr(l, 'Tell us your suburb and what needs repair. We will confirm the work, access and timing with you before booking.',
       '告诉我们所在地区和需要维修的部位；预约前会一起确认工作内容、通道与时间。')) +
@@ -460,7 +476,7 @@ function supportBody(page, l, facts, selected, production) {
       'The service pages show real work photos and explain what the images can and cannot establish. We do not assign an unverified suburb or finished outcome to a photograph.',
       '服务页展示真实施工照片，也说明照片能证明和不能证明的内容。未经核实，不把照片归属到具体郊区，也不据此宣称完工结果。')) +
       '<p><a class="text-link" href="' + href('/#selected-work',l) + '">' +
-      tr(l, 'Browse the real-work photo collection', '查看真实施工照片') + '</a></p>');
+      tr(l, 'Browse the real-work photo collection', '查看真实施工照片') + '</a></p>') + companyFeedback(l, true);
   if (page.id === 'H06') return '<div class="page-lead">' + p(tr(l,
     'These are starting points. A photo and location can change the repair method and quote.',
     '以下是判断起点；照片和现场位置可能改变维修方法与报价。')) + '</div>' + faq([

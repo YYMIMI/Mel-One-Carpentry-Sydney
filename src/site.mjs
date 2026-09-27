@@ -334,7 +334,7 @@ function suburbBody(page,l,facts,production) {
       '<div class="related-links">'+a.otherNames.filter(name=>!production || facts.approvedAreas?.some(area=>area.name===name && area.coverage_status==='APPROVED' && area.public_copy_approved && area.area_page_publish_approved)).map(name=>'<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join('')+'</div>')+
     section('questions',tr(l,'Before sending your enquiry','发送询价前'),faq([
       [tr(l,'Can I ask about fence maintenance here?','这里可以咨询围栏保养吗？'),tr(l,'Yes. Describe posts, rails, boards and fixings, then use the timber fence maintenance page to prepare photos. Confirm the work at your location before booking.','可以。说明立柱、横梁、木板及固定件情况，并按木围栏保养页准备照片；预约前确认当地工作范围。')],
-      [tr(l,'Do the project photographs prove a job in '+a.name+'?','网站照片是否代表 '+a.name+' 的工程？'),tr(l,'No location is assigned to a photograph without confirmation. Service-page photographs illustrate the real work supplied by the business, not evidence of a job in every suburb.','未确认的照片不会标上郊区。服务页展示公司提供的真实工作照片，不代表每个郊区都有对应案例。')]
+      [tr(l,'Are these photos from '+a.name+'?','这些照片是在 '+a.name+' 拍的吗？'),tr(l,'Not necessarily. They show Mel One timber work to help you see the kinds of repairs we handle. If your property is in '+a.name+', send a photo of the damage and we can discuss the next step.','不一定。这些照片展示 Mel One 的木工工作，方便你了解我们处理的维修类型。如果你在 '+a.name+' 需要维修，请发来受损部位照片，我们再讨论下一步。')]
     ])) +
     suburbScope(a,l,primary)+suburbOptionsSection(a,l)+rfqForm(l,facts,a)+suburbMap(a,l);
 }

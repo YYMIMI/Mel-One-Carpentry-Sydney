@@ -1,6 +1,6 @@
 # Mel One Sydney carpentry
 
-Bilingual residential timber repair site, published at https://mel-one-carpentry-sydney.vercel.app. The 144 public routes include 56 suburb pairs, nine service pairs and seven support-page pairs. This repository concerns Sydney only.
+Bilingual residential timber repair site, published at https://www.thesydneycarpenter.com.au. The 144 public routes include 56 suburb pairs, nine service pairs and seven support-page pairs. This repository concerns Sydney only.
 
 ## Vercel deployment
 

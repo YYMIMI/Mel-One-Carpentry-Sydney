@@ -1,4 +1,5 @@
 import { services, popularAreaCandidates } from './content.mjs';
+import { serviceWork } from './service-work.mjs';
 import { suburbs, suburbSlug } from './suburbs.mjs';
 import { rfqForm, suburbScope, suburbMap, suburbOptionsSection } from './rfq.mjs';
 
@@ -65,7 +66,7 @@ function officeMap(l, facts) {
     '<iframe title="' + tr(l, 'Map of the Sydney CBD office', '悉尼 CBD 办公室地图') + '" src="' +
     esc(mapsUrl(facts)) + '" width="600" height="400" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div></section>';
 }
-function repairDecisions(l) {
+function repairDecisions(l, facts = {}, production = false) {
   const choices = [
     ['A door or window no longer closes well', 'Check the frame, hinges and signs of moisture before assuming the whole unit needs replacing.', '门窗关不顺', '先看门窗框、铰链及受潮迹象，不要直接假定要整套更换。', '/services/timber-door-frame-repairs/'],
     ['Outdoor timber feels loose or soft', 'A fence, gate or deck needs its fixings and supporting timber checked before a cosmetic finish is discussed.', '户外木构件松动或发软', '围栏、木闸门或 Deck 应先看固定件和支撑木材，再讨论外观收尾。', '/services/timber-fence-repairs/'],
@@ -76,9 +77,10 @@ function repairDecisions(l) {
     '</h2></div><p>' + tr(l, 'These are starting points, not a diagnosis from a photograph. Choose the closest situation to see what should be checked.',
       '以下是判断起点，不是凭照片作诊断。选择最接近的情况，看看应先确认什么。') + '</p></div><div class="decision-grid">' +
     choices.map(([en, detail, zh, zhDetail, path], index) => '<article><h3>' + tr(l, en, zh) + '</h3>' + p(tr(l, detail, zhDetail)) +
-      '<a class="text-link" href="' + href(path, l) + '">' + tr(l, 'See the relevant service', '查看对应服务') + '</a>' +
+      '<a class="text-link" href="' + href(path, l) + '">' + [tr(l, 'Door and frame repairs', '木门与门框维修'), tr(l, 'Fence maintenance and repairs', '围栏保养与维修'), tr(l, 'Assessing rotten timber', '腐木检查与修复')][index] + '</a>' +
       (index === 0 ? '<a class="text-link" href="' + href('/services/timber-window-repairs/', l) + '">' +
-        tr(l, 'For timber windows', '木窗相关维修') + '</a>' : '') + '</article>').join('') +
+        tr(l, 'For timber windows', '木窗相关维修') + '</a>' : '') +
+      (index === 1 ? services.filter(s => ['S06', 'S07'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a class="text-link" href="' + servicePath(s, l) + '">' + esc(shortName(s, l)) + '</a>').join('') : '') + '</article>').join('') +
     '</div></section>';
 }
 function conversionRail(l, facts) {
@@ -343,7 +345,11 @@ function serviceBody(page, l, facts, production) {
   return '<div class="service-intro' + (Number(page.id.slice(1)) % 2 === 0 ? ' service-intro--reverse' : '') + '"><div class="service-intro-copy"><p class="eyebrow">' +
     tr(l, 'What we can look at', '可以检查与处理的项目') + '</p><div class="page-lead">' + p(c.lead) + '</div>' + cta(l, page.id) +
     '</div><figure class="service-intro-image">' + serviceCardPhoto(page.id, l, true) + '</figure></div>' +
-    (page.id === 'S05' ? fenceMaintenance(l, facts) : '') + '<div class="split-content"><div>' +
+    (page.id === 'S05' ? fenceMaintenance(l, facts) : '') +
+    section('repair-work', tr(l, 'Repair options to discuss', '可以怎样处理这些问题'),
+      '<div class="rfq-guidance-grid">' + serviceWork[page.id].map(([title, detail, zhTitle, zhDetail]) =>
+        '<article><h3>' + esc(tr(l, title, zhTitle)) + '</h3>' + p(tr(l, detail, zhDetail)) + '</article>').join('') + '</div>') +
+    '<div class="split-content"><div>' +
     section('problems', tr(l, 'What the damage may mean', '这些损坏可能意味着什么'), p(c.problem)) +
     section('assessment', tr(l, 'Repair, replace or investigate', '维修、更换或先查原因'), p(c.assessment)) +
     section('scope', tr(l, 'Scope and boundaries', '工作范围与边界'), p(c.boundary)) +
@@ -352,9 +358,9 @@ function serviceBody(page, l, facts, production) {
     p(c.photo) + p(tr(l, 'Do not put yourself at risk to take a photo.', '拍照不应让自己处于危险位置。')) + '</aside></div>' +
     (page.id === 'S02' ? doorWorkGallery(l) : '') + caseGallery(page.id, l) +
     section('areas', tr(l, 'Check the location', '确认所在地区'), p(tr(l,
-      'Tell us your suburb. Sydney locations, nearby access and the work offered there must be confirmed before an appointment is agreed; a suburb name alone is not a service promise.',
-      '询价时请写所在suburb。悉尼不同地区、相邻地区的通道及当地可做的项目，需在安排前逐一确认；地名出现不等于已承诺上门。')) +
-      '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'How area checks work', '查看地区确认方式') + '</a>') +
+      'We take residential timber repair enquiries across the 56 Sydney suburbs in our service area directory. Tell us your suburb and the affected timber; we will discuss the job, access and timing before arranging a visit.',
+      '服务地区目录中的56个悉尼郊区均可咨询住宅木作维修。请说明所在地区及受损木构件；安排上门前，先沟通工作范围、通道和时间。')) +
+      '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'Find your Sydney service area', '查看你的悉尼服务地区') + '</a>') +
     section('questions', tr(l, 'Questions about this job', '关于这项维修'), faq(c.faq)) +
     '<div class="related"><h2>' + tr(l, 'Related timber work', '相关木作问题') + '</h2><div class="related-links">' +
     related.map(s => '<a href="' + servicePath(s, l) + '">' + esc(shortName(s, l)) + '</a>').join('') + '</div></div>';
@@ -406,7 +412,7 @@ function supportBody(page, l, facts, selected, production) {
     '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与suburb。') +
     '</p><p>' + tr(l, 'Share safe photos and access details.', '从安全位置提供照片和通道信息。') +
     '</p><p>' + tr(l, 'Confirm the work, exclusions and written quote.', '再确认工作、排除项与书面报价。') +
-    '</p></div></section>' + repairDecisions(l) + concernsSection(l) + homeInquirySection(l, facts) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
+    '</p></div></section>' + repairDecisions(l, facts, production) + concernsSection(l) + homeInquirySection(l, facts) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
     tr(l, 'Check your area before arranging work', '安排前确认服务地区') + '</h2>' +
     p(tr(l, 'Tell us your suburb and what needs repair. We will confirm the work, access and timing with you before booking.',
       '告诉我们所在地区和需要维修的部位；预约前会一起确认工作内容、通道与时间。')) +
@@ -417,8 +423,8 @@ function supportBody(page, l, facts, selected, production) {
     '</h2><p>' + tr(l, 'A wide photo, a close-up and your suburb help us understand the repair you need. Not sure which service fits? Describe the problem in your enquiry.',
       '提供一张全景、一张细节照片和所在地区，能帮助我们了解需要维修的部位。不确定该选哪项服务，也可以直接描述问题。') + '</p></div>' + cta(l) + '</section>';
   if (page.id === 'H01') return '<div class="page-lead">' + p(tr(l,
-    'Choose the damaged component. Each page explains likely questions, repair boundaries and useful quote details, so a window problem does not get lost inside a general wood-rot page.',
-    '按受损构件选择页面。木窗、门框、Deck等各有自己的故障判断与报价资料，明确部位的问题不必全部塞进泛腐木页面。')) +
+    'Start with the timber that needs attention. Explore repair options, when replacement may be needed, what affects the price and which photos help us understand your job.',
+    '从需要处理的木构件开始，了解可选维修方式、何时可能需要更换、哪些因素影响价格，以及什么照片有助于说明你的问题。')) +
     '</div>' + cards(l, facts, production) + section('what-next', tr(l, 'If the part is unclear', '部位还不明确？'), p(tr(l,
       'Start with the rotten-timber page for damage across several components, or send a safe wide view and description.',
       '若多处木构件受损，可先看腐木页，或提供安全拍摄的全景与文字描述，再确认应由哪个服务范围处理。')));

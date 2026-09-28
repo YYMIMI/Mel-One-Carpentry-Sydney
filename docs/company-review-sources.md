@@ -13,7 +13,7 @@ Added 2026-09-27 at the owner's request to show existing Mel One customer feedba
 
 - The excerpts are exact contiguous English text from the existing records. Original spelling is preserved; Chinese is labelled as a translation of the excerpt.
 - Kong's original context is multiple property jobs arranged by a real estate agent. Kevin's is bathroom leak work and an affected downstairs ceiling. Neither is represented as Sydney carpentry, fence or deck work.
-- Display the Melbourne profile attribution next to each excerpt and explain the company-wide scope near the section heading.
+- Use a brand-level heading and display the Google platform, Melbourne profile name and city next to each excerpt. Keep provenance clear through attribution rather than an explanatory disclaimer in the introduction (customer-facing copy revised 2026-09-28).
 - Do not invent review dates, headshots, individual star ratings, total counts or an aggregate score. Do not add Review/AggregateRating structured data or connect this Melbourne profile as Sydney's GBP/sameAs.
 - No new Sydney GBP is created and no external profile is edited.
 - Google review snippet guidance checked: https://developers.google.com/search/docs/appearance/structured-data/review-snippet (self-serving LocalBusiness/Organization review snippets are ineligible).

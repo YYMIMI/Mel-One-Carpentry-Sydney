@@ -86,18 +86,16 @@ function repairDecisions(l, facts = {}, production = false) {
 }
 function companyFeedback(l, detailed = false) {
   return '<section class="homepage-section company-feedback" id="customer-feedback"><div class="section-heading"><div><p class="eyebrow">' +
-    tr(l, 'Selected Mel One customer feedback', 'Mel One 客户好评摘选') + '</p><h2>' +
-    tr(l, 'What customers value about working with Mel One', '客户看重的服务细节') + '</h2></div><p>' +
-    tr(l, 'Company-wide feedback from the Mel One Maintenance Google profile in Melbourne. These are not reviews of Sydney carpentry jobs.',
-      '以下摘录来自 Mel One Maintenance 墨尔本 Google 商家资料，反映公司其他地区的服务体验，并非悉尼木工项目评价。') +
-    '</p></div><div class="review-grid">' + companyReviews.map(review => '<figure class="review-card"><p class="eyebrow">' +
+    tr(l, 'Selected customer reviews', '客户好评摘选') + '</p><h2>' +
+    tr(l, 'What customers say about Mel One', '客户对 Mel One 的评价') + '</h2></div>' +
+    '</div><div class="review-grid">' + companyReviews.map(review => '<figure class="review-card"><p class="eyebrow">' +
       esc(tr(l, review.context, review.contextZh)) + '</p><blockquote lang="en"><p>“' + esc(review.quote) + '”</p></blockquote>' +
       (l === 'zh' ? '<p class="review-translation"><span>摘录译文：</span>' + esc(review.translation) + '</p>' : '') +
-      '<figcaption><strong>' + esc(review.author) + '</strong><span>' + esc(reviewSource.name) + ' · ' + tr(l, 'Melbourne', '墨尔本') + '</span></figcaption>' +
+      '<figcaption><strong>' + esc(review.author) + '</strong><span>' + tr(l, 'Google review · ', 'Google 评价 · ') + esc(reviewSource.name) + ' · ' + tr(l, 'Melbourne', '墨尔本') + '</span></figcaption>' +
       (detailed ? p(tr(l, review.background, review.backgroundZh)) : '') +
       '<a class="text-link" href="' + esc(reviewSource.url) + '" target="_blank" rel="noopener noreferrer">' +
-      tr(l, 'Visit the source Google reviews', '前往来源商家的 Google 评价') + '</a></figure>').join('') + '</div><div class="concern-actions">' +
-    (detailed ? cta(l) : '<a class="text-link" href="' + href('/about/', l) + '#customer-feedback">' + tr(l, 'About Mel One and this feedback', '了解公司与评价背景') + '</a>') + '</div></section>';
+      tr(l, 'Read reviews on Google', '在 Google 查看评价') + '</a></figure>').join('') + '</div><div class="concern-actions">' +
+    (detailed ? cta(l) : '<a class="text-link" href="' + href('/about/', l) + '">' + tr(l, 'Get to know Mel One', '了解 Mel One') + '</a>') + '</div></section>';
 }
 function conversionRail(l, facts) {
   const call = facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' +

@@ -32,7 +32,7 @@ The later user-confirmed real-case batch extends that same field-photo system on
 
 `public/site.css` is the single runtime token source. Its `:root` defines `--ink`, `--ink-soft`, `--paper`, `--surface`, `--line`, `--timber`, `--timber-dark`, `--focus`, scrollbar colours, radius and spacing. Area cards reuse those tokens; no second theme adapter exists. Text content and area research selections live in `src/content.mjs`, while `src/site.mjs` owns route rendering and approved-versus-pending area presentation.
 
-On 2026-09-29 the user chose a plain white page canvas. `--paper` is `#ffffff`; the deep-ink hero, existing panels, imagery and button colours stay as they were. Earlier warm-paper descriptions above record previous versions, not the current page-background preference.
+On 2026-09-29 the user chose a plain white page canvas, then rejected the pale-green backgrounds in the shared conversion rail and service intro. `--paper` is `#ffffff`; those panels and the other large pale-green content panels now use white with a quiet border. Deep-ink buttons, the hero, imagery, content and layout stay as they were. Earlier warm-paper and sage-panel descriptions above record previous versions, not the current preference.
 
 ## Navigation and forms
 

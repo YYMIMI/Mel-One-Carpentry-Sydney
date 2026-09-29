@@ -227,14 +227,15 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 .homepage-section, .page-main { padding-block: clamp(2.5rem, 5vw, 5rem) }
 .service-card, .service-quote-card, .case-card, .service-intro, .area-groups > div, .aside-note, form, .work-photo { border-radius: var(--radius); overflow: hidden }
 .service-card { border: 1px solid var(--line); box-shadow: 0 10px 30px #20343d0a }
-.service-card:first-child .service-card-copy, .service-intro, .fence-maintenance { background: var(--sage) }
-.service-quote-card, .quote-band { background: var(--sage); color: var(--ink) }
+.service-card:first-child .service-card-copy { background: var(--sage) }
+.service-intro, .fence-maintenance { background: #fff; border: 1px solid var(--line) }
+.service-quote-card, .quote-band { background: #fff; color: var(--ink); border: 1px solid var(--line) }
 .service-quote-card .eyebrow, .service-quote-card em { color: var(--timber-dark) }
 .service-quote-card > span:not(.eyebrow) { color: var(--ink-soft) }
-.service-quote-card:hover, .service-quote-card:focus-visible { background: #d3e3d9 }
+.service-quote-card:hover, .service-quote-card:focus-visible { background: #f2f4f4 }
 .quote-band { max-width: 1320px; margin: 1rem auto; border-radius: 2.25rem; padding: clamp(2rem, 4vw, 4rem) }
-.fence-feature { background: var(--sage); border: 0; border-radius: 2rem; padding: 2rem }
-.fence-maintenance { border: 0; border-radius: 2rem }
+.fence-feature { background: #fff; border: 1px solid var(--line); border-radius: 2rem; padding: 2rem }
+.fence-maintenance { border-radius: 2rem }
 .fence-checks article { background: var(--surface); border: 1px solid var(--line); border-radius: 1.5rem; padding: 1.2rem }
 .aside-note { border: 1px solid var(--line) }
 .faq-list details { border: 1px solid var(--line); border-radius: 1.25rem; margin-bottom: .6rem; overflow: hidden }
@@ -366,7 +367,7 @@ input, select, textarea { border-radius: .85rem }
 .concern-section .section-heading > p { max-width: 27rem; color: var(--ink-soft) }
 .concern-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem }
 .concern-grid article { position: relative; min-width: 0; padding: 1.6rem; border-radius: 1.75rem; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 10px 24px #20343d08 }
-.concern-grid article:nth-child(2) { background: #e9efe8 }
+.concern-grid article:nth-child(2) { background: #fff }
 .concern-grid article:nth-child(3) { background: #f0e9df }
 .concern-grid article:nth-child(4) { background: #e8edef }
 .concern-number { display: block; margin-bottom: 1.25rem; color: var(--timber-dark); font: 700 1.05rem Georgia, serif }
@@ -387,18 +388,18 @@ body { font-size: 1.075rem; line-height: 1.7 }
 .repair-decisions .section-heading > p { color: var(--ink-soft); max-width: 30rem }
 .decision-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem }
 .decision-grid article { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: clamp(1.5rem, 2.5vw, 2.3rem); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius) }
-.decision-grid article:nth-child(2) { background: #e9efe8 }
+.decision-grid article:nth-child(2) { background: #fff }
 .decision-grid article:nth-child(3) { background: #f0e9df }
 .decision-grid h3 { font: 700 clamp(1.35rem, 1.8vw, 1.8rem)/1.25 'Fraunces', Georgia, serif; max-width: 20ch }
 .decision-grid p { color: var(--ink-soft) }
 .decision-grid .text-link { margin-top: auto }
-.office-map { max-width: 1320px; margin: 1.5rem auto; padding: clamp(1.4rem, 3vw, 2.5rem); display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center; background: #e9efe8; border-radius: 2.25rem }
+.office-map { max-width: 1320px; margin: 1.5rem auto; padding: clamp(1.4rem, 3vw, 2.5rem); display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 2.25rem }
 .office-map-copy p { color: var(--ink-soft) }
 .office-map-copy .eyebrow { color: var(--timber-dark) }
 .office-map-copy .office-address { color: var(--ink); margin-bottom: 1rem }
 .office-map-frame { min-height: 21rem; border-radius: 1.6rem; overflow: hidden; background: #d5e0d9; border: 1px solid var(--line) }
 .office-map-frame iframe { display: block; width: 100%; height: 100%; min-height: 21rem; border: 0 }
-.site-conversion { max-width: 1320px; margin: 2rem auto 0; padding: clamp(1.8rem, 4vw, 3.5rem); display: flex; align-items: center; justify-content: space-between; gap: 2rem; background: var(--sage); border-radius: 2.25rem }
+.site-conversion { max-width: 1320px; margin: 2rem auto 0; padding: clamp(1.8rem, 4vw, 3.5rem); display: flex; align-items: center; justify-content: space-between; gap: 2rem; background: #fff; border: 1px solid var(--line); border-radius: 2.25rem }
 .site-conversion .eyebrow { margin-bottom: .5rem }
 .site-conversion h2 { margin-bottom: .65rem }
 .site-conversion p:last-child { margin-bottom: 0; color: var(--ink-soft) }
@@ -465,7 +466,7 @@ form .button { justify-self: start }
 .home-hero .hero-actions .text-link { color: #f3d5ac; align-self: center; margin-left: .2rem }
 .home-hero .hero-photo { border-radius: 10rem 0 0 2.25rem; background: #66756b }
 .home-hero .hero-photo img { object-position: 58% 70%; }
-.home-inquiry { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; padding: clamp(1.6rem, 4vw, 4rem); background: #e4eae0; border-radius: 2.25rem }
+.home-inquiry { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; padding: clamp(1.6rem, 4vw, 4rem); background: #fff; border: 1px solid var(--line); border-radius: 2.25rem }
 .home-inquiry-copy { position: sticky; top: 2rem; padding-block: 1.5rem }
 .home-inquiry-copy h2 { font-size: clamp(2.15rem, 3.4vw, 3.9rem); line-height: 1.1; letter-spacing: -.025em; max-width: 12ch }
 .home-inquiry-copy p { max-width: 35ch }
@@ -512,7 +513,7 @@ form .button { justify-self: start }
 /* Area enquiry guidance follows the existing site palette and type scale. */
 .review-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem }
 .review-card { display: flex; flex-direction: column; min-width: 0; margin: 0; padding: clamp(1.5rem, 3vw, 2.5rem); border: 1px solid var(--line); border-radius: 2rem; background: var(--surface) }
-.review-card:nth-child(2) { background: #e9efe8 }
+.review-card:nth-child(2) { background: #fff }
 .review-card blockquote { margin: .5rem 0 1.25rem; font: 500 clamp(1.3rem, 2.2vw, 1.8rem)/1.5 'Fraunces', Georgia, serif; color: var(--ink) }
 .review-card blockquote p { margin: 0 }
 .review-card figcaption { display: grid; gap: .25rem; margin-bottom: 1rem }

@@ -2,12 +2,13 @@ import { services, popularAreaCandidates } from './content.mjs';
 import { serviceWork } from './service-work.mjs';
 import { companyReviews, reviewSource } from './company-reviews.mjs';
 import { suburbs, suburbSlug } from './suburbs.mjs';
+import { popularAreaProfiles } from './popular-areas.mjs';
 import { rfqForm, suburbScope, suburbMap, suburbOptionsSection } from './rfq.mjs';
 
 const support = [
   ['H00', '/', 'Carpentry Repairs, Replacements & Improvements in Sydney', '悉尼住宅木工维修、更换与改造'],
   ['H01', '/services/', 'Find the right timber repair', '按木构件选择维修'],
-  ['H02', '/areas/', 'Sydney service area enquiries', '悉尼服务地区查询'],
+  ['H02', '/areas/', 'Carpentry service areas | Sydney & selected NSW locations', '木工服务地区 | 悉尼及 NSW 指定地区'],
   ['H03', '/about/', 'About the carpentry service', '关于木工服务'],
   ['H06', '/faq/', 'Carpentry questions', '木工常见问题'],
   ['H07', '/contact/', 'Send photos & request a quote', '上传照片，咨询维修报价'],
@@ -352,6 +353,27 @@ function fenceMaintenance(l, facts) {
       p(tr(l, 'Send your suburb, approximate fence length, a full-run photo and close-ups of the affected parts. Mention shared-boundary access and whether you also need the adjoining gate checked. Availability and the work offered at your location are confirmed before booking.', '请提供suburb、大致长度、整段照片及受影响部位近照，并说明共用边界通道、是否还需检查相连木闸门。预约前确认当地可承接范围和时间。')) + cta(l, 'S05')) + '</div>';
 }
 
+function areaJobPlanning(a,l,facts,production) {
+  if (!a.planning) return '';
+  const focus=services.find(s=>s.id===a.planning.service);
+  const ids=[focus.id,...focus.related,'S16','S17'];
+  const links=services.filter(s=>ids.includes(s.id)&&(!production||facts.approvedServices?.includes(s.id)));
+  const evidence=links.find(s=>casePhotoGroups[s.id]);
+  return section('area-job-planning',tr(l,'Plan your timber work in '+a.name,'准备 '+a.name+' 的木作询价'),
+    p(a.name+(a.name==='Sydney CBD'?' / Sydney City':'')+' · NSW '+a.planning.postcode+' · '+tr(l,a.region,a.regionZh))+
+    (!a.planning.detail?p(tr(l,a.planning.en,a.planning.zh)):'')+
+    '<h3>'+tr(l,'Compare the relevant services','先比较相关服务范围')+'</h3><div class="related-links">'+
+    links.map(s=>'<a href="'+servicePath(s,l)+'">'+esc(shortName(s,l))+'</a>').join('')+'</div>'+
+    (evidence?'<p><a class="text-link" href="'+servicePath(evidence,l)+'#case-photos">'+tr(l,'See Mel One work photos for this type of job','查看 Mel One 这类木作的实拍')+'</a></p>':'')+
+    p(tr(l,'Include the suburb and postcode with your photos. We will discuss the scope, access, appointment availability and any travel charges before you book.','发照片时注明地区与邮编。预约前先讨论工作范围、现场通道、可安排时间及是否涉及出行费用。')));
+}
+
+function popularAreaLinks(l) {
+  return section('popular-locations',tr(l,'Popular service locations','热门服务地区'),
+    '<div class="related-links">'+Object.values(popularAreaProfiles).sort((a,b)=>a.name.localeCompare(b.name)).map(a=>
+      '<a href="'+href('/areas/'+suburbSlug(a.name)+'/',l)+'">'+esc(a.name==='Sydney CBD'?'Sydney City / CBD':a.name)+' · '+a.postcode+'</a>').join('')+'</div>');
+}
+
 function suburbBody(page,l,facts,production) {
   const a=page.area;
   const primary=services.find(s=>s.id===a.service);
@@ -360,6 +382,7 @@ function suburbBody(page,l,facts,production) {
   return '<nav aria-label="'+tr(l,'Breadcrumb','当前位置')+'"><a href="'+href('/areas/',l)+'">'+tr(l,'Service areas','服务地区')+'</a> / '+esc(a.name)+'</nav>'+
     '<div class="page-lead">'+p(tr(l,'Need timber repairs in '+a.name+'? Start with the affected part, see which service fits and tell us what is happening at your property.',
       '在 '+a.name+' 需要木作维修？先看受损部位和对应服务，再告诉我们现场遇到的问题。'))+localCta+'</div>'+
+    areaJobPlanning(a,l,facts,production)+
     section('local-enquiry',tr(l,'A useful enquiry example','询价准备示例'),p(tr(l,a.en,a.zh))+
       p(primary[l].assessment)+
       '<a class="text-link" href="'+servicePath(primary,l)+'">'+esc(shortName(primary,l))+'</a>')+
@@ -369,8 +392,8 @@ function suburbBody(page,l,facts,production) {
         '询价请注明 '+a.name+'，提供全景、每类损坏的近照及大致尺寸。如涉及共用通道、楼梯、停车或物业管理安排，请一并说明；不需要公开完整街道地址。'))+
       p(tr(l,'Mark which timber you want to keep and which parts may need replacement. Ask the quote to separate timber, hardware, finishing and removal of old materials so you can compare the same scope of work.',
         '标出希望保留及可能需要更换的木材。让报价分开写木材、五金、表面收尾和旧料清运，方便按相同工作范围比较方案。'))+localCta)+
-    section('other-locations',tr(l,'Other Sydney areas','其他悉尼服务地区'),
-      '<div class="related-links">'+a.otherNames.filter(name=>!production || facts.approvedAreas?.some(area=>area.name===name && area.coverage_status==='APPROVED' && area.public_copy_approved && area.area_page_publish_approved)).map(name=>'<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join('')+'</div>')+
+    section('other-locations',tr(l,'Other service locations','其他服务地区'),
+      '<div class="related-links">'+a.otherNames.filter(name=>!production || facts.approvedAreas?.some(area=>area.name===name && area.coverage_status==='APPROVED' && area.public_copy_approved && area.area_page_publish_approved)).map(name=>'<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join('')+'<a href="'+href('/areas/',l)+'">'+tr(l,'View all service locations','查看全部服务地区')+'</a></div>')+
     section('questions',tr(l,'Before sending your enquiry','发送询价前'),faq([
       [tr(l,'Can I ask about fence maintenance here?','这里可以咨询围栏保养吗？'),tr(l,'Yes. Describe posts, rails, boards and fixings, then use the timber fence maintenance page to prepare photos. Confirm the work at your location before booking.','可以。说明立柱、横梁、木板及固定件情况，并按木围栏保养页准备照片；预约前确认当地工作范围。')],
       [tr(l,'Are these photos from '+a.name+'?','这些照片是在 '+a.name+' 拍的吗？'),tr(l,'Not necessarily. They show Mel One timber work to help you see the kinds of repairs we handle. If your property is in '+a.name+', send a photo of the damage and we can discuss the next step.','不一定。这些照片展示 Mel One 的木工工作，方便你了解我们处理的维修类型。如果你在 '+a.name+' 需要维修，请发来受损部位照片，我们再讨论下一步。')]
@@ -397,9 +420,9 @@ function serviceBody(page, l, facts, production) {
     p(c.photo) + p(tr(l, 'Do not put yourself at risk to take a photo.', '拍照不应让自己处于危险位置。')) + '</aside></div>' +
     (page.id === 'S02' ? doorWorkGallery(l) : '') + caseGallery(page.id, l) +
     section('areas', tr(l, 'Check the location', '确认所在地区'), p(tr(l,
-      'We take residential timber repair enquiries across the 56 Sydney suburbs in our service area directory. Tell us your suburb and the affected timber; we will discuss the job, access and timing before arranging a visit.',
-      '服务地区目录中的56个悉尼郊区均可咨询住宅木作维修。请说明所在地区及受损木构件；安排上门前，先沟通工作范围、通道和时间。')) +
-      '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'Find your Sydney service area', '查看你的悉尼服务地区') + '</a>') +
+      'We take residential timber enquiries in Sydney and the selected Central Coast, Illawarra and Wollondilly locations listed in our service directory. Tell us your suburb and the work needed; we will discuss scope, access, timing and any travel charges before arranging a visit.',
+      '我们承接悉尼及服务目录中列出的 Central Coast、Illawarra 与 Wollondilly 指定地区的住宅木作询价。请说明所在地区和所需工作；安排上门前先沟通范围、通道、时间及是否涉及出行费用。')) +
+      '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'Find your service location', '查看你的服务地区') + '</a>') +
     section('questions', tr(l, 'Questions about this job', '关于这项维修'), faq(c.faq)) +
     '<div class="related"><h2>' + tr(l, 'Related timber work', '相关木作问题') + '</h2><div class="related-links">' +
     related.map(s => '<a href="' + servicePath(s, l) + '">' + esc(shortName(s, l)) + '</a>').join('') + '</div></div>';
@@ -469,11 +492,11 @@ function supportBody(page, l, facts, selected, production) {
       '若多处木构件受损，可先看腐木页，或提供安全拍摄的全景与文字描述，再确认应由哪个服务范围处理。')));
   if (page.id === 'H02') {
     return '<div class="page-lead">' + p(tr(l,
-      'Choose your Sydney suburb to see carpentry repair questions, service guides and what helps with a useful quote. Describe the affected timber, photos and access for materials.',
-      '选择所在的悉尼地区，查看木作维修问题、相关服务及报价资料。说明受损木材、照片和材料进出的通道，有助于更清楚地讨论工作范围。')) +
-      cta(l) + '</div>' + (approved.length ? section('confirmed', tr(l, 'Places we can discuss work', '可咨询木工服务的地区'),
+      'Choose your location for timber repair and installation guides, useful quote details and a direct enquiry. Sydney areas and selected Central Coast, Illawarra and Wollondilly locations are grouped below. Include photos, dimensions and access for materials.',
+      '选择所在地区，查看木作维修与安装指引、报价资料并直接询价。下方分别列出悉尼及 Central Coast、Illawarra、Wollondilly 的指定服务地区。请提供照片、尺寸及材料进出通道。')) +
+      cta(l) + '</div>' + (!production?popularAreaLinks(l):'') + (approved.length ? section('confirmed', tr(l, 'Places we can discuss work', '可咨询木工服务的地区'),
         '<ul class="area-list">' + approved.map(name => '<li>' + esc(name) + '</li>').join('') + '</ul>') : '') +
-      (production ? '' : section('ask', tr(l, 'Sydney areas we hear from', '悉尼服务地区'),
+      (production ? '' : section('ask', tr(l, 'Browse locations by region', '按区域查找服务地区'),
         p(tr(l, 'Find your suburb below, then tell us about the timber issue. We confirm the work and access details individually before booking.',
           '在下方找到所在地区，再说明木作问题。预约前会逐项确认工作内容和现场通道。')) +
         areaCards(l, popularAreaCandidates))) +
@@ -646,7 +669,7 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     services.filter(s => ['S05','S01','S02','S07','S09','S16','S17'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a href="' + servicePath(s,l) + '">' + esc(shortName(s,l)) + '</a>').join('') +
     '<a href="' + href('/services/',l) + '">' + tr(l, 'All carpentry services', '全部木工服务') + '</a></nav>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Areas and work', '地区与案例') + '"><h2>' + tr(l, 'Explore', '了解更多') + '</h2>' +
-    '<a href="' + href('/areas/',l) + '">' + tr(l, '56 Sydney enquiry areas', '56 个悉尼服务地区') + '</a><a href="' + href('/#selected-work',l) + '">' + tr(l, 'Real work photos', '真实施工照片') + '</a><a href="' + href('/faq/',l) + '">' + tr(l, 'Common questions', '常见问题') + '</a></nav>' +
+    '<a href="' + href('/areas/',l) + '">' + tr(l, 'Service areas: Sydney & selected NSW locations', '服务地区：悉尼及 NSW 指定地区') + '</a><a href="' + href('/#selected-work',l) + '">' + tr(l, 'Real work photos', '真实施工照片') + '</a><a href="' + href('/faq/',l) + '">' + tr(l, 'Common questions', '常见问题') + '</a></nav>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Company and contact', '公司与联系') + '"><h2>' + tr(l, 'Get in touch', '联系我们') + '</h2>' +
     '<a href="' + href('/contact/',l) + '">' + tr(l, 'Send photos & request a quote', '发送照片并询价') + '</a>' +
     (facts.telephone ? '<a href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + esc(facts.telephone) + '</a>' : '') +

@@ -1,6 +1,7 @@
 // Editorial draft for a protected preview. Service scope and business claims
 // remain gated by independently approved business facts before publication.
 import { outdoorServices } from './outdoor-services.mjs';
+import { areaAdditions } from './popular-areas.mjs';
 export const services = [
   {
     id: 'S01', slug: 'timber-window-repairs', related: ['S04', 'S02'],
@@ -304,7 +305,7 @@ export const services = [
   ...outdoorServices,
 ];
 
-export const popularAreaCandidates = [
+export const coreAreaGroups = [
   { en: 'Sydney CBD & Inner City', zh: '悉尼市区与内城', names: ['Sydney CBD', 'Surry Hills', 'Redfern', 'Newtown'] },
   { en: 'Inner West', zh: '内西区', names: ['Marrickville', 'Leichhardt', 'Ashfield', 'Burwood'] },
   { en: 'Eastern Suburbs', zh: '东区', names: ['Bondi', 'Randwick', 'Coogee', 'Maroubra'] },
@@ -319,6 +320,11 @@ export const popularAreaCandidates = [
   { en: 'Macarthur & Surrounds', zh: 'Macarthur及周边', names: ['Campbelltown', 'Narellan', 'Camden', 'Ingleburn'] },
   { en: 'St George', zh: 'St George地区', names: ['Hurstville', 'Kogarah', 'Rockdale', 'Carlton'] },
   { en: 'Sutherland Shire', zh: 'Sutherland地区', names: ['Miranda', 'Cronulla', 'Caringbah', 'Gymea'] },
+];
+
+export const popularAreaCandidates = [
+  ...coreAreaGroups.map(group => ({...group, names: [...group.names, ...(areaAdditions.find(extra=>extra.en===group.en)?.names || [])]})),
+  ...areaAdditions.filter(extra=>!coreAreaGroups.some(group=>group.en===extra.en)),
 ];
 
 export const conditionalTopics = [

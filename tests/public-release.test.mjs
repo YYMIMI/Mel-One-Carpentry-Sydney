@@ -12,9 +12,9 @@ test('public release makes every page indexable with reciprocal language URLs an
   const dest = await mkdtemp(join(tmpdir(), 'public-release-'));
   try {
     const result = await buildSite({ dest, facts, indexable: true });
-    assert.equal(result.routes.length, 148);
+    assert.equal(result.routes.length, 188);
     const sitemap = await readFile(join(dest, 'sitemap.xml'), 'utf8');
-    assert.equal((sitemap.match(/<loc>/g) || []).length, 148);
+    assert.equal((sitemap.match(/<loc>/g) || []).length, 188);
     const llms = await readFile(join(dest, 'llms.txt'), 'utf8');
     assert.ok(llms.includes(facts.domain + '/zh/privacy/'));
     assert.ok(llms.includes(facts.domain + '/areas/sydney-cbd/'));
@@ -57,5 +57,5 @@ test('every suburb has a specific scope, FAQ, map and editable email RFQ without
     assert.ok(page.area.detail.en.length > 150, page.path);
     assert.ok(page.area.detail.zh.length > 70, page.path);
   }
-  assert.equal(new Set(pages.filter(p => p.area && p.locale === 'en').map(p => p.area.detail.en)).size, 56);
+  assert.equal(new Set(pages.filter(p => p.area && p.locale === 'en').map(p => p.area.detail.en)).size, 76);
 });

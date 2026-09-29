@@ -12,7 +12,7 @@ test('every displayed suburb has an independent bilingual route, directory link 
   assert.ok(result.html.includes('suburb='+encodeURIComponent(name)));
   assert.ok(result.html.includes('id="local-enquiry"'));
  }
- assert.equal(pages.filter(p=>p.id.startsWith('A-')).length,112);
+ assert.equal(pages.filter(p=>p.id.startsWith('A-')).length,152);
 });
 test('unknown suburb remains a real 404, unapproved suburbs cannot be published',()=>{
  assert.equal(renderPage('/areas/imaginary-place/',{}).status,404);
@@ -42,12 +42,12 @@ test('area directory avoids internal approval language in customer copy',()=>{
  }
 });
 
-test('every original area page keeps all nine illustrated services and has a distinct bilingual comparison',()=>{
+test('every area page includes eleven illustrated services and a distinct bilingual comparison',()=>{
  const names=popularAreaCandidates.flatMap(group=>group.names);
- assert.equal(names.length,56);
- assert.equal(Object.keys(suburbOptions).length,56);
- assert.equal(new Set(Object.values(suburbOptions).map(item=>item.en)).size,56);
- assert.equal(new Set(Object.values(suburbOptions).map(item=>item.zh)).size,56);
+ assert.equal(names.length,76);
+ assert.equal(Object.keys(suburbOptions).length,76);
+ assert.equal(new Set(Object.values(suburbOptions).map(item=>item.en)).size,76);
+ assert.equal(new Set(Object.values(suburbOptions).map(item=>item.zh)).size,76);
  for(const name of names) for(const prefix of ['', '/zh']) {
   const path=prefix+'/areas/'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'/';
   const html=renderPage(path,{}).html;

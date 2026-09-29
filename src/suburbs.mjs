@@ -1,7 +1,8 @@
 // Individual enquiry briefs, not claims about local housing stock or completed jobs.
 // Geography membership comes from the existing v3 research-backed directory.
-import {popularAreaCandidates} from './content.mjs';
+import {popularAreaCandidates,coreAreaGroups} from './content.mjs';
 import {suburbDetails} from './suburb-details.mjs';
+import {addedAreaProfiles,popularAreaProfiles} from './popular-areas.mjs';
 export const suburbSlug = name => name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const briefs = [
  ['S01','If access is through a managed building, describe the window location and any lift or loading arrangements before arranging a timber-frame inspection.','若需经物业管理的建筑进入，请说明木窗位置、电梯及装卸安排，便于安排窗框检查。'],
@@ -61,10 +62,13 @@ const briefs = [
  ['S07','For replacement deck boards, tell us whether surface finishing is also wanted so materials, fitting and coating are not confused.','Deck换板请说明是否还需表面处理，让材料、安装和涂层范围清楚。'],
  ['S06','For a timber side gate with worn hardware, show the hinge and latch fixings as well as the timber that supports them.','木侧门五金磨损，请同时拍铰链门闩固定处及承托木材。'],
 ];
-let index=0;
+// Bind original briefs before expanding the directory so inserting a place never
+// shifts the service/description of an existing owner to a different suburb.
+const originalBriefs=Object.fromEntries(coreAreaGroups.flatMap(group=>group.names).map((name,index)=>[name,briefs[index]]));
 export const suburbs=popularAreaCandidates.flatMap(group=>group.names.map(name=>{
- const [service,en,zh]=briefs[index++];
+ const added=addedAreaProfiles[name];
+ const [service,en,zh]=added ? [added.service,added.en,added.zh] : originalBriefs[name];
  const slug = suburbSlug(name);
  if (!suburbDetails[slug]) throw new Error('Missing suburb editorial detail: ' + slug);
- return {name,slug,region:group.en,regionZh:group.zh,service,en,zh,detail:suburbDetails[slug],otherNames:group.names.filter(n=>n!==name)};
+ return {name,slug,region:group.en,regionZh:group.zh,service,en,zh,detail:suburbDetails[slug],planning:popularAreaProfiles[name],otherNames:group.names.filter(n=>n!==name)};
 }));

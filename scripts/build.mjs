@@ -34,7 +34,7 @@ export async function buildSite({ dest = join(root, 'dist'), production = false,
     const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
       routes.map(path => '<url><loc>' + facts.domain + path + '</loc></url>').join('') + '</urlset>';
     await writeFile(join(dest, 'sitemap.xml'), xml, 'utf8');
-    const text = '# Mel One Sydney Carpentry\n\n> Bilingual residential timber repair enquiries across the Sydney areas listed below.\n\n' +
+    const text = '# Mel One Sydney Carpentry\n\n> Bilingual residential timber repair enquiries across Sydney and the selected NSW service locations listed below.\n\n' +
       'Business: ' + facts.brand + '\nLegal entity: ' + (facts.legalEntity || facts.brand) + '\n' +
       (facts.officeAddress ? 'Office: ' + facts.officeAddress + '. Suburb pages describe service enquiries, not branch offices.\n' : '') +
       (facts.telephone ? 'Phone: ' + facts.telephone + '\n' : '') + (facts.email ? 'Email: ' + facts.email + '\n' : '') +

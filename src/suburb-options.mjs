@@ -1,5 +1,6 @@
 // A second, individually written decision for each area page. No location-specific
 // job, stock, price or attendance claim is inferred from the suburb name.
+import {addedAreaProfiles} from './popular-areas.mjs';
 const rows = [
 ['sydney-cbd','Ask for the window-frame repair and the building-access arrangements as separate lines. If the outside face needs special equipment, price that after the access method is confirmed.','把窗框木作与大楼进出安排分开询价。若外侧需要特别设备，应在进入方式确定后单独列价；室内可修的部位不必和外侧作业混成一个总价。'],
 ['surry-hills','Compare a hinge or strike adjustment with edge trimming only after the closed-door gaps are checked. Any exposed timber edge then needs finishing in the agreed scope.','先根据关门缝隙比较铰链、扣板调整与修门边。若需去木材，露出的门边怎样封闭和刷漆也应写进工作范围，不能只报“刨门”。'],
@@ -58,4 +59,7 @@ const rows = [
 ['caringbah','Compare board replacement alone with a wider coating scope across retained boards. Preparation of new and old surfaces should be stated before selecting the finish.','比较只换板与连保留板一起做较大范围涂层；选定表面效果前要写清新、旧木板各需怎样准备。'],
 ['gymea','Price compatible hinges and latch work separately from repairing the timber that holds them. The completed scope should include rehanging and a proper closing test.','相容铰链和门闩与承托木材维修分项；完成范围还应包括重新挂门及实际开关测试。'],
 ];
-export const suburbOptions = Object.fromEntries(rows.map(([slug,en,zh])=>[slug,{en,zh}]));
+export const suburbOptions = {
+  ...Object.fromEntries(rows.map(([slug,en,zh])=>[slug,{en,zh}])),
+  ...Object.fromEntries(Object.values(addedAreaProfiles).map(area=>[area.name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),area.options])),
+};

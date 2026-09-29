@@ -229,6 +229,7 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 .service-card { border: 1px solid var(--line); box-shadow: 0 10px 30px #20343d0a }
 .service-card:first-child .service-card-copy { background: var(--sage) }
 .service-intro, .fence-maintenance { background: #fff; border: 1px solid var(--line) }
+.service-intro--fence { background: #e8edf0; border-color: #d5e1e6 }
 .service-quote-card, .quote-band { background: #fff; color: var(--ink); border: 1px solid var(--line) }
 .service-quote-card .eyebrow, .service-quote-card em { color: var(--timber-dark) }
 .service-quote-card > span:not(.eyebrow) { color: var(--ink-soft) }

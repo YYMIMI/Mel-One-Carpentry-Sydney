@@ -404,7 +404,7 @@ function suburbBody(page,l,facts,production) {
 function serviceBody(page, l, facts, production) {
   const c = page.content;
   const related = services.filter(s => page.related.includes(s.id) && (!production || facts.approvedServices?.includes(s.id)));
-  return '<div class="service-intro' + (Number(page.id.slice(1)) % 2 === 0 ? ' service-intro--reverse' : '') + '"><div class="service-intro-copy"><p class="eyebrow">' +
+  return '<div class="service-intro' + (Number(page.id.slice(1)) % 2 === 0 ? ' service-intro--reverse' : '') + (page.id === 'S05' ? ' service-intro--fence' : '') + '"><div class="service-intro-copy"><p class="eyebrow">' +
     tr(l, 'What we can look at', '可以检查与处理的项目') + '</p><div class="page-lead">' + p(c.lead) + '</div>' + cta(l, page.id) +
     '</div><figure class="service-intro-image">' + serviceCardPhoto(page.id, l, true) + '</figure></div>' +
     (page.id === 'S05' ? fenceMaintenance(l, facts) : '') +
@@ -648,7 +648,7 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '<meta name="robots" content="index,follow,max-image-preview:large"><link rel="describedby" href="/llms.txt" type="text/plain">' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260929-carpentry-white-panels">' +
+    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260929-fence-soft-intro">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     '' +

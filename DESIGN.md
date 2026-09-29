@@ -32,6 +32,8 @@ The later user-confirmed real-case batch extends that same field-photo system on
 
 `public/site.css` is the single runtime token source. Its `:root` defines `--ink`, `--ink-soft`, `--paper`, `--surface`, `--line`, `--timber`, `--timber-dark`, `--focus`, scrollbar colours, radius and spacing. Area cards reuse those tokens; no second theme adapter exists. Text content and area research selections live in `src/content.mjs`, while `src/site.mjs` owns route rendering and approved-versus-pending area presentation.
 
+On 2026-09-29 the user chose a plain white page canvas. `--paper` is `#ffffff`; the deep-ink hero, existing panels, imagery and button colours stay as they were. Earlier warm-paper descriptions above record previous versions, not the current page-background preference.
+
 ## Navigation and forms
 
 Home → service Owner → same-language enquiry, and Home → Areas → independent suburb page → relevant service Owner → enquiry are the main paths. Preview currently has 56 distinct suburb page pairs; these are research-backed enquiry pages, not proof of attendance. Production output hides pending examples and names only approved locations. English/Chinese switches lead to the equivalent page. On narrow screens the navigation becomes an accessible button menu; headings, CTA and cards reflow into one column. Reduced-motion preference removes decorative movement.

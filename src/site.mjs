@@ -462,8 +462,8 @@ function supportBody(page, l, facts, selected, production) {
     tr(l, 'From worn window frames and sticking doors to damaged fences and decks. Share a few photos and your suburb to discuss repairs, replacement or timber refinishing.',
       '从老旧窗框、开关不顺的木门，到受损围栏与Deck。发来几张照片和所在地区，一起确认维修、更换或木作刷漆翻新的范围。') +
     '</p><div class="hero-actions"><a class="button button-primary" href="#inquiry">' + tr(l, 'Send a repair enquiry', '发送木作询价') + '</a>' + (facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + tr(l, 'Call ', '致电 ') + esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3')) + '</a>' : '') + '<a class="text-link" href="' + href('/services/', l) + '">' +
-    tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/real-work/fence-timber-work.jpg" width="1280" height="1707" alt="' +
-    tr(l, 'Timber fence boards and support timber from a supplied work photo', '提供的现场照片：木围栏板与支撑木条') +
+    tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/home-verandah.webp" width="1280" height="1707" alt="' +
+    tr(l, 'Grey weatherboard house with white verandah posts, decorative timberwork and stair balustrades', '灰色横板外墙住宅，配白色门廊立柱、装饰木作与楼梯栏杆') +
     '" fetchpriority="high"></figure></div><div class="service-highlights"><p><strong>' + tr(l, 'See real timber work', '看得见的真实木作') +
     '</strong><span>' + tr(l, 'Explore supplied photos beside the service they relate to.', '施工照片放在对应服务旁，方便了解实际工作细节。') + '</span></p><p><strong>' +
     tr(l, 'English & Chinese', '中英文咨询') + '</strong><span>' + tr(l, 'Read and enquire in your preferred language.', '按习惯的语言查看服务及询价。') +
@@ -648,7 +648,7 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '<meta name="robots" content="index,follow,max-image-preview:large"><link rel="describedby" href="/llms.txt" type="text/plain">' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260929-carpentry-ui">' +
+    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260929-verandah-hero">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     '' +

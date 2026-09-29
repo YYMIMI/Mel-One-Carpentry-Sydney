@@ -10,7 +10,8 @@ test('both homepages lead with a supplied work photo and the existing inquiry fl
     const html = renderPage(path, facts).html;
     const heroEnd = html.indexOf('</figure></div>');
     assert.ok(heroEnd > 0);
-    assert.match(html.slice(0, heroEnd), /<img[^>]+src="\/assets\/real-work\/fence-timber-work\.jpg"/);
+    assert.match(html.slice(0, heroEnd), /<img[^>]+src="\/assets\/home-verandah.webp"[^>]+fetchpriority="high"/);
+    assert.ok(readFileSync(new URL('../public/assets/home-verandah.webp', import.meta.url)).length > 0);
     assert.ok(html.indexOf('id="inquiry"') > heroEnd);
     assert.ok(html.indexOf('id="inquiry"') < html.indexOf('id="selected-work"'));
     assert.match(html, /<form id="inquiry" action="\/api\/inquiry" method="post" enctype="multipart\/form-data" novalidate>/);
@@ -29,6 +30,7 @@ test('real-work browsing keeps all five existing owner links and has explicit co
     assert.match(gallery, /class="case-scroll-control"[^>]+data-direction="previous"/);
     assert.match(gallery, /class="case-scroll-control"[^>]+data-direction="next"/);
     assert.match(gallery, /\/services\/timber-fence-repairs\/#case-photos/);
+    assert.match(gallery, /\/assets\/real-work\/fence-timber-work\.jpg/);
     assert.match(gallery, /\/services\/cabinet-door-drawer-repairs\/#case-photos/);
   }
 });

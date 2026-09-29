@@ -464,7 +464,7 @@ form .button { justify-self: start }
 .home-hero .hero-actions .button-call:hover { color: var(--ink); background: #edf2ed }
 .home-hero .hero-actions .text-link { color: #f3d5ac; align-self: center; margin-left: .2rem }
 .home-hero .hero-photo { border-radius: 10rem 0 0 2.25rem; background: #66756b }
-.home-hero .hero-photo img { object-position: 50% 48%; filter: saturate(.82) contrast(1.04) }
+.home-hero .hero-photo img { object-position: 58% 70%; }
 .home-inquiry { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; padding: clamp(1.6rem, 4vw, 4rem); background: #e4eae0; border-radius: 2.25rem }
 .home-inquiry-copy { position: sticky; top: 2rem; padding-block: 1.5rem }
 .home-inquiry-copy h2 { font-size: clamp(2.15rem, 3.4vw, 3.9rem); line-height: 1.1; letter-spacing: -.025em; max-width: 12ch }

@@ -2,7 +2,11 @@
 
 `public/assets/real-work/` holds owner-provided field photos. The service pages use them for window, door/frame, fence, interior-panel and cabinet examples. They are not assigned to a suburb, a date, a before/after sequence or a verified outcome unless separately confirmed. The selected-work gallery uses only this group.
 
-`public/assets/carpentry-work-scene.webp` is an original generated general carpentry scene used only for the homepage hero. `public/assets/service-imagery/` contains four original generated general-work photos for the fascia/eaves, rotten-timber, timber-gate and deck service pages. They are used as service imagery, not as evidence of completed Mel One work. The generation prompts described realistic residential carpentry tasks in natural daylight without text or logos; the four subjects are inspecting fascia, checking decayed timber, adjusting a timber side gate, and replacing a weathered deck board. These five assets are delivered as compressed WebP files.
+`public/assets/carpentry-work-scene.webp` is an original generated general carpentry scene retained from an earlier homepage version; it is not the current homepage hero. `public/assets/service-imagery/` contains four original generated general-work photos for the fascia/eaves, rotten-timber, timber-gate and deck service pages. They are used as service imagery, not as evidence of completed Mel One work. The generation prompts described realistic residential carpentry tasks in natural daylight without text or logos; the four subjects are inspecting fascia, checking decayed timber, adjusting a timber side gate, and replacing a weathered deck board. These five assets are delivered as compressed WebP files.
+
+## Homepage photo selected by owner — 29 September 2026
+
+`public/assets/home-verandah.webp` comes from the supplied `codex-clipboard-cf42cf60-66c5-4ef0-824f-204784a26020.png`. It retains the full 1280 × 1707 frame, converted to WebP for delivery without retouching or generated additions. Both homepages use it with descriptive English/Chinese alt text. CSS positions the visible crop toward the verandah and balustrades; the image itself is uncropped. No project location, construction scope or completion claim is inferred. The previous fence hero remains in its service and selected-work galleries; all earlier assets are preserved.
 
 `public/assets/mel-one-logo.jpg` was supplied by the site owner. Do not substitute third-party directory or competitor photos without permission. Uploaded enquiry photos remain private, outside these public asset groups.
 

@@ -8,7 +8,7 @@ const facts = {
 };
 
 test('each P0 owner has distinct English and Chinese routes and same-topic language links', () => {
-  assert.equal(pages.filter(p=>!p.area).length, 32);
+  assert.equal(pages.filter(p=>!p.area).length, 36);
   const en = renderPage('/services/timber-window-repairs/', facts);
   const zh = renderPage('/zh/services/timber-window-repairs/', facts);
   assert.equal(en.status, 200);
@@ -19,11 +19,11 @@ test('each P0 owner has distinct English and Chinese routes and same-topic langu
   assert.doesNotMatch(en.html, /localhost|example\.com|rel="canonical"/);
 });
 
-test('nine core service routes have substantive distinct bilingual answers rather than renamed templates', () => {
+test('all eleven service routes have substantive distinct bilingual answers rather than renamed templates', () => {
   for (const locale of ['en', 'zh']) {
     const services = pages.filter(p => p.id.startsWith('S') && p.locale === locale);
-    assert.equal(services.length, 9);
-    assert.equal(new Set(services.map(p => p.content.problem)).size, 9);
+    assert.equal(services.length, 11);
+    assert.equal(new Set(services.map(p => p.content.problem)).size, 11);
     for (const page of services) {
       assert.ok(page.content.problem.length > 45, page.id);
       assert.ok(page.content.assessment.length > 45, page.id);
@@ -34,15 +34,15 @@ test('nine core service routes have substantive distinct bilingual answers rathe
   }
 });
 
-test('all nine service entrances have imagery while generated scenes stay out of real-job galleries', () => {
+test('all eleven service entrances have imagery while generated scenes stay out of real-job galleries', () => {
   const generated = {
     S03: 'fascia.webp', S04: 'rotten-timber.webp', S06: 'timber-gate.webp', S07: 'deck.webp',
   };
   for (const locale of ['en', 'zh']) {
     const prefix = locale === 'zh' ? '/zh' : '';
     const home = renderPage(prefix + '/', facts).html;
-    assert.equal((home.match(/class="service-card"/g) || []).length, 9);
-    assert.equal((home.match(/class="case-card"/g) || []).length, 5);
+    assert.equal((home.match(/class="service-card"/g) || []).length, 11);
+    assert.equal((home.match(/class="case-card"/g) || []).length, 7);
     assert.match(home, /<figure class="hero-photo"><img src="\/assets\/real-work\/fence-timber-work\.jpg"/);
     assert.doesNotMatch(home, /AI-generated|AI场景示意|示意图/);
     for (const [id, image] of Object.entries(generated)) {

@@ -12,9 +12,9 @@ test('public release makes every page indexable with reciprocal language URLs an
   const dest = await mkdtemp(join(tmpdir(), 'public-release-'));
   try {
     const result = await buildSite({ dest, facts, indexable: true });
-    assert.equal(result.routes.length, 144);
+    assert.equal(result.routes.length, 148);
     const sitemap = await readFile(join(dest, 'sitemap.xml'), 'utf8');
-    assert.equal((sitemap.match(/<loc>/g) || []).length, 144);
+    assert.equal((sitemap.match(/<loc>/g) || []).length, 148);
     const llms = await readFile(join(dest, 'llms.txt'), 'utf8');
     assert.ok(llms.includes(facts.domain + '/zh/privacy/'));
     assert.ok(llms.includes(facts.domain + '/areas/sydney-cbd/'));

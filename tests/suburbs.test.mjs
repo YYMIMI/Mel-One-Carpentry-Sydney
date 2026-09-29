@@ -23,7 +23,7 @@ test('area pages retain the original nine illustrated service choices and add us
  for (const prefix of ['', '/zh']) for (const name of ['Chatswood','Bankstown','Surry Hills','Caringbah']) {
   const path=prefix+'/areas/'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'/';
   const html=renderPage(path,{},{}).html;
-  assert.equal((html.match(/class="service-card"/g)||[]).length,9,path);
+  assert.equal((html.match(/class="service-card"/g)||[]).length,11,path);
   assert.ok(html.includes('id="local-enquiry"'),path);
   assert.ok(html.includes('id="choose-service"'),path);
   assert.ok(html.includes('id="visit-details"'),path);
@@ -51,7 +51,7 @@ test('every original area page keeps all nine illustrated services and has a dis
  for(const name of names) for(const prefix of ['', '/zh']) {
   const path=prefix+'/areas/'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'/';
   const html=renderPage(path,{}).html;
-  assert.equal((html.match(/class="service-card"/g)||[]).length,9,path);
+  assert.equal((html.match(/class="service-card"/g)||[]).length,11,path);
   assert.ok(html.indexOf('id="local-enquiry"')<html.indexOf('id="choose-service"'),path);
   assert.ok(html.indexOf('id="choose-service"')<html.indexOf('id="visit-details"'),path);
   assert.ok(html.indexOf('id="visit-details"')<html.indexOf('id="other-locations"'),path);

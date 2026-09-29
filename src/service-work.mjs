@@ -1,5 +1,15 @@
 // Concrete options within the existing service scope; suitability requires assessment.
 export const serviceWork = {
+  S16: [
+    ['New garden borders', 'Set out the line, corners and finished height before choosing timber and fixings. Show how the edge meets paths, lawn and adjoining fences.', '花园边框新装', '选择材料和固定方式前，先确定走向、转角与完成高度，并说明与步道、草坪及围栏如何衔接。'],
+    ['Deteriorated sleeper replacement', 'Check the full section, not only the visible face. Confirm sound fixing points and whether removal, ground preparation and disposal are included.', '老化 sleeper 更换', '检查整段木材，不只看表面；确认稳固固定点，以及是否包含拆旧、地面准备和清运。'],
+    ['Edging or retaining?', 'Explain whether the timber marks a border or holds back soil at a different level. Retaining work needs its own support and drainage assessment.', '分隔边界还是挡土？', '说明木材只是分隔边界，还是挡住有高低差的泥土；挡土工作需要单独评估支撑和排水。'],
+  ],
+  S17: [
+    ['Replace damaged battens', 'Assess the fixing timber behind the screen, then discuss replacing individual boards or a wider section while retaining sound parts.', '更换破损木条', '先检查围板背后的固定木材，再讨论换个别木条或较大范围，同时保留稳固部分。'],
+    ['Screen an open area', 'Agree batten spacing, corner details and the line beside steps. Keep necessary ventilation, inspection and service access in the layout.', '为开口安装围板', '明确木条间距、转角与楼梯旁收边，并在布局中保留必要的通风、检查及设备检修通道。'],
+    ['Plan the finish', 'Specify whether timber is left uncoated or prepared for an agreed paint or stain. Include removable sections and disposal in the scope where required.', '确认表面收尾', '明确保留未涂装木材，还是进行同意的刷漆或木色涂层处理；需要的可拆段与清运也应列入范围。'],
+  ],
   S01: [
     ['Soft or damaged sills', 'Local timber repair or replacement can be considered when the adjoining frame is sound. The moisture source and the finishing needed should be included in the assessment.', '窗台发软或破损', '相邻窗框稳固时，可评估局部木材修补或更换，同时确认受潮来源及所需表面收尾。'],
     ['Windows that bind', 'Check the timber, joints and fittings to distinguish a local adjustment from damage that needs replacement. Glass, aluminium frames and specialist sash mechanisms need a separate scope.', '木窗开关卡顿', '检查木材、接合处及五金，区分可调整的问题与需要更换的损坏；玻璃、铝框和专门的提拉窗机构须另外确认。'],

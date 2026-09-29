@@ -107,8 +107,10 @@ function conversionRail(l, facts) {
     '<div class="mobile-contact-dock" aria-label="' + tr(l, 'Quick contact', '快捷联系') + '">' + call +
     '<a class="button button-primary" href="' + href('/contact/', l) + '">' + tr(l, 'Photo quote', '照片询价') + '</a></div>';
 }
-const serviceOrder = ['S05', 'S01', 'S02', 'S06', 'S07', 'S03', 'S04', 'S08', 'S09'];
+const serviceOrder = ['S05', 'S01', 'S02', 'S06', 'S07', 'S16', 'S17', 'S03', 'S04', 'S08', 'S09'];
 const serviceImages = {
+  S16: ['/assets/real-work/outdoor-timber-edge.webp', 'Low timber edging beside an outdoor stair and new timber battens', '户外楼梯旁的低矮木边框与新木条围板', 1280, 1707],
+  S17: ['/assets/real-work/under-house-battens-detail.webp', 'New unpainted timber battens beneath weatherboards beside tiled steps', '外墙板下方、瓷砖楼梯旁的新装未刷漆木条', 1280, 1707],
   S01: ['/assets/real-work/window-multipane.jpg', 'Timber window and sill', '木窗与窗台', 1280, 1707],
   S02: ['/assets/real-work/door-open-leaf.jpg', 'Interior door and frame', '室内门板与门框', 1280, 1707],
   S03: ['/assets/service-imagery/fascia.webp', 'Carpenter checking a timber fascia board', '木工检查屋檐木板', 1536, 1024],
@@ -136,7 +138,7 @@ function serviceCardPhoto(id, l, priority = false) {
     '" loading="' + (priority ? 'eager' : 'lazy') + '" decoding="async" alt="' + esc(tr(l, photo[1], photo[2])) + '">' : '';
 }
 function serviceMenu(l,facts,production,page) {
-  const groups=[['Doors, windows & timber','门窗与木材',['S01','S02','S04','S03']],['Fences, gates & decks','围栏、木闸门与露台',['S05','S06','S07']],['Interior repairs','室内木作维修',['S08','S09']]];
+  const groups=[['Doors, windows & timber','门窗与木材',['S01','S02','S04','S03']],['Fences, decks & outdoor timber','围栏、露台与户外木作',['S05','S06','S07','S16','S17']],['Interior repairs','室内木作维修',['S08','S09']]];
   return '<details class="service-menu"><summary>'+tr(l,'Services','木工服务')+'</summary><div class="service-menu-panel"><a class="all-services" href="'+href('/services/',l)+'">'+tr(l,'All carpentry services','查看全部木工服务')+'</a><div class="service-menu-groups">'+groups.map(([en,zh,ids],index)=>{
     const available=services.filter(s=>ids.includes(s.id)&&(!production||facts.approvedServices?.includes(s.id)));
     return available.length ? '<div class="service-menu-group service-menu-group--'+['timber','outdoor','interior'][index]+'"><h2>'+tr(l,en,zh)+'</h2>'+available.map(s=>'<a href="'+servicePath(s,l)+'"'+(page.id===s.id?' aria-current="page"':'')+'>'+esc(shortName(s,l))+'</a>').join('')+'</div>':'';
@@ -164,6 +166,27 @@ function doorWorkGallery(l) {
 }
 
 const casePhotoGroups = {
+  S16: {
+    title: ['From our work: a timber edge beside the stairs', '我们的现场木作：楼梯旁的木边框'],
+    intro: ['This job includes a low timber edge beside an outdoor stair, with new vertical screening around the adjoining opening. The photos show the layout during work. For sleeper installation at your home, send the proposed line, length and ground levels so edging and any retaining work can be scoped separately.', '这组现场木作展示户外楼梯旁的低矮木边框，以及相邻开口的新木条围板；照片记录施工时的布局。需要安装 sleeper 时，请提供计划走向、长度与地面高低，让花园边框及可能涉及的挡土工作分别确定范围。'],
+    photos: [
+      ['outdoor-timber-edge.webp', 'Low horizontal timber edge at the foot of an outdoor stair beside new vertical battens', '户外楼梯底部的横向低木边框与新竖木条', 'Timber edge and adjacent screening during work', '施工中的木边框与相邻围板', 1280, 1707],
+      ['outdoor-timber-work-setup.webp', 'Timber lengths, offcuts and tools beside the outdoor stair', '户外楼梯旁的木料、余料与工具', 'Timber preparation beside the work area', '工作区域旁的木料准备', 1280, 1707],
+      ['outdoor-timber-tools.webp', 'Timber offcuts and tools loaded in a work vehicle', '工作车辆中的木材余料与工具', 'Materials and equipment at the job', '现场材料与工具', 1280, 1707],
+    ],
+  },
+  S17: {
+    title: ['Real work: new battens below the house and stairs', '真实木作：房屋与楼梯下方的新木条围板'],
+    intro: ['The photos follow the same outdoor area from timber preparation to views of the newly fitted battens. They show unpainted boards, corner details and the ground line—not a finished painted surface. Spacing, access and the finish are decisions to agree for your own project.', '照片记录同一户外区域的木料准备和新木条安装情况，可看见未刷漆木条、转角与地面衔接，展示的不是刷漆完成面。你的项目可先讨论木条间距、检修通道及希望的表面收尾。'],
+    photos: [
+      ['under-house-battens-detail.webp', 'Unpainted vertical timber battens below a house beside tiled steps', '房屋下方、瓷砖台阶旁未刷漆的竖向木条', 'Batten spacing and corner detail', '木条间距与转角细节', 1280, 1707],
+      ['under-house-battens-side.webp', 'New timber screening beside an outdoor stair with tools on the lawn', '户外楼梯旁新木条围板，草坪上可见施工工具', 'Side view during installation', '安装过程中的侧面记录', 1280, 1707],
+      ['outdoor-timber-work-setup.webp', 'Timber and tools laid out beside the existing under-house screen', '原有屋下围板旁的木料与工具', 'Preparation around the existing opening', '原有开口周边的施工准备', 1280, 1707],
+      ['outdoor-timber-edge.webp', 'New battens around the stair opening and a low timber edge', '楼梯开口周围的新木条与低矮木边框', 'Screening and ground-line details', '围板与地面衔接细节', 1280, 1707],
+      ['outdoor-yard-context.webp', 'Wider garden view with lawn, stairs and an existing pool barrier', '包含草坪、楼梯及现有泳池围栏的庭院全景', 'Surrounding yard and access', '周边庭院与通道', 1280, 1707],
+      ['outdoor-pool-context.webp', 'Pool area beside the garden with an existing metal barrier', '庭院旁的泳池区域与现有金属围栏', 'Nearby pool area — site context', '附近泳池区域：现场环境', 1280, 1707],
+    ],
+  },
   S05: {
     title: ['Real case photos: timber fence maintenance', '真实案例照片：木围栏保养与维修'],
     intro: ['These real work photos show fence boards, fixings and the surrounding work area. For a similar enquiry, send a full fence view and close-ups of the affected boards, posts and rails so we can discuss local repairs, maintenance or replacement.', '这些真实施工照片展示围栏木板、固定细节与周边工作区域。如需类似服务，请提供围栏全景，以及受损木板、立柱和横梁近照，方便讨论局部维修、保养或更换。'],
@@ -244,6 +267,8 @@ function caseGallery(pageId, l) {
 function selectedWork(l, facts, production) {
   const items = [
     ['S05', 'fence-timber-work.jpg', 'Timber fence maintenance & repairs', '木围栏保养与维修'],
+    ['S16', 'outdoor-timber-edge.webp', 'Garden timber edging', '花园木边框'],
+    ['S17', 'under-house-battens-detail.webp', 'Under-house timber battens', '屋下木条围板'],
     ['S01', 'window-multipane.jpg', 'Timber window frames & repainting', '木窗框维修与刷漆翻新'],
     ['S02', 'door-open-leaf.jpg', 'Door panels, frames & hardware', '门板、门框与五金'],
     ['S08', 'interior-panels-prep.jpg', 'Interior panels & finishing', '室内板件与表面翻新'],
@@ -252,8 +277,8 @@ function selectedWork(l, facts, production) {
   if (!items.length) return '';
   return '<section id="selected-work" class="homepage-section selected-work"><div class="section-heading"><div><p class="eyebrow">' +
     tr(l, 'From our real jobs', '我们的真实案例') + '</p><h2>' + tr(l, 'A closer look at the work', '从细节，看实际木作') +
-    '</h2></div><p>' + tr(l, 'Window frames, doors, interior panels and cupboard details. See real photos alongside the relevant repair and finishing options.',
-      '窗框、门板、室内板件与柜门细节。结合真实照片，了解对应的维修、更换及刷漆翻新范围。') + '</p></div><div class="case-scroll"><button class="case-scroll-control" type="button" data-direction="previous" aria-label="' + tr(l, 'Previous work photos', '向前查看案例照片') + '">←</button><button class="case-scroll-control" type="button" data-direction="next" aria-label="' + tr(l, 'Next work photos', '向后查看案例照片') + '">→</button></div><div class="case-grid" tabindex="0" aria-label="' + tr(l, 'Real work photo gallery', '真实施工照片列表') + '">' +
+    '</h2></div><p>' + tr(l, 'Fences, outdoor timber, window frames, doors and cupboard details. See real photos alongside the relevant installation, repair and finishing options.',
+      '围栏、户外木作、窗框、门板与柜门细节。结合真实照片，了解对应的安装、维修、更换及表面收尾范围。') + '</p></div><div class="case-scroll"><button class="case-scroll-control" type="button" data-direction="previous" aria-label="' + tr(l, 'Previous work photos', '向前查看案例照片') + '">←</button><button class="case-scroll-control" type="button" data-direction="next" aria-label="' + tr(l, 'Next work photos', '向后查看案例照片') + '">→</button></div><div class="case-grid" tabindex="0" aria-label="' + tr(l, 'Real work photo gallery', '真实施工照片列表') + '">' +
     items.map(([id, name, en, zh]) => '<a class="case-card" href="' + servicePath(services.find(s => s.id === id), l) +
       '#case-photos"><img src="/assets/real-work/' + name + '" width="1280" height="1707" loading="lazy" decoding="async" alt="' +
       esc(tr(l, en, zh)) + '"><div><h3>' + esc(tr(l, en, zh)) + '</h3><span>' + tr(l, 'View photos & service details', '查看照片与服务详情') +
@@ -360,11 +385,11 @@ function serviceBody(page, l, facts, production) {
     tr(l, 'What we can look at', '可以检查与处理的项目') + '</p><div class="page-lead">' + p(c.lead) + '</div>' + cta(l, page.id) +
     '</div><figure class="service-intro-image">' + serviceCardPhoto(page.id, l, true) + '</figure></div>' +
     (page.id === 'S05' ? fenceMaintenance(l, facts) : '') +
-    section('repair-work', tr(l, 'Repair options to discuss', '可以怎样处理这些问题'),
+    section('repair-work', tr(l, ['S16','S17'].includes(page.id) ? 'Installation and replacement options' : 'Repair options to discuss', ['S16','S17'].includes(page.id) ? '安装与更换可以怎样安排' : '可以怎样处理这些问题'),
       '<div class="rfq-guidance-grid">' + serviceWork[page.id].map(([title, detail, zhTitle, zhDetail]) =>
         '<article><h3>' + esc(tr(l, title, zhTitle)) + '</h3>' + p(tr(l, detail, zhDetail)) + '</article>').join('') + '</div>') +
     '<div class="split-content"><div>' +
-    section('problems', tr(l, 'What the damage may mean', '这些损坏可能意味着什么'), p(c.problem)) +
+    section('problems', tr(l, ['S16','S17'].includes(page.id) ? 'What needs attention at the site' : 'What the damage may mean', ['S16','S17'].includes(page.id) ? '现场需要先看什么' : '这些损坏可能意味着什么'), p(c.problem)) +
     section('assessment', tr(l, 'Repair, replace or investigate', '维修、更换或先查原因'), p(c.assessment)) +
     section('scope', tr(l, 'Scope and boundaries', '工作范围与边界'), p(c.boundary)) +
     section('quote', tr(l, 'What shapes a quote', '哪些因素影响报价'), p(c.quote)) +
@@ -618,8 +643,8 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     tr(l, 'Residential timber repairs and maintenance, with the job scope confirmed before booking.', '住宅木作维修与保养；预约前先确认实际工作范围。') +
     '</p><p>' + esc(facts.legalEntity || 'Mel One Property Maintenance Pty Ltd') + '<br>ABN 39 666 325 408 · ACN 666 325 408</p>' + officeAddress(l,facts) + '</div>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Service links', '服务链接') + '"><h2>' + tr(l, 'Services', '木工服务') + '</h2>' +
-    services.filter(s => ['S05','S01','S02','S07','S09'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a href="' + servicePath(s,l) + '">' + esc(shortName(s,l)) + '</a>').join('') +
-    '<a href="' + href('/services/',l) + '">' + tr(l, 'All nine services', '全部九项服务') + '</a></nav>' +
+    services.filter(s => ['S05','S01','S02','S07','S09','S16','S17'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a href="' + servicePath(s,l) + '">' + esc(shortName(s,l)) + '</a>').join('') +
+    '<a href="' + href('/services/',l) + '">' + tr(l, 'All carpentry services', '全部木工服务') + '</a></nav>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Areas and work', '地区与案例') + '"><h2>' + tr(l, 'Explore', '了解更多') + '</h2>' +
     '<a href="' + href('/areas/',l) + '">' + tr(l, '56 Sydney enquiry areas', '56 个悉尼服务地区') + '</a><a href="' + href('/#selected-work',l) + '">' + tr(l, 'Real work photos', '真实施工照片') + '</a><a href="' + href('/faq/',l) + '">' + tr(l, 'Common questions', '常见问题') + '</a></nav>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Company and contact', '公司与联系') + '"><h2>' + tr(l, 'Get in touch', '联系我们') + '</h2>' +

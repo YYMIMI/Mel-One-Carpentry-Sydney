@@ -24,7 +24,7 @@ test('real-work browsing keeps all five existing owner links and has explicit co
   for (const path of ['/', '/zh/']) {
     const html = renderPage(path, facts).html;
     const gallery = html.slice(html.indexOf('id="selected-work"'), html.indexOf('</section>', html.indexOf('id="selected-work"')));
-    assert.equal((gallery.match(/class="case-card"/g) ?? []).length, 5);
+    assert.equal((gallery.match(/class="case-card"/g) ?? []).length, 7);
     assert.match(gallery, /class="case-scroll"/);
     assert.match(gallery, /class="case-scroll-control"[^>]+data-direction="previous"/);
     assert.match(gallery, /class="case-scroll-control"[^>]+data-direction="next"/);

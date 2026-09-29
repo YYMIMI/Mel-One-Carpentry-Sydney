@@ -1,6 +1,6 @@
 # Mel One Sydney carpentry
 
-Bilingual residential timber repair site, published at https://www.thesydneycarpenter.com.au. The 144 public routes include 56 suburb pairs, nine service pairs and seven support-page pairs. This repository concerns Sydney only.
+Bilingual residential timber repair site, published at https://www.thesydneycarpenter.com.au. The 148 public routes include 56 suburb pairs, eleven service pairs and seven support-page pairs. The original nine services remain, with timber sleeper installation and under-house timber screening added. This repository concerns Sydney only.
 
 ## Vercel deployment
 
@@ -24,7 +24,7 @@ node scripts/check-public.mjs
 
 ## Content and entities
 
-`src/content.mjs` owns the nine bilingual service descriptions and region directory. `src/suburbs.mjs` contains individual enquiry scenarios. `src/suburb-details.mjs` adds 56 slug-keyed, individually edited scope decisions, each in English and Chinese. These are guidance scenarios, not claims about typical housing stock or completed jobs in a suburb. Area pages connect the relevant service guides, repair scope, quote inputs, FAQs, a locality map and an RFQ draft.
+`src/content.mjs` owns the core bilingual service descriptions and region directory, and imports the two additional outdoor services from `src/outdoor-services.mjs`. `src/suburbs.mjs` contains individual enquiry scenarios. `src/suburb-details.mjs` adds 56 slug-keyed, individually edited scope decisions, each in English and Chinese. These are guidance scenarios, not claims about typical housing stock or completed jobs in a suburb. Area pages connect the relevant service guides, repair scope, quote inputs, FAQs, a locality map and an RFQ draft.
 
 `src/site.mjs` renders the site. JSON-LD links one Organization to its WebSite, individual WebPages and Services with relevant areaServed. The confirmed Sydney CBD office is not repeated as fictitious suburb branches. Existing titles, H1s, URLs and supplied real-work galleries are preserved. llms.txt is generated from the same facts and route list to limit drift. DESIGN.md and MEDIA.md retain design and image provenance notes.
 

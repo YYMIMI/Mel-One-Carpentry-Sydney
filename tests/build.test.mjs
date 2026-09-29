@@ -5,11 +5,11 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { buildSite } from '../scripts/build.mjs';
 
-test('preview build emits 144 noindex routes and no research files or production sitemap', async () => {
+test('preview build emits 148 noindex routes and no research files or production sitemap', async () => {
   const dest = await mkdtemp(join(tmpdir(), 'carpentry-build-'));
   try {
     const result = await buildSite({ dest, production: false });
-    assert.equal(result.routes.length, 144);
+    assert.equal(result.routes.length, 148);
     const en = await readFile(join(dest, 'services/timber-window-repairs/index.html'), 'utf8');
     const zh = await readFile(join(dest, 'zh/services/timber-window-repairs/index.html'), 'utf8');
     assert.match(en, /noindex,nofollow/);

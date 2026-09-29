@@ -1,5 +1,6 @@
 // Editorial draft for a protected preview. Service scope and business claims
 // remain gated by independently approved business facts before publication.
+import { outdoorServices } from './outdoor-services.mjs';
 export const services = [
   {
     id: 'S01', slug: 'timber-window-repairs', related: ['S04', 'S02'],
@@ -134,7 +135,7 @@ export const services = [
     }
   },
   {
-    id: 'S05', slug: 'timber-fence-repairs', related: ['S06', 'S04'],
+    id: 'S05', slug: 'timber-fence-repairs', related: ['S06', 'S04', 'S16', 'S17'],
     en: {
       title: 'Timber Fence Repairs & Replacement Sydney',
       h1: 'Timber Fence Repairs & Replacement in Sydney',
@@ -200,7 +201,7 @@ export const services = [
     }
   },
   {
-    id: 'S07', slug: 'deck-repairs', related: ['S04'],
+    id: 'S07', slug: 'deck-repairs', related: ['S04', 'S16', 'S17'],
     en: {
       title: 'Deck Repairs & Board Replacement Sydney',
       h1: 'Deck Repairs & Board Replacement in Sydney',
@@ -299,7 +300,8 @@ export const services = [
         ['维修时能保留现有厨房吗？', '许多局部维修可在原柜体位置评估，但仍视通道而定。']
       ]
     }
-  }
+  },
+  ...outdoorServices,
 ];
 
 export const popularAreaCandidates = [

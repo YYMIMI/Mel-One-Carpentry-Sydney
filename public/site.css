@@ -165,6 +165,9 @@ html[lang="zh-Hans"] .eyebrow { letter-spacing: .08em }
 .aside-note h2 { font-family: inherit; font-size: 1.18rem; letter-spacing: 0 }
 .aside-note p { font-size: .94rem }
 .work-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem; margin-top: 1.5rem }
+.work-gallery--pair { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+.door-repair-visual { width: min(100%, 34rem); margin: 1.5rem 0 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius) }
+.door-repair-visual img { display: block; width: 100%; height: auto }
 .work-photo { min-width: 0; margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden }
 .work-photo img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; background: #e6eeee }
 .work-photo--three-four img { aspect-ratio: 3 / 4 }

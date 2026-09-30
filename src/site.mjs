@@ -166,6 +166,29 @@ function doorWorkGallery(l) {
       esc(tr(l, enAlt, zhAlt)) + '"><figcaption>' + esc(tr(l, enCaption, zhCaption)) + '</figcaption></figure>').join('') + '</div>');
 }
 
+function doorConditionGallery(l) {
+  const photos = [
+    ['sydney-exterior-door-jamb-condition-side.webp', 'Broken vertical timber beside a patterned-glass exterior door', '花纹玻璃外门旁破损的竖向木框', 'The opening visible in the door jamb', '门框侧边可见的破损', 1280, 1707],
+    ['sydney-exterior-door-jamb-condition-close.webp', 'Close view of large cavities in the external timber jamb beside brickwork', '砖墙旁外门木框大面积破损的近照', 'Check the full height, not only the surface', '检查整段高度，而非仅看表面', 1280, 1707],
+  ];
+  return section('damaged-door-frame', tr(l, 'When the door jamb is breaking away', '外门框破裂、缺损时怎么办'),
+    p(tr(l,
+      'These photos show substantial visible loss of timber beside an exterior door. Before choosing filler or a replacement length, check how far sound timber continues behind the opening, whether the door still closes and latches, and whether water is reaching the frame. A quote should state the timber to be retained or replaced, sealing and paint finish, and any separate work needed around the wall or threshold. The photos alone do not establish the cause or a completed repair.',
+      '照片可见外门旁的木框有明显缺损。决定补料或分段更换前，应检查破口后方还有多少稳固木材、门能否正常关锁，以及水是否仍会接触门框。报价应写清保留或更换哪些木材、封缝与油漆收尾，以及墙边或门槛是否需要另行处理。仅凭照片不能确定成因或已完成的维修。')) +
+    '<div class="work-gallery work-gallery--pair">' + photos.map(([name, enAlt, zhAlt, enCaption, zhCaption, width, height]) =>
+      '<figure class="work-photo work-photo--three-four"><img src="/assets/real-work/' + name + '" width="' + width + '" height="' + height + '" loading="lazy" decoding="async" alt="' +
+      esc(tr(l, enAlt, zhAlt)) + '"><figcaption>' + esc(tr(l, enCaption, zhCaption)) + '</figcaption></figure>').join('') + '</div>');
+}
+
+function doorRepairVisual(l) {
+  return section('sound-door-frame', tr(l, 'What a sound door-frame repair should achieve', '门框维修后应达到什么效果'),
+    p(tr(l,
+      'A replacement jamb must have sound fixings, allow the existing door to close and latch, and have sealed joins and an agreed paint finish. The adjacent brickwork, threshold and any continuing water entry need their own checks. The image shows one possible appearance for planning; the actual repair extent depends on the property.',
+      '更换后的门框侧边应有稳固固定点，让原门能够正常关闭与上锁，接缝封好，并按约定完成涂装。相邻砖墙、门槛及持续进水也需要分别检查。图片展示一种可供规划的外观，实际维修范围仍取决于现场。')) +
+    '<figure class="door-repair-visual"><img src="/assets/service-imagery/sydney-exterior-door-jamb-repair-concept.webp" width="1086" height="1448" loading="lazy" decoding="async" alt="' +
+    esc(tr(l, 'Illustration of a sound finished timber door jamb beside the existing glass door and brickwork', '原玻璃门与砖墙旁完好木框的示意外观')) + '"></figure>');
+}
+
 const casePhotoGroups = {
   S16: {
     title: ['From our work: a timber edge beside the stairs', '我们的现场木作：楼梯旁的木边框'],
@@ -418,7 +441,7 @@ function serviceBody(page, l, facts, production) {
     section('quote', tr(l, 'What shapes a quote', '哪些因素影响报价'), p(c.quote)) +
     '</div><aside class="aside-note"><h2>' + tr(l, 'Useful photos', '哪些照片有帮助') + '</h2>' +
     p(c.photo) + p(tr(l, 'Do not put yourself at risk to take a photo.', '拍照不应让自己处于危险位置。')) + '</aside></div>' +
-    (page.id === 'S02' ? doorWorkGallery(l) : '') + caseGallery(page.id, l) +
+    (page.id === 'S02' ? doorConditionGallery(l) + doorRepairVisual(l) + doorWorkGallery(l) : '') + caseGallery(page.id, l) +
     section('areas', tr(l, 'Check the location', '确认所在地区'), p(tr(l,
       'We take residential timber enquiries in Sydney and the selected Central Coast, Illawarra and Wollondilly locations listed in our service directory. Tell us your suburb and the work needed; we will discuss scope, access, timing and any travel charges before arranging a visit.',
       '我们承接悉尼及服务目录中列出的 Central Coast、Illawarra 与 Wollondilly 指定地区的住宅木作询价。请说明所在地区和所需工作；安排上门前先沟通范围、通道、时间及是否涉及出行费用。')) +

@@ -33,6 +33,25 @@ test('regional locations keep their geographic identity and all original area ro
   assert.equal(pages.filter(p=>p.area).length,152);
 });
 
+test('published area links remain discoverable from the home and area directory', () => {
+  const facts = {
+    brand: 'Mel One',
+    approvedServices: ['S05'],
+    approvedAreas: [{
+      name: 'Berkeley Vale', coverage_status: 'APPROVED',
+      public_copy_approved: true, area_page_publish_approved: true,
+      approved_service_ids: ['S05']
+    }]
+  };
+  for (const prefix of ['', '/zh']) {
+    const target = prefix + '/areas/berkeley-vale/';
+    for (const route of [prefix + '/', prefix + '/areas/']) {
+      const html = renderPage(route, facts, { production: true }).html;
+      assert.ok(html.includes('href="' + target + '"'), route + ' must link to the published area');
+    }
+  }
+});
+
 test('expanding groups cannot reassign the original 56 enquiry briefs or primary services', () => {
   const original = coreAreaGroups.flatMap(group=>group.names).map(name=>suburbs.find(a=>a.name===name));
   assert.equal(original.length,56);

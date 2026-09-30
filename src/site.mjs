@@ -147,6 +147,10 @@ function serviceMenu(l,facts,production,page) {
 }
 const approvedAreaNames = facts => (facts.approvedAreas ?? [])
   .filter(a => a.coverage_status === 'APPROVED' && a.public_copy_approved).map(a => a.name);
+const publishedAreaLinks = (l, names, facts) => '<ul class="area-list">' +
+  names.map(name => '<li>' + (facts.approvedAreas?.some(a => a.name === name && a.area_page_publish_approved)
+    ? '<a href="' + href('/areas/' + suburbSlug(name) + '/', l) + '">' + esc(name) + '</a>'
+    : esc(name)) + '</li>').join('') + '</ul>';
 const areaCards = (l, groups) => '<div class="area-groups">' + groups.map(group =>
   '<div class="area-card"><h3>' + esc(group[l]) + '</h3><p>' + group.names.map(name => '<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join(' · ') + '</p></div>'
 ).join('') + '</div>';
@@ -501,7 +505,7 @@ function supportBody(page, l, facts, selected, production) {
     tr(l, 'Check your area before arranging work', '安排前确认服务地区') + '</h2>' +
     p(tr(l, 'Tell us your suburb and what needs repair. We will confirm the work, access and timing with you before booking.',
       '告诉我们所在地区和需要维修的部位；预约前会一起确认工作内容、通道与时间。')) +
-    (production ? '<ul class="area-list">' + approved.map(name => '<li>' + esc(name) + '</li>').join('') + '</ul>' :
+    (production ? publishedAreaLinks(l, approved, facts) :
       areaCards(l, popularAreaCandidates.filter(group => ['Sydney CBD & Inner City', 'Inner West', 'Lower North Shore', 'Parramatta & Surrounds'].includes(group.en)))) +
     '<a class="text-link" href="' + href('/areas/', l) + '">' + tr(l, 'Check a suburb', '查看地区查询方式') + '</a></section>' + officeMap(l, facts) + '<section class="quote-band"><div><p class="eyebrow">' +
     tr(l, 'Start with what you can see', '从看得见的问题开始') + '</p><h2>' + tr(l, 'Show us what needs attention.', '把需要处理的地方发给我们。') +
@@ -518,7 +522,7 @@ function supportBody(page, l, facts, selected, production) {
       'Choose your location for timber repair and installation guides, useful quote details and a direct enquiry. Sydney areas and selected Central Coast, Illawarra and Wollondilly locations are grouped below. Include photos, dimensions and access for materials.',
       '选择所在地区，查看木作维修与安装指引、报价资料并直接询价。下方分别列出悉尼及 Central Coast、Illawarra、Wollondilly 的指定服务地区。请提供照片、尺寸及材料进出通道。')) +
       cta(l) + '</div>' + (!production?popularAreaLinks(l):'') + (approved.length ? section('confirmed', tr(l, 'Places we can discuss work', '可咨询木工服务的地区'),
-        '<ul class="area-list">' + approved.map(name => '<li>' + esc(name) + '</li>').join('') + '</ul>') : '') +
+        publishedAreaLinks(l, approved, facts)) : '') +
       (production ? '' : section('ask', tr(l, 'Browse locations by region', '按区域查找服务地区'),
         p(tr(l, 'Find your suburb below, then tell us about the timber issue. We confirm the work and access details individually before booking.',
           '在下方找到所在地区，再说明木作问题。预约前会逐项确认工作内容和现场通道。')) +

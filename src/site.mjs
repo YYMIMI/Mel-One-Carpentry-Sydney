@@ -122,12 +122,12 @@ const serviceImages = {
   S08: ['/assets/real-work/interior-panels-prep.jpg', 'Detached interior panels', '拆下的室内板件', 1280, 1707],
   S09: ['/assets/real-work/cabinet-door-side.jpg', 'Cupboard door and side panel', '柜门与侧板', 1280, 1707],
 };
-const cards = (l, facts, production) => '<div class="service-grid">' + services
+const cards = (l, facts, production, compact = false) => '<div class="service-grid">' + services
   .filter(s => !production || facts.approvedServices?.includes(s.id))
   .sort((a, b) => serviceOrder.indexOf(a.id) - serviceOrder.indexOf(b.id))
   .map(s => '<a class="service-card" href="' + servicePath(s, l) + '">' + serviceCardPhoto(s.id, l) +
     '<div class="service-card-copy"><span class="service-card-number">' + esc(s.id.slice(1)) + '</span><strong>' +
-    esc(shortName(s, l)) + '</strong><span>' + esc(s[l].lead) + '</span><em>' + tr(l, 'Explore this service', '查看这项服务') +
+    esc(shortName(s, l)) + '</strong>' + (compact ? '' : '<span>' + esc(s[l].lead) + '</span>') + '<em>' + tr(l, 'Explore this service', '查看这项服务') +
     ' <span aria-hidden="true">↗</span></em></div></a>').join('') +
   '<a class="service-quote-card" href="' + href('/contact/', l) + '"><span class="eyebrow">' + tr(l, 'Not sure which repair?', '不确定属于哪项维修？') +
   '</span><strong>' + tr(l, 'Show us the timber. We’ll help define the job.', '发来木构件照片，一起确定工作范围。') +
@@ -413,7 +413,8 @@ function suburbBody(page,l,facts,production) {
     section('local-enquiry',tr(l,'A useful enquiry example','询价准备示例'),p(tr(l,a.en,a.zh))+
       p(primary[l].assessment)+
       '<a class="text-link" href="'+servicePath(primary,l)+'">'+esc(shortName(primary,l))+'</a>')+
-    section('choose-service',tr(l,'Choose by the timber that needs work','按需要处理的木构件选择'),cards(l,facts,production))+
+    suburbScope(a,l,primary)+suburbOptionsSection(a,l)+
+    section('choose-service',tr(l,'Choose by the timber that needs work','按需要处理的木构件选择'),cards(l,facts,production,true))+
     section('visit-details',tr(l,'Preparing access and the quote','整理通道与报价资料'),
       p(tr(l,'Include '+a.name+' in your enquiry, a wide photo, a close-up of each fault and approximate dimensions. Mention any shared access, stairs, parking or property-manager arrangements that apply to your property. You do not need to publish a full street address.',
         '询价请注明 '+a.name+'，提供全景、每类损坏的近照及大致尺寸。如涉及共用通道、楼梯、停车或物业管理安排，请一并说明；不需要公开完整街道地址。'))+
@@ -425,7 +426,7 @@ function suburbBody(page,l,facts,production) {
       [tr(l,'Can I ask about fence maintenance here?','这里可以咨询围栏保养吗？'),tr(l,'Yes. Describe posts, rails, boards and fixings, then use the timber fence maintenance page to prepare photos. Confirm the work at your location before booking.','可以。说明立柱、横梁、木板及固定件情况，并按木围栏保养页准备照片；预约前确认当地工作范围。')],
       [tr(l,'Are these photos from '+a.name+'?','这些照片是在 '+a.name+' 拍的吗？'),tr(l,'Not necessarily. They show Mel One timber work to help you see the kinds of repairs we handle. If your property is in '+a.name+', send a photo of the damage and we can discuss the next step.','不一定。这些照片展示 Mel One 的木工工作，方便你了解我们处理的维修类型。如果你在 '+a.name+' 需要维修，请发来受损部位照片，我们再讨论下一步。')]
     ])) +
-    suburbScope(a,l,primary)+suburbOptionsSection(a,l)+rfqForm(l,facts,a)+suburbMap(a,l);
+    rfqForm(l,facts,a)+suburbMap(a,l);
 }
 
 function serviceBody(page, l, facts, production) {

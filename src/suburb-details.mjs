@@ -1,5 +1,6 @@
 // Individually edited enquiry scenarios. These are not local job or housing-stock claims.
 import {addedAreaProfiles} from './popular-areas.mjs';
+import {reviewedAreaDetails} from './reviewed-area-details.mjs';
 // Keys are stable route slugs, so a directory reorder cannot assign another suburb's brief.
 const rows = [
 ['sydney-cbd','How can a window repair be scoped before building access is booked?','预约建筑通道前，怎样界定木窗维修？','Separate the affected window, floor level and inside/outside access. Ask the building contact about work hours, lift protection and material delivery before choosing a visit. A frame repair quote should identify timber work and any separate glazing or access equipment; a photo cannot establish the outside working position.','请分别说明受损窗户、楼层及室内外进入方式。先向管理方确认施工时间、电梯保护和材料搬运，再协调上门。窗框报价需分清木作、玻璃与高处作业设备；一张照片不能确认外侧是否能安全施工，也不要为拍照探身窗外。'],
@@ -60,6 +61,6 @@ const rows = [
 ['gymea','What should be checked before replacing worn gate hardware?','更换老化闸门五金前，应核对什么？','Photograph the hinge and latch fixings as well as the timber beneath them. State whether the gate still sits square when closed. Hardware replacement needs compatible dimensions and reliable fixing material. Ask whether repairing timber, rehanging and testing the closing action are included, rather than assuming a new fitting resolves a damaged support.','请同时拍铰链、门闩固定及下方木材，说明关门后是否仍方正。更换五金需有相容尺寸与可靠固定基层，不能只看配件磨损。报价应注明修木、重新挂门及关门动作检查是否包括；新配件无法自动解决已损坏的承托木材。'],
 ];
 export const suburbDetails = {
-  ...Object.fromEntries(rows.map(([slug, questionEn, questionZh, en, zh]) => [slug, { questionEn, questionZh, en, zh }])),
+  ...Object.fromEntries(rows.map(([slug, questionEn, questionZh, en, zh]) => [slug, { questionEn, questionZh, en, zh, ...reviewedAreaDetails[slug] }])),
   ...Object.fromEntries(Object.values(addedAreaProfiles).map(area=>[area.name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),area.detail])),
 };

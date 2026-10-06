@@ -61,3 +61,17 @@ test('every area page includes eleven illustrated services and a distinct biling
   assert.doesNotMatch(html,/并非声称本区普遍|不代表当地设有办公室|not a claim about typical damage|not a local office or an attendance-time guarantee/,path);
  }
 });
+
+test('mixed area imagery gives visitors a route to supplied work photos without claiming the service scenes are completed jobs',()=>{
+ for(const page of pages.filter(item=>item.area)) {
+  const html=renderPage(page.path,{}).html;
+  const questions=html.match(/<section\b[^>]*id="questions"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(questions,page.path);
+  const gallery=page.locale==='zh'?'/zh/#selected-work':'/#selected-work';
+  assert.ok(questions.includes('href="'+gallery+'"'),page.path+' should offer the real-work gallery');
+  assert.doesNotMatch(questions,/They show Mel One timber work|这些照片展示 Mel One 的木工工作/,page.path+' should not assign all mixed imagery to Mel One jobs');
+  const work=renderPage(page.locale==='zh'?'/zh/':'/',{}).html.match(/<section\b[^>]*id="selected-work"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(work?.includes('/assets/real-work/'),page.path+' should point to supplied field photographs');
+  assert.doesNotMatch(work,/\/assets\/service-imagery\//,page.path+' real-work gallery should not contain service scenes');
+ }
+});

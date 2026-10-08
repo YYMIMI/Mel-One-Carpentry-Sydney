@@ -676,7 +676,7 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '<meta name="robots" content="index,follow,max-image-preview:large"><link rel="describedby" href="/llms.txt" type="text/plain">' : '<meta name="robots" content="noindex,nofollow">') + canonical +
-    '<link rel="icon" href="/assets/mel-one-logo.jpg" type="image/jpeg"><link rel="apple-touch-icon" href="/assets/mel-one-logo.jpg"><link rel="stylesheet" href="/site.css?v=20260929-fence-soft-intro">' +
+    '<link rel="icon" href="/favicon.png?v=mel-one-roof-mark-1" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/favicon.png?v=mel-one-roof-mark-1"><link rel="stylesheet" href="/site.css?v=20260929-fence-soft-intro">' +
     structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     '' +

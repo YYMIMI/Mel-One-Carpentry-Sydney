@@ -12,7 +12,7 @@ const facts = {
 test('both languages use the supplied Mel One logo for the browser icon and shared brand locations', () => {
   for (const path of ['/', '/zh/', '/services/timber-fence-repairs/']) {
     const html = renderPage(path, facts).html;
-    assert.match(html, /<link rel="icon"[^>]+href="\/assets\/mel-one-logo\.jpg"/);
+    assert.match(html, /<link rel="icon"[^>]+href="\/favicon\.png\?v=mel-one-roof-mark-1"/);
     assert.equal((html.match(/src="\/assets\/mel-one-logo\.jpg"/g) ?? []).length, 2);
     assert.doesNotMatch(html, /href="\/favicon\.svg"/);
   }

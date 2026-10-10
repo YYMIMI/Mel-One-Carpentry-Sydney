@@ -12,7 +12,13 @@ function runAnalyticsBootstrap(html, hostname) {
   assert.ok(source, 'rendered page should contain the GA4 bootstrap');
 
   const appended = [];
-  const window = { location: { hostname } };
+  const window = { location: {
+    hostname,
+    origin: `https://${hostname}`,
+    pathname: '/contact/',
+    search: '?suburb=customer-entered-value',
+    hash: '#private-fragment',
+  } };
   const document = {
     createElement(tagName) { return { tagName }; },
     head: { appendChild(node) { appended.push(node); } },
@@ -32,6 +38,11 @@ test('GA4 loads once on each approved Sydney Carpentry hostname', () => {
     assert.equal(appended[0].src, 'https://www.googletagmanager.com/gtag/js?id=G-2FKG0LZ2V1');
     assert.equal(typeof window.gtag, 'function');
     assert.equal(window.dataLayer.length, 2);
+    assert.equal(window.dataLayer[1][0], 'config');
+    assert.deepEqual(
+      JSON.parse(JSON.stringify(window.dataLayer[1][2])),
+      { page_location: `https://${hostname}/contact/`, page_path: '/contact/' },
+    );
   }
 });
 
@@ -56,7 +67,16 @@ test('call and email links use the unified GA4 event names', () => {
 
   const siteScript = readFileSync(new URL('../public/site.js', import.meta.url), 'utf8');
   assert.match(siteScript, /window\.gtag\?\.\('event',\s*link\.dataset\.event/);
+  assert.match(siteScript, /page_location:\s*location\.origin\s*\+\s*location\.pathname/);
   assert.doesNotMatch(siteScript, /phone_click|email_click|dataLayer\?\.push/);
+});
+
+test('every custom event uses a page location without query or fragment data', () => {
+  for (const file of ['site.js', 'rfq.js', 'form.js']) {
+    const source = readFileSync(new URL(`../public/${file}`, import.meta.url), 'utf8');
+    assert.match(source, /page_location:\s*location\.origin\s*\+\s*location\.pathname/);
+    assert.doesNotMatch(source, /page_location:\s*location\.href/);
+  }
 });
 
 test('RFQ actions remain intent events and never report a successful lead', () => {

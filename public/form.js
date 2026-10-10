@@ -61,7 +61,8 @@
           (zh ? '。内部通知已交付。' : '. Internal notification delivered.'));
       result.hidden = false;
       window.gtag?.('event', 'generate_lead', { service_id: form.elements.serviceId.value,
-        locale, page_path: location.pathname, delivery_pending: Boolean(data.notificationPending) });
+        locale, page_location: location.origin + location.pathname, page_path: location.pathname,
+        delivery_pending: Boolean(data.notificationPending) });
     } catch (caught) {
       showError(msg(caught.message));
       button.disabled = false;

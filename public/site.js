@@ -24,7 +24,7 @@ if (menu && nav) {
 }
 document.querySelectorAll('a[data-event="click_to_call"],a[data-event="click_to_email"]').forEach(link => {
   link.addEventListener('click', () => {
-    window.gtag?.('event', link.dataset.event, { page_path: location.pathname, locale: document.documentElement.lang });
+    window.gtag?.('event', link.dataset.event, { page_location: location.origin + location.pathname, page_path: location.pathname, locale: document.documentElement.lang });
   });
 });
 const workGallery = document.querySelector('#selected-work .case-grid');

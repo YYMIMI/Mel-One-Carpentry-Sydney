@@ -27,7 +27,8 @@ function analyticsHead(facts) {
     'if(!allowedHosts.has(window.location.hostname))return;window.dataLayer=window.dataLayer||[];' +
     'window.gtag=function(){window.dataLayer.push(arguments)};const script=document.createElement("script");' +
     'script.async=true;script.src="https://www.googletagmanager.com/gtag/js?id="+' + id + ';' +
-    'document.head.appendChild(script);window.gtag("js",new Date());window.gtag("config",' + id + ')})();</script>';
+    'document.head.appendChild(script);window.gtag("js",new Date());window.gtag("config",' + id + ',{' +
+    'page_location:window.location.origin+window.location.pathname,page_path:window.location.pathname})})();</script>';
 }
 function businessContact(l,facts) {
   return '<div class="business-contact">'+(facts.serviceHours?'<span>'+tr(l,'Mon–Sun','周一至周日')+' '+esc(facts.serviceHours)+' '+tr(l,'Sydney time','悉尼时间')+'</span>':'')+(facts.contactName?'<span>'+tr(l,'Contact: ','联系人：')+esc(facts.contactName)+'</span>':'')+(facts.telephone?'<a href="tel:'+esc(facts.telephone)+'" data-event="click_to_call">'+esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3'))+'</a>':'')+'</div>';

@@ -8,6 +8,7 @@ export function makeRfq({ suburb, service, scope, quantity, access, contact }, z
 
 if (typeof document !== 'undefined') for (const form of document.querySelectorAll('[data-rfq-email]')) {
   const track = (event, parameters = {}) => window.gtag?.('event', event, {
+    page_location: location.origin + location.pathname,
     page_path: location.pathname,
     locale: document.documentElement.lang,
     ...parameters,

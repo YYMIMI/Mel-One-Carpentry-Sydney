@@ -429,7 +429,7 @@ function suburbBody(page,l,facts,production) {
       p(primary[l].assessment)+
       '<a class="text-link" href="'+servicePath(primary,l)+'">'+esc(shortName(primary,l))+'</a>')+
     suburbScope(a,l,primary)+suburbOptionsSection(a,l)+
-    section('choose-service',tr(l,'Choose by the timber that needs work','按需要处理的木构件选择'),cards(l,facts,production,true))+
+    section('choose-service',tr(l,'Another timber task?','需要处理其他木构件？'),'<a class="text-link" href="'+href('/services/',l)+'">'+tr(l,'Compare all carpentry services','比较全部木工服务')+'</a>')+
     section('visit-details',tr(l,'Preparing access and the quote','整理通道与报价资料'),
       p(tr(l,'Include '+a.name+' in your enquiry, a wide photo, a close-up of each fault and approximate dimensions. Mention any shared access, stairs, parking or property-manager arrangements that apply to your property. You do not need to publish a full street address.',
         '询价请注明 '+a.name+'，提供全景、每类损坏的近照及大致尺寸。如涉及共用通道、楼梯、停车或物业管理安排，请一并说明；不需要公开完整街道地址。'))+
@@ -439,7 +439,7 @@ function suburbBody(page,l,facts,production) {
       '<div class="related-links">'+a.otherNames.filter(name=>!production || facts.approvedAreas?.some(area=>area.name===name && area.coverage_status==='APPROVED' && area.public_copy_approved && area.area_page_publish_approved)).map(name=>'<a href="'+href('/areas/'+suburbSlug(name)+'/',l)+'">'+esc(name)+'</a>').join('')+'<a href="'+href('/areas/',l)+'">'+tr(l,'View all service locations','查看全部服务地区')+'</a></div>')+
     section('questions',tr(l,'Before sending your enquiry','发送询价前'),faq([
       [tr(l,'Can I ask about fence maintenance here?','这里可以咨询围栏保养吗？'),tr(l,'Yes. Describe posts, rails, boards and fixings, then use the timber fence maintenance page to prepare photos. Confirm the work at your location before booking.','可以。说明立柱、横梁、木板及固定件情况，并按木围栏保养页准备照片；预约前确认当地工作范围。')],
-      [tr(l,'Are these photos from '+a.name+'?','这些照片是在 '+a.name+' 拍的吗？'),tr(l,'Not necessarily. The photographs and service images help explain the types of timber repair we handle. You can browse our real work photos, or send a photo of the damage at your '+a.name+' property to discuss the next step.','不一定。本页照片与服务图片帮助你了解不同木作维修。你可以查看我们的现场照片，或发来 '+a.name+' 物业的受损部位照片，一起讨论下一步。')]
+      [tr(l,'Are the linked work photos from '+a.name+'?','链接中的工程照片是在 '+a.name+' 拍的吗？'),tr(l,'Not necessarily. The linked photographs and service images explain the types of timber repair we handle. You can browse our real work photos, or send a photo of the damage at your '+a.name+' property to discuss the next step.','不一定。本页照片与服务图片帮助你了解不同木作维修。你可以查看我们的现场照片，或发来 '+a.name+' 物业的受损部位照片，一起讨论下一步。')]
     ])+'<p><a class="text-link" href="'+href('/#selected-work',l)+'">'+tr(l,'Browse real work photos','查看现场施工照片')+' <span aria-hidden="true">↗</span></a></p>') +
     rfqForm(l,facts,a)+suburbMap(a,l);
 }

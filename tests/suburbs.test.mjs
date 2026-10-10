@@ -19,11 +19,12 @@ test('unknown suburb remains a real 404, unapproved suburbs cannot be published'
  assert.equal(renderPage('/areas/chatswood/',{},{production:true}).status,404);
 });
 
-test('area pages retain the original nine illustrated service choices and add useful local decisions',()=>{
+test('area pages retain direct service navigation and useful local decisions',()=>{
  for (const prefix of ['', '/zh']) for (const name of ['Chatswood','Bankstown','Surry Hills','Caringbah']) {
   const path=prefix+'/areas/'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'/';
   const html=renderPage(path,{},{}).html;
-  assert.equal((html.match(/class="service-card"/g)||[]).length,11,path);
+  assert.ok(html.includes('href="'+prefix+'/services/"'),path);
+  assert.equal((html.match(/class="service-card"/g)||[]).length,0,path+' should not repeat the complete service catalogue');
   assert.ok(html.includes('id="local-enquiry"'),path);
   assert.ok(html.includes('id="choose-service"'),path);
   assert.ok(html.includes('id="visit-details"'),path);
@@ -42,7 +43,7 @@ test('area directory avoids internal approval language in customer copy',()=>{
  }
 });
 
-test('every area page includes eleven illustrated services and a distinct bilingual comparison',()=>{
+test('every area page keeps its distinct bilingual comparison and links to the full service catalogue',()=>{
  const names=popularAreaCandidates.flatMap(group=>group.names);
  assert.equal(names.length,76);
  assert.equal(Object.keys(suburbOptions).length,76);
@@ -51,7 +52,8 @@ test('every area page includes eleven illustrated services and a distinct biling
  for(const name of names) for(const prefix of ['', '/zh']) {
   const path=prefix+'/areas/'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'/';
   const html=renderPage(path,{}).html;
-  assert.equal((html.match(/class="service-card"/g)||[]).length,11,path);
+  assert.ok(html.includes('href="'+prefix+'/services/"'),path);
+  assert.equal((html.match(/class="service-card"/g)||[]).length,0,path+' should not repeat the complete service catalogue');
   assert.ok(html.indexOf('id="local-enquiry"')<html.indexOf('id="choose-service"'),path);
   assert.ok(html.indexOf('id="choose-service"')<html.indexOf('id="visit-details"'),path);
   assert.ok(html.indexOf('id="visit-details"')<html.indexOf('id="other-locations"'),path);

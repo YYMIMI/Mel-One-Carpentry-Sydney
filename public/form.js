@@ -60,16 +60,8 @@
         (data.notificationPending ? (zh ? '。内部通知仍待交付；预览不代表真实收件箱已收到。' : '. Internal notification is pending; the preview does not prove inbox delivery.') :
           (zh ? '。内部通知已交付。' : '. Internal notification delivered.'));
       result.hidden = false;
-      const safeUtm = key => {
-        const value = new URLSearchParams(location.search).get(key) || '';
-        return /^[a-zA-Z0-9 _.-]{1,100}$/.test(value) ? value : '';
-      };
-      let referrerHost = '';
-      try { referrerHost = new URL(document.referrer).hostname.slice(0, 100); } catch { /* direct visit */ }
-      window.dataLayer?.push({ event: 'lead_submit_success', service_owner: form.elements.serviceId.value,
-        locale, page_path: location.pathname, delivery_pending: Boolean(data.notificationPending),
-        utm_source: safeUtm('utm_source'), utm_medium: safeUtm('utm_medium'), utm_campaign: safeUtm('utm_campaign'),
-        referrer_host: referrerHost });
+      window.gtag?.('event', 'generate_lead', { service_id: form.elements.serviceId.value,
+        locale, page_path: location.pathname, delivery_pending: Boolean(data.notificationPending) });
     } catch (caught) {
       showError(msg(caught.message));
       button.disabled = false;

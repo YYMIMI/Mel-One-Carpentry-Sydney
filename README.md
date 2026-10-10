@@ -34,6 +34,8 @@ The Vercel static build uses an email RFQ draft. Visitors enter a suburb, servic
 
 `public/rfq.js` implements the draft flow; `src/rfq.mjs` renders the public form and area guidance. Service/suburb query parameters prefill only those public selections. Editing fields invalidates an earlier draft so it cannot silently send stale information. Google map embeds are described in the privacy page.
 
+GA4 loads only on `www.thesydneycarpenter.com.au` and `thesydneycarpenter.com.au`. It records `click_to_call`, `click_to_email`, `rfq_draft_prepared` and `rfq_email_open` without enquiry text or contact details. Draft events describe intent only. The retained backend form sends `generate_lead` only after `/api/inquiry` returns `accepted: true`; that backend is not enabled by the Vercel email-draft build.
+
 ## Separate Cloudflare backend
 
 `src/worker.mjs` retains the original D1/R2 inquiry API, idempotency and notification outbox. It is not deployed by Vercel. `node scripts/build.mjs --production` retains its stricter backend/business-fact gates; public indexing does not assert that these backend requirements are satisfied. Real inbox delivery, private uploads, notification endpoints and retention controls must be configured and verified before enabling server-submitted enquiries. Do not mark recipient/privacy/backend fields approved merely to enable indexing.

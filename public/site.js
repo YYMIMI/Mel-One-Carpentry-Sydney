@@ -1,4 +1,3 @@
-window.dataLayer ||= [];
 const menu = document.getElementById('menu-toggle');
 const nav = document.getElementById('primary-nav');
 if (menu && nav) {
@@ -23,9 +22,9 @@ if (menu && nav) {
     nav.classList.remove('is-open'); menu.setAttribute('aria-expanded','false');
   });
 }
-document.querySelectorAll('a[data-event="phone_click"],a[data-event="email_click"]').forEach(link => {
+document.querySelectorAll('a[data-event="click_to_call"],a[data-event="click_to_email"]').forEach(link => {
   link.addEventListener('click', () => {
-    window.dataLayer?.push({ event: link.dataset.event, page_path: location.pathname, locale: document.documentElement.lang });
+    window.gtag?.('event', link.dataset.event, { page_path: location.pathname, locale: document.documentElement.lang });
   });
 });
 const workGallery = document.querySelector('#selected-work .case-grid');

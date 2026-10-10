@@ -15,8 +15,22 @@ const support = [
   ['H08', '/privacy/', 'Privacy and enquiry data', '隐私与询价资料'],
 ];
 const tr = (l, en, zh) => l === 'zh' ? zh : en;
+const ga4Hosts = ['www.thesydneycarpenter.com.au', 'thesydneycarpenter.com.au'];
+function analyticsHead(facts) {
+  const measurementId = String(facts.ga4MeasurementId || '').trim();
+  let configuredHost = '';
+  try { configuredHost = new URL(facts.domain).hostname; } catch { return ''; }
+  if (!ga4Hosts.includes(configuredHost) || !/^G-[A-Z0-9]{4,20}$/.test(measurementId)) return '';
+  const hosts = JSON.stringify(ga4Hosts);
+  const id = JSON.stringify(measurementId);
+  return '<script data-ga4-bootstrap>(()=>{const allowedHosts=new Set(' + hosts + ');' +
+    'if(!allowedHosts.has(window.location.hostname))return;window.dataLayer=window.dataLayer||[];' +
+    'window.gtag=function(){window.dataLayer.push(arguments)};const script=document.createElement("script");' +
+    'script.async=true;script.src="https://www.googletagmanager.com/gtag/js?id="+' + id + ';' +
+    'document.head.appendChild(script);window.gtag("js",new Date());window.gtag("config",' + id + ')})();</script>';
+}
 function businessContact(l,facts) {
-  return '<div class="business-contact">'+(facts.serviceHours?'<span>'+tr(l,'Mon–Sun','周一至周日')+' '+esc(facts.serviceHours)+' '+tr(l,'Sydney time','悉尼时间')+'</span>':'')+(facts.contactName?'<span>'+tr(l,'Contact: ','联系人：')+esc(facts.contactName)+'</span>':'')+(facts.telephone?'<a href="tel:'+esc(facts.telephone)+'" data-event="phone_click">'+esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3'))+'</a>':'')+'</div>';
+  return '<div class="business-contact">'+(facts.serviceHours?'<span>'+tr(l,'Mon–Sun','周一至周日')+' '+esc(facts.serviceHours)+' '+tr(l,'Sydney time','悉尼时间')+'</span>':'')+(facts.contactName?'<span>'+tr(l,'Contact: ','联系人：')+esc(facts.contactName)+'</span>':'')+(facts.telephone?'<a href="tel:'+esc(facts.telephone)+'" data-event="click_to_call">'+esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3'))+'</a>':'')+'</div>';
 }
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
 const href = (path, l) => l === 'zh' ? (path === '/' ? '/zh/' : '/zh' + path) : path;
@@ -99,7 +113,7 @@ function companyFeedback(l, detailed = false) {
     (detailed ? cta(l) : '<a class="text-link" href="' + href('/about/', l) + '">' + tr(l, 'Get to know Mel One', '了解 Mel One') + '</a>') + '</div></section>';
 }
 function conversionRail(l, facts) {
-  const call = facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' +
+  const call = facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="click_to_call">' +
     tr(l, 'Call ', '致电 ') + esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3')) + '</a>' : '';
   return '<aside class="site-conversion" aria-label="' + tr(l, 'Get a repair quote', '咨询木作维修') + '"><div><p class="eyebrow">' +
     tr(l, 'Ready to explain the job?', '准备说明维修问题？') + '</p><h2>' + tr(l, 'Tell us what needs attention.', '告诉我们哪一处需要处理。') +
@@ -489,7 +503,7 @@ function supportBody(page, l, facts, selected, production) {
     tr(l, 'Residential timber work · Sydney', '悉尼住宅木作') + '</p><h1>' + esc(page.h1) + '</h1><p class="hero-intro">' +
     tr(l, 'From worn window frames and sticking doors to damaged fences and decks. Share a few photos and your suburb to discuss repairs, replacement or timber refinishing.',
       '从老旧窗框、开关不顺的木门，到受损围栏与Deck。发来几张照片和所在地区，一起确认维修、更换或木作刷漆翻新的范围。') +
-    '</p><div class="hero-actions"><a class="button button-primary" href="#inquiry">' + tr(l, 'Send a repair enquiry', '发送木作询价') + '</a>' + (facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + tr(l, 'Call ', '致电 ') + esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3')) + '</a>' : '') + '<a class="text-link" href="' + href('/services/', l) + '">' +
+    '</p><div class="hero-actions"><a class="button button-primary" href="#inquiry">' + tr(l, 'Send a repair enquiry', '发送木作询价') + '</a>' + (facts.telephone ? '<a class="button button-call" href="tel:' + esc(facts.telephone) + '" data-event="click_to_call">' + tr(l, 'Call ', '致电 ') + esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3')) + '</a>' : '') + '<a class="text-link" href="' + href('/services/', l) + '">' +
     tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/home-verandah.webp" width="1280" height="1707" alt="' +
     tr(l, 'Grey weatherboard house with white verandah posts, decorative timberwork and stair balustrades', '灰色横板外墙住宅，配白色门廊立柱、装饰木作与楼梯栏杆') +
     '" fetchpriority="high"></figure></div><div class="service-highlights"><p><strong>' + tr(l, 'See real timber work', '看得见的真实木作') +
@@ -592,8 +606,8 @@ function supportBody(page, l, facts, selected, production) {
       'Only share images you may provide. Avoid faces, number plates and documents. Review and send your draft through your email app, or call us to discuss the work.',
       '只分享有权提供的照片，避开人脸、车牌和文件。请在电邮软件中核对并发送草稿，也可致电讨论工作。')) +
     businessContact(l,facts) +
-    (facts.telephone ? '<p><a href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + esc(facts.telephone) + '</a></p>' : '') +
-    (facts.email ? '<p><a href="mailto:' + esc(facts.email) + '" data-event="email_click">' + esc(facts.email) + '</a></p>' : '') + officeAddress(l,facts) +
+    (facts.telephone ? '<p><a href="tel:' + esc(facts.telephone) + '" data-event="click_to_call">' + esc(facts.telephone) + '</a></p>' : '') +
+    (facts.email ? '<p><a href="mailto:' + esc(facts.email) + '" data-event="click_to_email">' + esc(facts.email) + '</a></p>' : '') + officeAddress(l,facts) +
     '</aside></div>' + officeMap(l, facts) + '<script src="/form.js" defer></script>';
   if (page.id === 'H08') return '<div class="page-lead">' + p(tr(l,
     'An enquiry can contain contact details, a suburb, a description and optional photographs. These are used to assess and respond, not placed in public content or analytics events.',
@@ -601,6 +615,9 @@ function supportBody(page, l, facts, selected, production) {
     '</div>' + section('handling', tr(l, 'Handling and access', '处理与访问'), p(tr(l,
       facts.publicEmailDrafts ? 'The enquiry builder prepares a draft in your browser. It does not upload photos or send your enquiry. When you choose to send, your email provider handles the email and attachments. We use received enquiries to assess and reply. For questions about your information, call or email us.' : 'Uploaded photographs are stored privately. Please do not include faces, number plates or documents. For questions about information you have sent, contact us by phone or email.',
       facts.publicEmailDrafts ? '询价工具在浏览器中整理草稿，不上传照片或自动发送资料。你选择发送时，由电邮服务商处理邮件与附件。我们将收到的询价用于评估和回复。如需询问资料处理，请电话或电邮联系。' : '上传的照片存放在私有空间。请不要包含人脸、车牌或文件。如需询问已提交资料的处理方式，请通过电话或电邮联系我们。'))) +
+    section('analytics-privacy', tr(l, 'Website analytics', '网站使用分析'), p(tr(l,
+      'We use Google Analytics on this website to understand page visits and actions such as clicking a phone or email link, preparing an RFQ email draft and opening that draft in an email app. These events may include the page path, page language and selected service code. We do not send names, contact details, suburb text, job descriptions, email draft contents or photos to Google Analytics. Google may process device and usage data under its privacy terms.',
+      '本网站使用 Google Analytics 了解页面访问，以及点击电话或电邮链接、整理询价电邮草稿和打开电邮软件等操作。事件可能包含页面路径、页面语言及所选服务代码；不会把姓名、联系方式、填写的地区、工程描述、电邮草稿内容或照片发送给 Google Analytics。Google 可能按其隐私条款处理设备及使用资料。'))) +
     section('maps-privacy', tr(l, 'Maps', '地图'), p(tr(l,
       'Embedded maps are provided by Google. Loading or opening a map connects your browser to Google and is subject to its privacy practices. The suburb map shows an area, not your precise address.',
       '嵌入地图由Google提供。加载或打开地图时，浏览器会连接Google，其资料处理适用Google的隐私规则。郊区地图显示地区，不是你的精确地址。'))) +
@@ -677,7 +694,7 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     '<title>' + esc(page.title) + ' | ' + brand + '</title><meta name="description" content="' +
     esc(description) + '">' + (base ? '<meta name="robots" content="index,follow,max-image-preview:large"><link rel="describedby" href="/llms.txt" type="text/plain">' : '<meta name="robots" content="noindex,nofollow">') + canonical +
     '<link rel="icon" href="/favicon.png?v=mel-one-roof-mark-1" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/favicon.png?v=mel-one-roof-mark-1"><link rel="stylesheet" href="/site.css?v=20260929-fence-soft-intro">' +
-    structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
+    analyticsHead(facts) + structuredData(page, facts, base) + '</head><body><a class="skip-link" href="#main">' +
     tr(l, 'Skip to content', '跳至正文') + '</a>' +
     '' +
     '<header class="site-header">' + businessContact(l,facts) + '<div class="header-inner"><a class="brand" href="' + href('/', l) +
@@ -700,8 +717,8 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     '<a href="' + href('/areas/',l) + '">' + tr(l, 'Service areas: Sydney & selected NSW locations', '服务地区：悉尼及 NSW 指定地区') + '</a><a href="' + href('/#selected-work',l) + '">' + tr(l, 'Real work photos', '真实施工照片') + '</a><a href="' + href('/faq/',l) + '">' + tr(l, 'Common questions', '常见问题') + '</a></nav>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Company and contact', '公司与联系') + '"><h2>' + tr(l, 'Get in touch', '联系我们') + '</h2>' +
     '<a href="' + href('/contact/',l) + '">' + tr(l, 'Send photos & request a quote', '发送照片并询价') + '</a>' +
-    (facts.telephone ? '<a href="tel:' + esc(facts.telephone) + '" data-event="phone_click">' + esc(facts.telephone) + '</a>' : '') +
-    (facts.email ? '<a href="mailto:' + esc(facts.email) + '" data-event="email_click">' + esc(facts.email) + '</a>' : '') +
+    (facts.telephone ? '<a href="tel:' + esc(facts.telephone) + '" data-event="click_to_call">' + esc(facts.telephone) + '</a>' : '') +
+    (facts.email ? '<a href="mailto:' + esc(facts.email) + '" data-event="click_to_email">' + esc(facts.email) + '</a>' : '') +
     '<span>' + tr(l, 'Felix2 · Mon–Sun 09:00–21:00 Sydney time', 'Felix2 · 周一至周日 09:00–21:00（悉尼时间）') + '</span>' +
     '<a href="' + href('/about/',l) + '">' + tr(l, 'About the company', '关于公司') + '</a><a href="' + href('/privacy/',l) + '">' + tr(l, 'Privacy', '隐私政策') + '</a></nav>' +
     '</div></footer><script src="/site.js" defer></script></body></html>';

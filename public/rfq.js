@@ -7,6 +7,11 @@ export function makeRfq({ suburb, service, scope, quantity, access, contact }, z
 }
 
 if (typeof document !== 'undefined') for (const form of document.querySelectorAll('[data-rfq-email]')) {
+  const track = (event, parameters = {}) => window.gtag?.('event', event, {
+    page_path: location.pathname,
+    locale: document.documentElement.lang,
+    ...parameters,
+  });
   const zh = form.dataset.locale === 'zh';
   const query = new URLSearchParams(location.search);
   if (form.id === 'inquiry') {
@@ -18,6 +23,7 @@ if (typeof document !== 'undefined') for (const form of document.querySelectorAl
   const result = form.querySelector('.rfq-result');
   const status = form.querySelector('[data-rfq-status]');
   const output = form.querySelector('[data-rfq-output]');
+  const mail = form.querySelector('[data-rfq-mail]');
   form.querySelector('[data-rfq-prepare]').disabled = false;
   form.addEventListener('input', () => { result.hidden = true; });
   form.addEventListener('submit', event => {
@@ -27,11 +33,13 @@ if (typeof document !== 'undefined') for (const form of document.querySelectorAl
     data.service = form.elements.service.selectedOptions[0].textContent;
     const draft = makeRfq(data, zh);
     output.value = draft.body;
-    form.querySelector('[data-rfq-mail]').href = 'mailto:'+form.dataset.rfqEmail+'?subject='+encodeURIComponent(draft.subject)+'&body='+encodeURIComponent(draft.body);
+    mail.href = 'mailto:'+form.dataset.rfqEmail+'?subject='+encodeURIComponent(draft.subject)+'&body='+encodeURIComponent(draft.body);
     status.textContent = zh ? '草稿已整理，尚未发送。请打开电邮软件核对、添加照片并发送。' : 'Draft prepared, not sent. Open your email app to review, attach photos and send.';
     result.hidden = false;
+    track('rfq_draft_prepared', { service_id: form.elements.service.value });
     result.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' });
   });
+  mail.addEventListener('click', () => track('rfq_email_open', { service_id: form.elements.service.value }));
   form.querySelector('[data-rfq-copy]').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(output.value);

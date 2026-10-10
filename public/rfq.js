@@ -8,10 +8,10 @@ export function makeRfq({ suburb, service, scope, quantity, access, contact }, z
 
 if (typeof document !== 'undefined') for (const form of document.querySelectorAll('[data-rfq-email]')) {
   const track = (event, parameters = {}) => window.gtag?.('event', event, {
+    ...parameters,
     page_location: location.origin + location.pathname,
     page_path: location.pathname,
     locale: document.documentElement.lang,
-    ...parameters,
   });
   const zh = form.dataset.locale === 'zh';
   const query = new URLSearchParams(location.search);

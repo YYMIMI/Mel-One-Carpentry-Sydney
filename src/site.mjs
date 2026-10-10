@@ -602,6 +602,9 @@ function supportBody(page, l, facts, selected, production) {
   if (page.id === 'H07') return '<div class="page-lead">' + p(tr(l,
     'Describe the timber issue and suburb. Photos are optional; do not enter a full street address. At least one working contact method is needed for a reply.',
     '请说明木作问题及suburb。照片可选，无需输入完整街道地址；至少留一种有效联系方式以便回复。')) +
+    '<p data-commercial-enquiry>' + tr(l,
+      'We also welcome timber repair enquiries for Sydney shops, offices and commercial properties. Tell us about the doors, window frames, cabinetry or other timber needing attention, along with access times and the person who can approve the work.',
+      '悉尼商铺、办公室及商业物业的木作维修也可以联系我们。请说明需要处理的木门、木窗框、柜体或其他木构件，并提供可进场时间及负责批准工作的联系人。') + '</p>' +
     '</div><div class="contact-layout"><div>' + contactForm(l, selected, facts) +
     '</div><aside class="aside-note"><h2>' + tr(l, 'Before you send', '发送前请留意') + '</h2>' + p(tr(l,
       'Only share images you may provide. Avoid faces, number plates and documents. Review and send your draft through your email app, or call us to discuss the work.',

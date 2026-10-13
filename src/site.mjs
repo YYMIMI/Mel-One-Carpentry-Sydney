@@ -508,7 +508,7 @@ function supportBody(page, l, facts, selected, production) {
     tr(l, 'Explore timber work', '查看木作项目') + '</a></div></div><figure class="hero-photo"><img src="/assets/home-verandah.webp" width="1280" height="1707" alt="' +
     tr(l, 'Grey weatherboard house with white verandah posts, decorative timberwork and stair balustrades', '灰色横板外墙住宅，配白色门廊立柱、装饰木作与楼梯栏杆') +
     '" fetchpriority="high"></figure></div><div class="service-highlights"><p><strong>' + tr(l, 'See real timber work', '看得见的真实木作') +
-    '</strong><span>' + tr(l, 'Explore supplied photos beside the service they relate to.', '施工照片放在对应服务旁，方便了解实际工作细节。') + '</span></p><p><strong>' +
+    '</strong><span>' + tr(l, 'Explore timber work photos and the related carpentry services.', '施工照片放在对应服务旁，方便了解实际工作细节。') + '</span></p><p><strong>' +
     tr(l, 'English & Chinese', '中英文咨询') + '</strong><span>' + tr(l, 'Read and enquire in your preferred language.', '按习惯的语言查看服务及询价。') +
     '</span></p><p><strong>' + tr(l, 'Scope before a booking', '先确认范围，再安排') + '</strong><span>' +
     tr(l, 'Discuss repair, materials, finishing and quote inclusions.', '把维修、材料、表面收尾及报价内容逐项说清。') + '</span></p></div><section class="homepage-section"><div class="section-heading"><p class="eyebrow">' +

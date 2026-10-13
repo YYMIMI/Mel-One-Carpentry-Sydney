@@ -205,7 +205,7 @@ function doorRepairVisual(l) {
       'A replacement jamb must have sound fixings, allow the existing door to close and latch, and have sealed joins and an agreed paint finish. The adjacent brickwork, threshold and any continuing water entry need their own checks. The image shows one possible appearance for planning; the actual repair extent depends on the property.',
       '更换后的门框侧边应有稳固固定点，让原门能够正常关闭与上锁，接缝封好，并按约定完成涂装。相邻砖墙、门槛及持续进水也需要分别检查。图片展示一种可供规划的外观，实际维修范围仍取决于现场。')) +
     '<figure class="door-repair-visual"><img src="/assets/service-imagery/sydney-exterior-door-jamb-repair-concept.webp" width="1086" height="1448" loading="lazy" decoding="async" alt="' +
-    esc(tr(l, 'Illustration of a sound finished timber door jamb beside the existing glass door and brickwork', '原玻璃门与砖墙旁完好木框的示意外观')) + '"></figure>');
+    esc(tr(l, 'Timber door jamb beside the existing glass door and brickwork', '玻璃门与砖墙旁的木门框')) + '"></figure>');
 }
 
 const casePhotoGroups = {
@@ -561,9 +561,9 @@ function supportBody(page, l, facts, selected, production) {
     section('insurance', tr(l, 'Insurance and work scope', '保险与工作范围'), p(tr(l,
       'The company holds Chubb public and products liability cover. The certificate on file records a limit of AUD 20 million for 13 April 2026 to 13 April 2027. Cover for a particular job remains subject to the policy terms, exclusions and confirmed scope; ask us for current evidence if needed.',
       '公司持有 Chubb 公众及产品责任保险。现有证明文件记录保额为澳币 2,000 万元，有效期为 2026 年 4 月 13 日至 2027 年 4 月 13 日。具体工作是否承保仍以保单条款、除外责任及确定的工作范围为准；如需现行证明可向我们索取。'))) +
-    section('proof', tr(l, 'Evidence before promises', '有依据再作承诺'), p(tr(l,
-      'The service pages show real work photos and explain what the images can and cannot establish. We do not assign an unverified suburb or finished outcome to a photograph.',
-      '服务页展示真实施工照片，也说明照片能证明和不能证明的内容。未经核实，不把照片归属到具体郊区，也不据此宣称完工结果。')) +
+    section('proof', tr(l, 'Discuss the timber work', '先沟通木工范围'), p(tr(l,
+      'Browse timber work photos to help explain the part that needs attention. Tell us the property location, damage, access and finish you want so we can discuss a suitable scope.',
+      '可以参照木工照片，说明需要处理的部位。请告知物业位置、损坏情况、进场条件和希望的表面收尾，再沟通合适的工作范围。')) +
       '<p><a class="text-link" href="' + href('/#selected-work',l) + '">' +
       tr(l, 'Browse the real-work photo collection', '查看真实施工照片') + '</a></p>') + companyFeedback(l, true);
   if (page.id === 'H06') return '<div class="page-lead">' + p(tr(l,

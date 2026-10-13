@@ -400,13 +400,16 @@ function areaJobPlanning(a,l,facts,production) {
   const focus=services.find(s=>s.id===a.planning.service);
   const ids=[focus.id,...focus.related,'S16','S17'];
   const links=services.filter(s=>ids.includes(s.id)&&(!production||facts.approvedServices?.includes(s.id)));
-  const evidence=links.find(s=>casePhotoGroups[s.id]);
+  const evidence=links.find(s=>s.id===focus.id&&casePhotoGroups[s.id])||links.find(s=>casePhotoGroups[s.id]);
+  const evidenceLabel=evidence&&evidence.id!==focus.id
+    ? tr(l,'See related work photos: ','查看相关木作实拍：')+shortName(evidence,l)
+    : tr(l,'See Mel One work photos for this type of job','查看 Mel One 这类木作的实拍');
   return section('area-job-planning',tr(l,'Plan your timber work in '+a.name,'准备 '+a.name+' 的木作询价'),
     p(a.name+(a.name==='Sydney CBD'?' / Sydney City':'')+' · NSW '+a.planning.postcode+' · '+tr(l,a.region,a.regionZh))+
     (!a.planning.detail?p(tr(l,a.planning.en,a.planning.zh)):'')+
     '<h3>'+tr(l,'Compare the relevant services','先比较相关服务范围')+'</h3><div class="related-links">'+
     links.map(s=>'<a href="'+servicePath(s,l)+'">'+esc(shortName(s,l))+'</a>').join('')+'</div>'+
-    (evidence?'<p><a class="text-link" href="'+servicePath(evidence,l)+'#case-photos">'+tr(l,'See Mel One work photos for this type of job','查看 Mel One 这类木作的实拍')+'</a></p>':'')+
+    (evidence?'<p><a class="text-link" href="'+servicePath(evidence,l)+'#case-photos">'+esc(evidenceLabel)+'</a></p>':'')+
     p(tr(l,'Include the suburb and postcode with your photos. We will discuss the scope, access, appointment availability and any travel charges before you book.','发照片时注明地区与邮编。预约前先讨论工作范围、现场通道、可安排时间及是否涉及出行费用。')));
 }
 

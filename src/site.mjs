@@ -11,7 +11,7 @@ const support = [
   ['H02', '/areas/', 'Carpentry service areas | Sydney & selected NSW locations', '木工服务地区 | 悉尼及 NSW 指定地区'],
   ['H03', '/about/', 'About the carpentry service', '关于木工服务'],
   ['H06', '/faq/', 'Carpentry questions', '木工常见问题'],
-  ['H07', '/contact/', 'Send photos & request a quote', '上传照片，咨询维修报价'],
+  ['H07', '/contact/', 'Send photos & request a quote', '附照片，咨询维修报价'],
   ['H08', '/privacy/', 'Privacy and enquiry data', '隐私与询价资料'],
 ];
 const tr = (l, en, zh) => l === 'zh' ? zh : en;
@@ -47,10 +47,10 @@ const customerConcerns = l => [
     '有时可以，但先要看相邻木材、固定处，以及受潮或移动的原因。局部维修不应掩盖不稳的支撑或仍在漏水的位置。')],
   [tr(l, 'What if hidden damage appears?', '拆开后发现更多损坏怎么办？'), tr(l,
     'Stop and explain the newly visible condition before extra work. Agree the changed method, materials and cost in writing rather than treating an initial photo estimate as an unlimited approval.',
-    '增加工作前应先说明新发现的情况，再以书面确认变更后的方法、材料与费用；初步照片估算不等于无限追加工作的同意。')],
+    '增加工作前应先暂停，说明新发现的情况，再以书面确认变更后的方法、材料与费用；初步照片估算不等于无限追加工作的同意。')],
   [tr(l, 'How will the work affect the home?', '施工会怎样影响家里？'), tr(l,
     'Ask which areas need access, whether a door or window will be temporarily out of use, and what preparation, making good and waste removal are included. The answer depends on the agreed job.',
-    '可先确认需要进入哪些位置、门窗会否暂时不能使用，以及保护、收尾和清运包含什么；具体安排取决于同意的工作范围。')],
+    '可先确认需要进入哪些位置、门窗会否暂时不能使用，以及前期准备、收尾和清运包含什么；具体安排取决于同意的工作范围。')],
 ];
 function concernsSection(l) {
   return '<section class="homepage-section concern-section" id="customer-concerns"><div class="section-heading"><div><p class="eyebrow">' +
@@ -68,7 +68,7 @@ const servicePath = (s, l) => href('/services/' + s.slug + '/', l);
 const officeAddress = (l, facts) => facts.officeAddress ? '<p class="office-address"><strong>' + tr(l, 'Sydney office', '悉尼办公室') + '</strong><br><span>' + esc(facts.officeAddress) + '</span></p>' : '';
 const shortName = (s, l) => s.id === 'S05' ? tr(l, 'Timber fence maintenance & repairs', '木围栏保养与维修') : s[l].h1.replace(l === 'zh' ? /^悉尼/ : / in Sydney$/, '');
 const cta = (l, id = '') => '<a class="button button-primary" href="' + href('/contact/', l) +
-  '?service=' + encodeURIComponent(id) + '">' + tr(l, 'Send photos & request a quote', '上传照片，咨询维修报价') + '</a>';
+  '?service=' + encodeURIComponent(id) + '">' + tr(l, 'Send photos & request a quote', '附照片，咨询维修报价') + '</a>';
 const mapsUrl = facts => 'https://www.google.com/maps?q=' + encodeURIComponent(facts.officeAddress) + '&output=embed';
 const mapsLink = facts => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(facts.officeAddress);
 function officeMap(l, facts) {
@@ -263,7 +263,7 @@ const casePhotoGroups = {
     ],
     photos: [
       ['window-multipane.jpg', 'Multi-pane white timber window and sill', '白色多格木窗及窗台', 'Window, frame and sill', '窗扇、窗框与窗台', 1280, 1707],
-      ['window-two-pane.jpg', 'Two-pane window with painted timber surround', '带有刷漆木框的双扇窗', 'Two-pane window surround', '双扇窗框', 1280, 1707],
+      ['window-two-pane.jpg', 'Two-pane window with painted timber surround', '带有刷漆木框的双格玻璃窗', 'Two-pane window surround', '双扇窗框', 1280, 1707],
       ['window-frame-sill.jpg', 'Close view of white window frame and sill', '白色窗框与窗台近照', 'Frame and sill detail', '窗框与窗台细节', 1280, 1707],
       ['window-sliding-frame.jpg', 'Sliding window with visible frame edges', '可见框边的推拉窗', 'Sliding-frame detail', '推拉窗框细节', 1280, 1707],
     ],
@@ -320,7 +320,7 @@ function selectedWork(l, facts, production) {
   if (!items.length) return '';
   return '<section id="selected-work" class="homepage-section selected-work"><div class="section-heading"><div><p class="eyebrow">' +
     tr(l, 'From our real jobs', '我们的真实案例') + '</p><h2>' + tr(l, 'A closer look at the work', '从细节，看实际木作') +
-    '</h2></div><p>' + tr(l, 'Fences, outdoor timber, window frames, doors and cupboard details. See real photos alongside the relevant installation, repair and finishing options.',
+    '</h2></div><p>' + tr(l, 'Fences, outdoor timber, window frames, doors and cupboard details. See real photos alongside the relevant installation, repair and finishing options. Replacement can also be discussed as a distinct option where relevant.',
       '围栏、户外木作、窗框、门板与柜门细节。结合真实照片，了解对应的安装、维修、更换及表面收尾范围。') + '</p></div><div class="case-scroll"><button class="case-scroll-control" type="button" data-direction="previous" aria-label="' + tr(l, 'Previous work photos', '向前查看案例照片') + '">←</button><button class="case-scroll-control" type="button" data-direction="next" aria-label="' + tr(l, 'Next work photos', '向后查看案例照片') + '">→</button></div><div class="case-grid" tabindex="0" aria-label="' + tr(l, 'Real work photo gallery', '真实施工照片列表') + '">' +
     items.map(([id, name, en, zh]) => '<a class="case-card" href="' + servicePath(services.find(s => s.id === id), l) +
       '#case-photos"><img src="/assets/real-work/' + name + '" width="1280" height="1707" loading="lazy" decoding="async" alt="' +
@@ -383,7 +383,7 @@ function fenceMaintenance(l, facts) {
     '<nav class="fence-task-nav" aria-label="' + tr(l, 'Fence job guide', '围栏工作指引') + '"><a href="#maintenance-checks">' + tr(l, 'What to check', '保养检查') + '</a><a href="#repair-options">' + tr(l, 'Maintain, repair or replace?', '保养、维修还是更换？') + '</a><a href="#maintenance-cost">' + tr(l, 'Plan the quote', '了解报价') + '</a></nav>' +
     '<div id="maintenance-checks" class="fence-checks">' + [
       ['Posts and ground level', 'Note leaning posts, soft-looking bases, soil build-up and persistent damp. Photograph from safe access; do not push or load an unstable fence.', '立柱与地面', '留意立柱倾斜、柱脚疑似腐烂、积土及长期潮湿。从安全位置拍照，不要推压或倚靠不稳的围栏。'],
-      ['Rails, palings and fixings', 'Look for loose boards, split rails, gaps and rusty or missing fixings. Show the surrounding sound timber as well as the damaged part so the repair extent can be assessed.', '横梁、木板与固定件', '查看木板松动、横梁开裂、缝隙及固定件锈蚀或缺失。照片同时拍到附近完好的木材，方便判断维修范围。'],
+      ['Rails, palings and fixings', 'Look for loose boards, split rails, gaps and rusty or missing fixings. Show the surrounding sound timber as well as the damaged part so the repair extent can be assessed.', '横梁、木板与固定件', '查看木板松动、横梁开裂、缝隙及固定件锈蚀或缺失。照片同时拍到附近完好的木材及受损部分，方便判断维修范围。'],
       ['Surface and surrounding growth', 'Show peeling finishes, vegetation touching timber and debris near the base. Cleaning, preparation and any coating need an agreed scope; a fresh finish cannot make decayed timber structurally sound.', '表面与周边植物', '拍下表面涂层剥落、植物贴住木材及柱脚周边杂物的情况。清洁、前处理及涂层须另行明确；刷漆不能恢复腐烂木材的结构强度。']
     ].map(([h,t,zh,zt]) => '<article><h3>'+esc(tr(l,h,zh))+'</h3>'+p(tr(l,t,zt))+'</article>').join('') + '</div>') +
     section('repair-options', tr(l, 'Maintenance, repair or replacement?', '保养、维修还是更换？'),
@@ -392,7 +392,7 @@ function fenceMaintenance(l, facts) {
       '<a class="text-link" href="'+href('/services/timber-gate-repairs/',l)+'">'+tr(l,'Timber gate maintenance and repairs','查看木闸门维护与维修')+'</a>') +
     section('maintenance-cost', tr(l, 'Fence maintenance costs: what to include', '木围栏保养费用：报价需要哪些内容'),
       p(tr(l, 'There is no single maintenance price for every fence. Length and height, access to each side, the number of posts or boards needing work, existing coatings, preparation and waste removal all affect scope. Separate upkeep, timber replacement and any agreed finishing in the quote so you can compare like-for-like work.', '围栏保养不能用一个统一价格套所有现场。长度、高度、两侧通道、需处理的柱或木板数量、旧涂层、前处理及清运都会影响范围。报价应区分保养、木材更换及同意的表面处理，方便比较同等工作。')) +
-      p(tr(l, 'Send your suburb, approximate fence length, a full-run photo and close-ups of the affected parts. Mention shared-boundary access and whether you also need the adjoining gate checked. Availability and the work offered at your location are confirmed before booking.', '请提供suburb、大致长度、整段照片及受影响部位近照，并说明共用边界通道、是否还需检查相连木闸门。预约前确认当地可承接范围和时间。')) + cta(l, 'S05')) + '</div>';
+      p(tr(l, 'Send your suburb, approximate fence length, a full-run photo and close-ups of the affected parts. Mention shared-boundary access and whether you also need the adjoining gate checked. Availability and the work offered at your location are confirmed before booking.', '请提供所在地区、大致长度、整段照片及受影响部位近照，并说明共用边界通道、是否还需检查相连木闸门。预约前确认当地可承接范围和时间。')) + cta(l, 'S05')) + '</div>';
 }
 
 function areaJobPlanning(a,l,facts,production) {
@@ -482,7 +482,7 @@ function contactForm(l, selected, facts = {}) {
     '<div class="form-grid"><label>' + tr(l, 'What needs attention?', '需要处理哪一处？') +
     '<select name="serviceId" required><option value="">' + tr(l, 'Choose a timber task', '选择木作项目') + '</option>' +
     services.map(s => '<option value="' + s.id + '"' + (s.id === selected ? ' selected' : '') + '>' + esc(shortName(s, l)) + '</option>').join('') +
-    '</select></label><label>' + tr(l, 'Suburb (not a full address)', '所在suburb（无需完整地址）') +
+    '</select></label><label>' + tr(l, 'Suburb (not a full address)', '所在地区（无需完整地址）') +
     '<input name="suburb" autocomplete="address-level2" maxlength="100" required></label></div>' +
     '<label>' + tr(l, 'What happened?', '请描述损坏情况') + '<textarea name="description" rows="5" maxlength="3000" required></textarea></label>' +
     '<div class="form-grid"><label>' + tr(l, 'Phone (optional if email supplied)', '电话（如填邮箱可留空）') +
@@ -517,7 +517,7 @@ function supportBody(page, l, facts, selected, production) {
     tr(l, 'Discuss repair, materials, finishing and quote inclusions.', '把维修、材料、表面收尾及报价内容逐项说清。') + '</span></p></div><section class="homepage-section"><div class="section-heading"><p class="eyebrow">' +
     tr(l, 'Repairs, replacement & finishing', '维修、更换与表面翻新') + '</p><h2>' + tr(l, 'What needs repairing?', '哪一处木作需要处理？') +
     '</h2></div>' + cards(l, facts, production) + '</section><section class="process-strip"><h2>' + tr(l, 'From problem to scope', '从问题到工作范围') +
-    '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与suburb。') +
+    '</h2><div><p>' + tr(l, 'Describe the affected timber and suburb.', '说明损坏木材与所在地区。') +
     '</p><p>' + tr(l, 'Share safe photos and access details.', '从安全位置提供照片和通道信息。') +
     '</p><p>' + tr(l, 'Confirm the work, exclusions and written quote.', '再确认工作、排除项与书面报价。') +
     '</p></div></section>' + repairDecisions(l, facts, production) + concernsSection(l) + companyFeedback(l) + homeInquirySection(l, facts) + selectedWork(l, facts, production) + (!production || facts.approvedServices?.includes('S05') ? '<section class="homepage-section fence-feature"><div><p class="eyebrow">'+tr(l,'CARE FOR THE TIMBER YOU HAVE','让现有木围栏继续好用')+'</p><h2>'+tr(l,'Fence maintenance, before small faults become bigger jobs','木围栏保养，先处理小问题')+'</h2><p>'+tr(l,'Loose palings, tired fixings or a leaning post? Compare upkeep, local repair and section replacement before deciding.','木板松动、固定件老化，还是立柱倾斜？先分清保养、局部维修与分段更换，再确定工作范围。')+'</p></div><a class="button button-primary" href="'+href('/services/timber-fence-repairs/',l)+'#maintenance">'+tr(l,'Explore fence maintenance','了解木围栏保养')+'</a></section>' : '') + '<section class="homepage-section area-teaser"><h2>' +
@@ -534,7 +534,7 @@ function supportBody(page, l, facts, selected, production) {
     'Start with the timber that needs attention. Explore repair options, when replacement may be needed, what affects the price and which photos help us understand your job.',
     '从需要处理的木构件开始，了解可选维修方式、何时可能需要更换、哪些因素影响价格，以及什么照片有助于说明你的问题。')) +
     '</div>' + cards(l, facts, production) + section('what-next', tr(l, 'If the part is unclear', '部位还不明确？'), p(tr(l,
-      'Start with the rotten-timber page for damage across several components, or send a safe wide view and description.',
+      'Start with the rotten-timber page for damage across several components, or send a safe wide view and description. Then confirm the appropriate service scope.',
       '若多处木构件受损，可先看腐木页，或提供安全拍摄的全景与文字描述，再确认应由哪个服务范围处理。')));
   if (page.id === 'H02') {
     return '<div class="page-lead">' + p(tr(l,
@@ -574,7 +574,7 @@ function supportBody(page, l, facts, selected, production) {
     '以下是判断起点；照片和现场位置可能改变维修方法与报价。')) + '</div>' + faq([
       [tr(l, 'Do you need an exact address to start?', '一开始要提供完整地址吗？'), tr(l,
         'No. A suburb, component and safe photos are enough for an initial enquiry. Access details can be agreed later.',
-        '不需要。初次询价说明suburb、构件和安全拍摄的照片即可，详细通道可在后续确认。')],
+        '不需要。初次询价说明所在地区、构件和安全拍摄的照片即可，详细通道可在后续确认。')],
       [tr(l, 'Can a small rotten section be repaired?', '一小段腐木可以修吗？'), tr(l,
         'Sometimes. Sound surrounding timber and the moisture cause matter; a surface patch is not universal.',
         '有可能，但剩余木材必须稳固，还要了解受潮来源；表面填补并非通用方案。')],
@@ -604,7 +604,7 @@ function supportBody(page, l, facts, selected, production) {
     tr(l, 'Ask about your job', '咨询你的项目') + '</a></p>';
   if (page.id === 'H07') return '<div class="page-lead">' + p(tr(l,
     'Describe the timber issue and suburb. Photos are optional; do not enter a full street address. At least one working contact method is needed for a reply.',
-    '请说明木作问题及suburb。照片可选，无需输入完整街道地址；至少留一种有效联系方式以便回复。')) +
+    '请说明木作问题及所在地区。照片可选，无需输入完整街道地址；至少留一种有效联系方式以便回复。')) +
     '<p data-commercial-enquiry>' + tr(l,
       'We also welcome timber repair enquiries for Sydney shops, offices and commercial properties. Tell us about the doors, window frames, cabinetry or other timber needing attention, along with access times and the person who can approve the work.',
       '悉尼商铺、办公室及商业物业的木作维修也可以联系我们。请说明需要处理的木门、木窗框、柜体或其他木构件，并提供可进场时间及负责批准工作的联系人。') + '</p>' +
@@ -618,7 +618,7 @@ function supportBody(page, l, facts, selected, production) {
     '</aside></div>' + officeMap(l, facts) + '<script src="/form.js" defer></script>';
   if (page.id === 'H08') return '<div class="page-lead">' + p(tr(l,
     'An enquiry can contain contact details, a suburb, a description and optional photographs. These are used to assess and respond, not placed in public content or analytics events.',
-    '询价可能包含联系方式、suburb、问题描述与可选照片。这些资料用于评估和回复，不会进入公开网页正文或分析事件。')) +
+    '询价可能包含联系方式、所在地区、问题描述与可选照片。这些资料用于评估和回复，不会进入公开网页正文或分析事件。')) +
     '</div>' + section('handling', tr(l, 'Handling and access', '处理与访问'), p(tr(l,
       facts.publicEmailDrafts ? 'The enquiry builder prepares a draft in your browser. It does not upload photos or send your enquiry. When you choose to send, your email provider handles the email and attachments. We use received enquiries to assess and reply. For questions about your information, call or email us.' : 'Uploaded photographs are stored privately. Please do not include faces, number plates or documents. For questions about information you have sent, contact us by phone or email.',
       facts.publicEmailDrafts ? '询价工具在浏览器中整理草稿，不上传照片或自动发送资料。你选择发送时，由电邮服务商处理邮件与附件。我们将收到的询价用于评估和回复。如需询问资料处理，请电话或电邮联系。' : '上传的照片存放在私有空间。请不要包含人脸、车牌或文件。如需询问已提交资料的处理方式，请通过电话或电邮联系我们。'))) +

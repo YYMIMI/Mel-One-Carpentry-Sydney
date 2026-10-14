@@ -22,8 +22,8 @@
     KEY_CONFLICT: [ 'The enquiry changed during a retry. Please submit again.', '重试期间内容已变化，请重新提交。' ],
   };
   const msg = key => (messages[key] || [
-    'We could not confirm receipt. Your details remain on this page; retry with the same enquiry key.',
-    '无法确认收件。表单内容已保留，请使用同一询价标识重试。',
+    'We could not confirm receipt. Your details remain on this page. Please try again or contact us by phone or email.',
+    '暂时无法确认收件。填写内容仍保留在本页，请重试，或通过电话、电邮联系我们。',
   ])[zh ? 1 : 0];
   const showError = value => { error.textContent = value; error.hidden = false; result.hidden = true; };
   const clearError = () => { error.textContent = ''; error.hidden = true; };
@@ -56,9 +56,8 @@
       const response = await fetch('/api/inquiry', { method: 'POST', body: payload });
       const data = await response.json();
       if (!response.ok || !data.accepted) throw new Error(data.code || 'BACKEND_UNAVAILABLE');
-      result.textContent = (zh ? '询价已由服务器受理。编号：' : 'Enquiry accepted by the server. Reference: ') + data.leadId +
-        (data.notificationPending ? (zh ? '。内部通知仍待交付；预览不代表真实收件箱已收到。' : '. Internal notification is pending; the preview does not prove inbox delivery.') :
-          (zh ? '。内部通知已交付。' : '. Internal notification delivered.'));
+      result.textContent = (zh ? '我们已收到你的询价，编号：' : 'We have received your enquiry. Reference: ') + data.leadId +
+        (zh ? '。我们会通过你提供的联系方式回复。' : '. We will reply using the contact details you provided.');
       result.hidden = false;
       window.gtag?.('event', 'generate_lead', { service_id: form.elements.serviceId.value,
         locale, page_location: location.origin + location.pathname, page_path: location.pathname,

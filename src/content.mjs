@@ -8,11 +8,11 @@ export const services = [
     en: {
       title: 'Timber Window Repairs Sydney | Frames & Sills',
       h1: 'Timber Window Repairs in Sydney',
-      lead: 'A swollen sash, soft sill or decayed frame can have very different causes. Start with the timber component and the way the window opens, then decide whether a local repair is sensible.',
-      problem: 'Soft timber at the sill, a window that catches after rain, loose joints and peeling finishes are different clues. Show the whole window as well as the damaged edge so the frame, sill and surrounding wall can be considered together.',
+      lead: 'A swollen sash, soft sill or decayed frame can have very different causes. Start with the timber component and the way the window opens, then decide whether a local repair is sensible. A sticking sash is another opening symptom to describe.',
+      problem: 'Soft timber at the sill, a window that catches after rain, loose joints and peeling finishes are different clues. Show the whole window as well as the damaged edge so the frame, sill and surrounding wall can be considered together. Do not judge the whole window from one damaged patch alone.',
       assessment: 'The depth of decay, whether the sash and frame remain sound, water entry and safe access determine the repair. A sound section may accept a local timber replacement; widespread damage or a continuing leak needs a wider assessment before a method is agreed.',
       boundary: 'This page concerns timber frames, sills and related carpentry. Glass replacement, aluminium frames, specialist sash-balance mechanisms and heritage conservation are separate scopes. Painting and leak-source work must be stated in the quote rather than assumed.',
-      quote: 'Send the window type, opening direction, a wide view, a close view of the sill and the wall junction. Access, matching profiles, timber choice, making good and painting affect the scope and price.',
+      quote: 'Send the window type, opening direction, a wide view, a close view of the sill and the wall junction. Access, matching profiles, timber choice, making good and painting affect the scope and price. One close-up alone cannot establish the price.',
       photo: 'Photograph the full window, soft sill and frame corners from a safe position; include the floor level and access.',
       faq: [
         ['Can only a rotten sill be replaced?', 'Sometimes, if the adjoining frame is sound and the source of moisture is understood. An inspection confirms how far the damage runs.'],
@@ -23,12 +23,12 @@ export const services = [
     zh: {
       title: '悉尼木窗与窗框维修｜窗台、木框',
       h1: '悉尼木窗与木窗框维修',
-      lead: '窗台发软、木框腐烂或木窗卡住，成因不一定相同。先确认受损构件和开合方式，再判断局部维修是否合适。',
+      lead: '窗台发软、木框腐烂或木窗扇膨胀、卡住，成因不一定相同。先确认受损构件和开合方式，再判断局部维修是否合适。',
       problem: '窗台木材松软、雨后窗扇卡住、接缝松动与漆膜脱落，代表的可能是不同问题。请同时说明整扇窗和受损边角，让窗框、窗台及相邻墙体的情况能够一起判断，而不是只看一块局部。',
       assessment: '腐烂深度、窗扇和主框是否仍稳固、进水来源以及安全通道，都会改变维修方法。周边木材完好时可评估局部更换；若损坏蔓延或持续漏水，需要先厘清整体范围。',
       boundary: '本页讨论木窗框、木窗台及相关木工构件。玻璃更换、铝合金窗、专门的上下推拉窗平衡机构和历史建筑修复不默认包含；油漆收尾及漏水源处理须在报价中单独写明。',
       quote: '请提供窗型、开启方向、全景、窗台近照及与墙面交接处。进出通道、木材与线条匹配、修补和油漆范围都会影响报价，不能只凭一个近照确定价格。',
-      photo: '从安全位置拍整窗、窗台与木框角落，并说明楼层和可进入位置。',
+      photo: '从安全位置拍整窗、发软的窗台与木框角落，并说明楼层和可进入位置。',
       faq: [
         ['能否只换腐烂的木窗台？', '如相邻框架完好、受潮原因已厘清，可评估局部更换；实际范围需查看后确定。'],
         ['木窗为什么卡住？', '受潮膨胀、油漆堆积、五金或框架移动都可能造成卡滞，处理方式取决于成因。'],
@@ -56,7 +56,7 @@ export const services = [
     zh: {
       title: '悉尼木门与门框维修',
       h1: '悉尼木门与门框维修',
-      lead: '木门刮地、下垂或锁不上，不一定要整扇更换；门框下角或门槛腐烂则需要另行检查木材范围。',
+      lead: '木门刮地、下垂或锁不上，不一定要整扇更换；门框侧边或门槛腐烂则需要另行检查木材范围。',
       problem: '木门可能擦地、锁舌对不上，或门框靠近地面的木材发软。门缝变化、铰链固定及门槛状况，能帮助区分挂门问题、木材腐烂与框架移动。门不稳时不要强行反复开关。',
       assessment: '门板完好时可评估重新挂正或调整五金；局部门套或门槛损坏有时可分段更换。若相邻墙体、框架或水源受影响，必须先界定更大范围，必要时由其他工种处理来源。',
       boundary: '防火门、紧急开锁、自动门、玻璃门和铝合金推拉门轨道不视为普通木门维修。新门安装是另外核实的服务；配件供应、油漆和收尾要在报价中写清楚。',
@@ -87,17 +87,17 @@ export const services = [
       ]
     },
     zh: {
-      title: '悉尼木质Fascia、屋檐与封边板维修',
+      title: '悉尼木质封檐板、屋檐与山墙边板维修',
       h1: '悉尼屋檐木构件与檐口板维修',
-      lead: '排水沟后方的木质fascia、山墙边的bargeboard和屋檐底板不是同一构件。先认清材质及受损来源，再谈维修。',
+      lead: '排水沟后方的木质封檐板、山墙边板和屋檐底板不是同一构件。先认清材质及受损来源，再谈维修。',
       problem: '屋顶边缘掉漆、排水沟后木板变软，或山墙封边板破损，都需要看木材状态和水流路径。屋檐底板未必是木材；比起猜名称，拍到整个屋顶边缘与受损位置更有助于判断。',
       assessment: '若两端木材稳固，短段木构件可能可以更换，但固定方式、通道及相邻屋顶构件会影响施工。若排水沟溢流或屋顶继续漏水，应先由相应工种查明来源，避免新木材再次受潮。',
       boundary: '这里讨论木构件，不承诺处理屋顶漏水或排水沟本体。疑似含石棉的屋檐材料不可当普通木工板拆动，应先找合适专业人员评估；客户不需要爬梯或上屋顶拍照。',
-      quote: '请从地面拍屋檐整段、破损部位、排水沟接口及可进入位置。安全通道、材料线条、其他工种配合和收尾都会影响报价范围。',
+      quote: '请从地面拍屋檐整段、破损部位、排水沟接口及可进入位置。脚手架或其他安全作业设备、木材线型、天沟工程协调和表面收尾都会影响报价范围。',
       photo: '只从安全地面拍全景及拉近的局部，不要登高。',
       faq: [
-        ['损坏的是哪种屋檐构件？', '木质fascia、山墙边板与屋檐底板位置不同，底板也可能不是木材。'],
-        ['能否只换一段fascia？', '要看两端是否完好以及能否安全进入现场。'],
+        ['损坏的是哪种屋檐构件？', '封檐板支承屋顶边缘的收边，山墙边板沿山墙边缘设置，屋檐底板则可能使用其他材料。'],
+        ['能否只换一段封檐板？', '要看两端是否完好以及能否安全进入现场。'],
         ['是否包含排水沟或屋顶工作？', '属于不同工作范围，应在书面报价中分别确认。']
       ]
     }
@@ -109,7 +109,7 @@ export const services = [
       h1: 'Rotten Timber Repairs in Sydney',
       lead: 'When the damaged component is unclear or decay appears in several places, first map the timber, moisture and load path. A small surface patch is not always a durable repair.',
       problem: 'Soft spots, fungal staining and paint that lifts from damp timber may appear around windows, doors, decks or fences. This page helps identify an unknown or multi-location problem; a clearly identified component has its own service page with more specific decisions.',
-      assessment: 'Probe the extent only through a safe professional inspection, then ask whether sound timber remains for a local splice or replacement. The source of water must be addressed separately. Concealed damage may change the agreed work once safely exposed.',
+      assessment: 'Probe the extent only through a safe professional inspection, then ask whether sound timber remains for a local splice or replacement. The source of water must be addressed separately. Concealed damage may change the agreed work once safely exposed. Confirm the revised scope and cost before adding work for newly exposed damage.',
       boundary: 'Timber repair is not termite eradication, waterproofing diagnosis or automatic structural beam work. Load-bearing or unstable components need the right qualified assessment. Do not scrape, dismantle or step on suspect timber to collect images.',
       quote: 'Photograph where the timber sits, the damaged surface, nearby moisture marks and any known leak repair. The location, access, hidden extent, material match and finishing determine the quote.',
       photo: 'Show the whole location and close damage from a safe position; do not carry out destructive testing.',
@@ -129,7 +129,7 @@ export const services = [
       quote: '提供木材所在位置、破损近照、周边受潮痕迹及已知的漏水维修记录。通道、隐藏范围、材料匹配和油漆收尾都会影响报价。',
       photo: '从安全位置拍整体与近照，不要自行做破坏性探测。',
       faq: [
-        ['腐木应修还是换？', '取决于剩余木材是否稳固，以及受潮来源能否处理。'],
+        ['腐木应修还是换？', '取决于还剩多少稳固木材，以及受潮来源是否已受控制。'],
         ['打开后发现更多损坏怎么办？', '额外工作前应重新确认范围和费用。'],
         ['受潮来源也包含吗？', '可能需其他工种处理，须在报价中另行注明。']
       ]
@@ -149,22 +149,22 @@ export const services = [
       faq: [
         ['Can one post be replaced?', 'Often a sound surrounding run can be kept, but the footing and rails must be checked.'],
         ['Is old timber removal included?', 'Removal and disposal should appear explicitly in the quote.'],
-        ['What access is needed?', 'Both sides and any neighbour access need confirming before scheduling.']
+        ['What access is needed?', 'Both sides and any neighbour access need confirming before scheduling. The method can affect the scope; confirm boundary arrangements as well.']
       ]
     },
     zh: {
       title: '悉尼木围栏维修与局部更换',
       h1: '悉尼木围栏维修与更换',
       lead: '悉尼木围栏保养、局部维修与分段更换。先检查立柱、横梁、木板与连接处，保留仍稳固的木材，再确定哪些部位需要处理。',
-      problem: '围栏木板松动、柱脚腐烂、横梁裂开与整段倾斜，是不同的损坏。受影响长度以及边界两侧的状况也很重要，尤其是拆旧、清运和进入现场都可能成为实际工作的一部分。',
+      problem: '围栏木板松动、柱脚发软、横梁裂开与整段倾斜，是不同的损坏。受影响长度以及边界两侧的状况也很重要，尤其是拆旧、清运和进入现场都可能成为实际工作的一部分。',
       assessment: '周边围栏稳固时，有时只需更换立柱或横梁；若多根柱都失效或腐烂蔓延，更长一段更换可能合理。施工安排前，边界及邻居通道应由相关业主先行确认。',
       boundary: '这里是木围栏，不是Colorbond、玻璃泳池围栏或电动门。网站不能替代产权和费用分摊的个案法律意见；新建整排围栏属于另行核实的工作范围。',
       quote: '拍整段围栏、柱脚、横梁、坏板及两侧可进入情况。高度、长度、木材匹配、清运、地面状况和邻里安排都会影响报价。',
       photo: '拍整段、柱脚和通道；未经同意不要进入邻居土地。',
       faq: [
         ['能否只换一根木柱？', '若周边结构稳固可评估，但柱脚和横梁仍需检查。'],
-        ['报价包括拆旧清运吗？', '应在书面范围里明确，而不能自动假定包含。'],
-        ['两边都要能进入吗？', '视工法而定，应先确认邻居通道及边界安排。']
+        ['报价包括拆旧清运吗？', '拆除与清运应在书面范围里明确，而不能自动假定包含。'],
+        ['两边都要能进入吗？', '视工法而定，安排前应先确认围栏两侧、任何邻居通道及边界安排。']
       ]
     }
   },
@@ -181,7 +181,7 @@ export const services = [
       photo: 'Do not force an unsafe gate. Photograph both positions, the hinges, post and latch from safe access.',
       faq: [
         ['Can the existing gate be rehung?', 'Possibly, if the leaf and fixing post remain sound.'],
-        ['Is it the hinge, latch or post?', 'The gap and movement need checking before selecting a repair.'],
+        ['Is it the hinge, latch or post?', 'The gap and movement need checking before selecting a repair. A close-up of the latch alone cannot determine it.'],
         ['Does the quote include new hardware?', 'Only when the hardware and supply are listed in the agreed scope.']
       ]
     },
@@ -190,9 +190,9 @@ export const services = [
       h1: '悉尼木闸门与花园门维修',
       lead: '手动木侧门刮地或锁不上，问题可能在铰链、木柱、门闩或门扇，不必先假定整门重做。',
       problem: '门扇下垂、铰链螺丝松动、木门柱移动与门闩错位，关门时可能看起来很相似。提供开启和关闭状态，有助于找到故障位置；不稳的门不要为拍照而强行操作。',
-      assessment: '门扇完好时，可评估重新挂门或更换合适五金；门柱或横档腐烂则需要木作处理，门扇严重变形才考虑更换。固定基层和通道与可见门闩同样重要。',
+      assessment: '门扇完好时，可评估重新挂门或更换合适五金；门柱或横档腐烂则需要木作处理，门扇变形时可能需要更换。固定基层和通道与可见门闩同样重要。',
       boundary: '本页限手动木闸门。电机、遥控、自动系统和泳池安全认证属于另行专业事项；更换五金或整套新门须有明确获准的报价范围。',
-      quote: '请拍开启与关闭状态、刮地位置、两侧门柱及五金。尺寸、柱体状况、铰链固定和配件供应影响维修方案。',
+      quote: '请拍开启与关闭状态、刮地位置、两侧门柱及清晰可辨的五金型号。尺寸、柱体状况、铰链固定和配件供应影响维修方案。',
       photo: '门不稳时不要强开；安全位置拍门、门柱、铰链和门闩。',
       faq: [
         ['原来的木闸门能重新挂正吗？', '门扇和固定门柱稳固时，可以先评估这个选择。'],
@@ -256,7 +256,7 @@ export const services = [
       title: '悉尼室内木作、踢脚线与门套线',
       h1: '悉尼室内木作与踢脚线门套',
       lead: '踢脚线、门套线及室内木饰条损坏时，线型与相邻墙面都值得看清，不能随意用一根普通木条盖上。',
-      problem: '受潮的踢脚线、断裂的门套、松动层板与多处小收尾工作，固定方式及背后基层各不相同。整段照片加上线条截面近照，可帮助区分需要换木材，还是同时涉及墙面修补。',
+      problem: '受潮膨胀的踢脚线、断裂的门套、松动层板与多处小收尾工作，固定方式及背后基层各不相同。整段照片加上线条截面近照，可帮助区分需要换木材，还是同时涉及墙面修补。',
       assessment: '若基层稳固且能匹配线型，可评估局部修补或分段更换。层板松动或更换时，还需看托架或柜体支撑、跨度、预期承重与固定基层，才能选择处理方法。几处小活可以一起描述，但材料由谁提供、住用房间的通道及墙面受潮来源，应在安排前确认。',
       boundary: '这里不默认整屋定制木作、结构改动、地板打磨或古董家具修复。层板安装须按实际固定及承重范围批准；柜门铰链与抽屉另有对应服务。墙面补洞和油漆不能未经说明就算在报价里。',
       quote: '拍整段长度、端面线型、受损处及相邻墙面。层板则说明现有支撑、约略宽深及固定墙面或柜体。数量、长度、材料供应、线型库存、固定通道、修补和油漆会影响估价。',
@@ -289,8 +289,8 @@ export const services = [
     zh: {
       title: '悉尼柜门铰链与抽屉维修',
       h1: '悉尼柜门、铰链与抽屉维修',
-      lead: '柜门下垂或抽屉卡住，可能是铰链、导轨、固定孔位或柜体问题；先认清配件，再决定换什么。',
-      problem: '铰链杯松动、螺丝孔滑牙、导轨卡顿与柜板受潮，各需要不同处理。拍门或抽屉开启状态以及看得到的配件，可判断哪些部分还稳固，而不必拆下旁边的电器。',
+      lead: '柜门下垂或抽屉卡住，可能是铰链、导轨、固定孔位或柜体问题；购买替换件前先认清现有配件，再决定换什么。',
+      problem: '铰链杯松动、螺丝孔滑牙、导轨卡顿与柜板受潮膨胀，各需要不同处理。拍门或抽屉开启状态以及看得到的配件，可判断哪些部分还稳固，而不必拆下旁边的电器。',
       assessment: '如果有兼容配件且柜体能牢固固定，五金可能可以调整或更换；柜体材料损坏则可能要局部加固或扩大维修。原款停产时，采购替代件前应先确认方案。',
       boundary: '这里不是整套定制厨房或橱柜制造服务。洗碗机、油烟机、水管和电气设备不在该木工范围；铰链、导轨、门面与层板能否匹配要按实际供应判断。',
       quote: '提供整组柜体、受影响门或抽屉、可见配件型号及受损孔位。配件兼容、数量、通道与表面匹配都会改变报价。',

@@ -56,8 +56,9 @@ test('expanding groups cannot reassign the original 56 enquiry briefs or primary
   const original = coreAreaGroups.flatMap(group=>group.names).map(name=>suburbs.find(a=>a.name===name));
   assert.equal(original.length,56);
   const fingerprint=createHash('sha256').update(JSON.stringify(original.map(a=>[a.name,a.service,a.en,a.zh]))).digest('hex');
-  // Verified against the deployed 4beeef0 baseline, before directory expansion.
-  assert.equal(fingerprint,'066c52074b8db673e5c6ee90125e60929bb2f0e62c82b35a6e3b3e8177b71ec8');
+  // Same 56 names, primary services and English briefs. Chinese now also retains
+  // the original safe-opening instruction and the larger-fixing distinction.
+  assert.equal(fingerprint,'47d026a5b4fbd673296d96077cfc741c1e4f50c2d16ea4f26f8b9113a122c1c8');
   for(const area of original) {
     const page=pages.find(p=>p.path==='/areas/'+area.slug+'/');
     assert.equal(page.title,'Carpentry repairs in '+area.name);

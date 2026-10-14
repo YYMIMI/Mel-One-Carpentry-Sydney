@@ -12,7 +12,7 @@ export const outdoorServices = [
       quote: 'Send the approximate total length, visible height, number of corners and photos from both sides. Material choice, ground preparation, supports, access, removal of old sleepers and finishing should be itemised. An edging-only quote should not be compared with a retaining-wall quote as if they include the same work.',
       photo: 'Show the whole proposed line, existing sleepers and any slope, nearby paving, fence or drain. Include a rough measurement without digging or moving unstable timber.',
       faq: [
-        ['Can you replace just one rotten sleeper?', 'A local replacement may be suitable if the surrounding timber and supports are sound. If several pieces are soft or the ground is moving, the wider section needs checking first.'],
+        ['Can you replace just one rotten sleeper?', 'A local replacement may be suitable if the surrounding timber and supports are sound. If several pieces are soft or the ground is moving, the wider section needs checking first. This avoids merely covering the problem.'],
         ['Do you install timber garden edging as well as replace it?', 'Yes. Describe the garden border, approximate length and preferred appearance. We can discuss new timber edging or replacement and confirm the materials and work before booking.'],
         ['Is garden edging the same as a sleeper retaining wall?', 'No. Edging can simply separate a lawn and garden bed. Timber that holds back a change in ground level needs assessment of the retained soil, support and drainage; do not assume the same installation method applies.'],
         ['Which timber should I choose?', 'Suitability depends on ground contact, exposure, the intended use and the available product. Confirm the timber specification and treatment suitability before purchase, especially around growing areas.'],
@@ -49,7 +49,7 @@ export const outdoorServices = [
       quote: 'The number and size of openings, batten dimensions, spacing, support preparation, removable access sections and coating change the quote. Confirm whether removal of old boards, painting or staining, and waste removal are included. New timber may look different from weathered boards beside it.',
       photo: 'Send a front view and an angle showing the depth of the opening, steps, ground line and visible fixing surfaces. Point out access hatches or services that must stay reachable; do not crawl into an unsafe space.',
       faq: [
-        ['Can the old battens be replaced without rebuilding the deck?', 'Potentially, if the battens are a separate non-structural screen and their supporting timber is sound. The deck structure needs separate checking if it is loose, soft or damaged.'],
+        ['Can the old battens be replaced without rebuilding the deck?', 'Potentially, if the battens are a separate non-structural screen and their supporting timber is sound. The deck structure needs separate checking if it is loose, soft or damaged. A new screen should not simply conceal a damaged deck structure.'],
         ['Can I keep access beneath the house?', 'Yes—discuss the access position and whether a removable section is needed before setting out the screen. Do not cover service access or inspection points without a suitable arrangement.'],
         ['Is painting included?', 'Only when included in the agreed scope. Confirm preparation, the coating, accessible faces and colour; unpainted replacement battens are not the same as a completed painted finish.'],
         ['Can this be combined with timber sleeper edging?', 'Yes. Screening the opening and defining the soil or lawn edge can be considered together, while keeping support, drainage and ground clearance decisions separate.'],
@@ -62,7 +62,7 @@ export const outdoorServices = [
       problem: '木条缺失、底端发软及固定件松动，会让屋下或 Deck 下方出现不整齐的开口。新围板需要稳固的固定位置；把腐烂立柱或骨架遮住，不等于修好了支撑。请拍下整个开口及旧围板背后的可见木材。',
       assessment: '先讨论竖向或横向木条、间距、转角及沿楼梯和地面的收边。确认哪些位置能固定、哪些位置必须保留进入通道。只换几块板与整段开口重新做围板不同，可分别列入报价比较。',
       boundary: '这里的围板属于非承重木作收尾，不代替房屋支撑、防水封闭空间或经过认证的泳池安全围栏。通风、检查通道、排水及设备检修需要一起考虑；发现结构损坏或涉及泳池安全时，须先另外评估再确认工作。',
-      quote: '开口数量与尺寸、木条规格和间距、固定基层准备、可拆检修段及涂层都会改变报价。应确认是否包含拆旧、刷漆或木油及清运；新木条的色泽不一定与旁边风化木材一致。',
+      quote: '开口数量与尺寸、木条规格和间距、固定基层准备、可拆检修段及涂层都会改变报价。应确认是否包含拆旧、刷漆或着色及清运；新木条的色泽不一定与旁边风化木材一致。',
       photo: '提供正面和斜侧全景，显示开口深度、楼梯、地面走向及可见固定位置。指出检修口和必须保留通道的设备，不要进入不安全的屋下空间。',
       faq: [
         ['可以只换围板，不重做整个 Deck 吗？', '如果围板属于独立非承重部分且固定木材稳固，可以评估。Deck 结构如有松动、发软或破损，则要另行检查，不能只用新围板遮住。'],

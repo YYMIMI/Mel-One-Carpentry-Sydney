@@ -1,3 +1,4 @@
+import {serviceQaAssets} from "./service-qa-assets.mjs";
 import { services, popularAreaCandidates } from './content.mjs';
 import { serviceWork } from './service-work.mjs';
 import { companyReviews, reviewSource } from './company-reviews.mjs';
@@ -728,6 +729,6 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     (facts.email ? '<a href="mailto:' + esc(facts.email) + '" data-event="click_to_email">' + esc(facts.email) + '</a>' : '') +
     '<span>' + tr(l, 'Felix2 · Mon–Sun 09:00–21:00 Sydney time', 'Felix2 · 周一至周日 09:00–21:00（悉尼时间）') + '</span>' +
     '<a href="' + href('/about/',l) + '">' + tr(l, 'About the company', '关于公司') + '</a><a href="' + href('/privacy/',l) + '">' + tr(l, 'Privacy', '隐私政策') + '</a></nav>' +
-    '</div></footer><script src="/site.js" defer></script></body></html>';
+    '</div></footer><script src="/site.js" defer></script>' + serviceQaAssets + '</body></html>';
   return { status: 200, html, page };
 }

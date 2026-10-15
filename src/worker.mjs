@@ -1,3 +1,11 @@
+import corpus from '../service-qa-server/corpus.json' with {type:'json'};
+import {createServiceQaWebHandler} from '../service-qa-server/service-qa-server.mjs';
+const qaHandlers = new WeakMap();
+function serviceQa(request, env) {
+ let handler = qaHandlers.get(env);
+ if (!handler) {handler = createServiceQaWebHandler(corpus, {env}); qaHandlers.set(env, handler);}
+ return handler(request);
+}
 import { validateInquiry, detectImage, captureAttribution, MAX_FILES, MAX_FILE_BYTES, MAX_TOTAL_BYTES } from './inquiry.mjs';
 
 const json = (data, status = 200) => Response.json(data, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
@@ -159,6 +167,7 @@ export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname;
     try {
+      if (path === '/api/service-qa') return await serviceQa(request, env);
       if (path === '/api/inquiry') return request.method === 'POST' ? await accept(request, env) : error('METHOD_NOT_ALLOWED', 405);
       if (path.startsWith('/api/internal/')) return await internal(request, env, path);
       if (path.startsWith('/api/')) return error('NOT_FOUND', 404);

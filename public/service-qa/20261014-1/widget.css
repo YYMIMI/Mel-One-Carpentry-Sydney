@@ -1,0 +1,336 @@
+.serviceqa-entry {
+  margin-block: 1rem;
+  font: inherit;
+}
+.serviceqa-entry-button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  padding: 0.65rem 0;
+  min-height: 44px;
+  cursor: pointer;
+}
+.serviceqa-entry-button:hover {
+  text-decoration-thickness: 2px;
+}
+.serviceqa-dialog {
+  --serviceqa-ink: #19334f;
+  --serviceqa-muted: #526176;
+  --serviceqa-line: #b6c2cd;
+  --serviceqa-surface: #fff;
+  --serviceqa-tint: #eef2f5;
+  --serviceqa-focus: #066fac;
+  --serviceqa-error: #942b2b;
+  color-scheme: light;
+  color: var(--serviceqa-ink);
+  background: var(--serviceqa-surface);
+  border: 1px solid var(--serviceqa-line);
+  border-radius: 0.65rem;
+  padding: 0;
+  width: min(38rem, calc(100vw - 2rem));
+  max-width: 38rem;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  box-shadow: 0 14px 48px rgb(0 0 0 / 0.24);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow: hidden;
+}
+.serviceqa-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.serviceqa-dialog::backdrop {
+  background: rgb(14 29 44 / 0.55);
+}
+.serviceqa-dialog *,
+.serviceqa-dialog *::before,
+.serviceqa-dialog *::after {
+  box-sizing: border-box;
+}
+.serviceqa-header,
+.serviceqa-footer {
+  flex: none;
+  padding: 1rem 1.25rem;
+  background: var(--serviceqa-surface);
+}
+.serviceqa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--serviceqa-line);
+}
+.serviceqa-title {
+  margin: 0;
+  color: var(--serviceqa-ink);
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.serviceqa-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.25rem;
+  scrollbar-gutter: stable;
+  scrollbar-width: auto;
+  scrollbar-color: #778899 var(--serviceqa-tint);
+}
+.serviceqa-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+.serviceqa-scroll::-webkit-scrollbar-track {
+  background: var(--serviceqa-tint);
+}
+.serviceqa-scroll::-webkit-scrollbar-thumb {
+  background: #778899;
+  border: 3px solid var(--serviceqa-tint);
+  border-radius: 8px;
+}
+.serviceqa-intro {
+  margin: 0 0 1rem;
+  color: var(--serviceqa-muted);
+}
+.serviceqa-form {
+  margin: 0;
+}
+.serviceqa-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+.serviceqa-question {
+  display: block;
+  width: 100%;
+  min-height: 7.5rem;
+  max-height: 16rem;
+  overflow: auto;
+  resize: none;
+  border: 1px solid var(--serviceqa-line);
+  border-radius: 0.35rem;
+  color: var(--serviceqa-ink);
+  background: var(--serviceqa-surface);
+  padding: 0.75rem;
+  font: inherit;
+  line-height: 1.5;
+}
+.serviceqa-question[aria-invalid="true"] {
+  border-color: var(--serviceqa-error);
+}
+.serviceqa-question::placeholder {
+  color: var(--serviceqa-muted);
+  opacity: 1;
+}
+.serviceqa-field-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+}
+.serviceqa-counter {
+  color: var(--serviceqa-muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.serviceqa-clear {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--serviceqa-ink);
+  font: inherit;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  min-height: 44px;
+  cursor: pointer;
+}
+.serviceqa-help,
+.serviceqa-privacy,
+.serviceqa-availability,
+.serviceqa-error,
+.serviceqa-status {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+}
+.serviceqa-help {
+  color: var(--serviceqa-muted);
+}
+.serviceqa-privacy {
+  border-inline-start: 3px solid var(--serviceqa-line);
+  padding: 0.65rem 0.8rem;
+  color: var(--serviceqa-ink);
+  background: var(--serviceqa-tint);
+}
+.serviceqa-availability {
+  color: var(--serviceqa-muted);
+}
+.serviceqa-error {
+  color: var(--serviceqa-error);
+  font-weight: 600;
+  min-height: 1.4em;
+}
+.serviceqa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+}
+.serviceqa-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid var(--serviceqa-line);
+  border-radius: 0.35rem;
+  padding: 0.6rem 0.9rem;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--serviceqa-ink);
+  background: var(--serviceqa-surface);
+  cursor: pointer;
+}
+.serviceqa-button:hover {
+  background: var(--serviceqa-tint);
+}
+.serviceqa-button:active {
+  transform: translateY(1px);
+}
+.serviceqa-submit {
+  color: #fff;
+  background: var(--serviceqa-ink);
+  border-color: var(--serviceqa-ink);
+  min-width: 13rem;
+}
+.serviceqa-submit:hover {
+  background: #274a70;
+}
+.serviceqa-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+.serviceqa-close {
+  flex: none;
+  font-size: 0.875rem;
+}
+.serviceqa-status {
+  min-height: 1.5em;
+  margin-block: 0.6rem 0;
+  color: var(--serviceqa-muted);
+}
+.serviceqa-results:empty {
+  display: none;
+}
+.serviceqa-results {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--serviceqa-line);
+  padding-top: 1rem;
+  overflow-wrap: anywhere;
+}
+.serviceqa-result-title {
+  color: var(--serviceqa-ink);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem;
+}
+.serviceqa-answer {
+  margin: 0 0 1rem;
+  white-space: pre-line;
+}
+.serviceqa-source-heading {
+  color: var(--serviceqa-ink);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem;
+}
+.serviceqa-sources {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+.serviceqa-source {
+  margin-block: 0.75rem;
+  padding-inline-start: 0.2rem;
+}
+.serviceqa-source-link,
+.serviceqa-contact {
+  color: var(--serviceqa-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+.serviceqa-source-link:hover,
+.serviceqa-contact:hover {
+  text-decoration-thickness: 2px;
+}
+.serviceqa-excerpt {
+  color: var(--serviceqa-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0.35rem 0 0;
+  white-space: pre-line;
+}
+.serviceqa-footer {
+  border-top: 1px solid var(--serviceqa-line);
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+.serviceqa-entry-button:focus-visible,
+.serviceqa-dialog :is(button, a, textarea):focus-visible {
+  outline: 3px solid #066fac;
+  outline-offset: 3px;
+}
+.serviceqa-dialog [hidden] {
+  display: none !important;
+}
+@media (max-width: 420px) {
+  .serviceqa-dialog {
+    width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+    max-height: calc(100dvh - 1rem);
+  }
+  .serviceqa-header,
+  .serviceqa-footer,
+  .serviceqa-scroll {
+    padding-inline: 1rem;
+  }
+  .serviceqa-submit {
+    flex: 1;
+    min-width: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .serviceqa-dialog *,
+  .serviceqa-entry-button {
+    transition: none;
+    animation: none;
+  }
+}
+@media (forced-colors: active) {
+  .serviceqa-dialog {
+    border: 1px solid CanvasText;
+  }
+  .serviceqa-scroll {
+    scrollbar-color: auto;
+  }
+  .serviceqa-dialog :is(button, textarea) {
+    border: 1px solid ButtonText;
+  }
+  .serviceqa-dialog :is(button, a, textarea):focus-visible,
+  .serviceqa-entry-button:focus-visible {
+    outline-color: Highlight;
+  }
+}

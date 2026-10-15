@@ -6,10 +6,10 @@ const tr = (l,en,zh) => l === 'zh' ? zh : en;
 export function rfqForm(l, facts, area = null, selected = '') {
   const id = area ? 'suburb-rfq' : 'inquiry';
   const recipient = facts.email || '';
-  return '<form id="'+id+'" class="rfq-form" data-rfq-email="'+esc(recipient)+'" data-locale="'+l+'">' +
+  return '<form data-clarity-mask="true" id="'+id+'" class="rfq-form" data-rfq-email="'+esc(recipient)+'" data-locale="'+l+'">' +
     '<h2>'+esc(tr(l, area ? 'Tell us about timber repairs in '+area.name : 'Tell us about your timber repair', area ? '说明 '+area.name+' 的木作维修需求' : '说明你的木作维修需求'))+'</h2>'+
     '<p>'+tr(l,'Build an email draft with the scope below. Review it, add photos in your email app and send it to us. Nothing is submitted when you prepare the draft.','填写下方内容整理成电邮草稿。核对后在电邮软件中添加照片，再发送给我们；生成草稿不会自动提交询价。')+'</p>'+
-    '<div class="form-grid"><label>'+tr(l,'Suburb','所在地区')+'<input name="suburb" value="'+esc(area?.name || '')+'" autocomplete="address-level2" maxlength="100" required></label>'+
+    '<div class="form-grid"><label>'+tr(l,'Suburb','所在地区')+'<input name="suburb" data-clarity-public-default="'+esc(area?.name || '')+'" value="'+esc(area?.name || '')+'" autocomplete="address-level2" maxlength="100" required></label>'+
     '<label>'+tr(l,'Timber task','木作项目')+'<select name="service" required><option value="">'+tr(l,'Choose a task','选择项目')+'</option>'+services.map(s=>'<option value="'+s.id+'"'+(s.id===(selected || area?.service)?' selected':'')+'>'+esc(s[l].h1)+'</option>').join('')+'</select></label></div>'+
     '<label>'+tr(l,'What needs repair, and what result do you want?','哪里需要维修？希望完成什么？')+'<textarea name="scope" rows="4" maxlength="1800" required placeholder="'+esc(tr(l,area ? area.en : 'Affected component, what changed, quantity and preferred outcome',area ? area.zh : '受影响构件、发生什么变化、数量与期望结果'))+'"></textarea></label>'+
     '<div class="form-grid"><label>'+tr(l,'Dimensions or quantity (if known)','大致尺寸或数量（如已知）')+'<input name="quantity" maxlength="180"></label><label>'+tr(l,'Access and preferred timing','进入方式与希望安排的时间')+'<input name="access" maxlength="240" placeholder="'+tr(l,'Steps, shared entry, loading or gate access','台阶、共用入口、搬运或门的通道')+'"></label></div>'+

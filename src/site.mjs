@@ -1,3 +1,4 @@
+import {clarityAssets,clarityPrivacy} from './clarity-assets.mjs';
 import {serviceQaAssets} from "./service-qa-assets.mjs";
 import { services, popularAreaCandidates } from './content.mjs';
 import { serviceWork } from './service-work.mjs';
@@ -626,6 +627,7 @@ function supportBody(page, l, facts, selected, production) {
     section('analytics-privacy', tr(l, 'Website analytics', '网站使用分析'), p(tr(l,
       'We use Google Analytics on this website to understand page visits and actions such as clicking a phone or email link, preparing an RFQ email draft and opening that draft in an email app. These events may include the page path, page language and selected service code. We do not send names, contact details, suburb text, job descriptions, email draft contents or photos to Google Analytics. Google may process device and usage data under its privacy terms.',
       '本网站使用 Google Analytics 了解页面访问，以及点击电话或电邮链接、整理询价电邮草稿和打开电邮软件等操作。事件可能包含页面路径、页面语言及所选服务代码；不会把姓名、联系方式、填写的地区、工程描述、电邮草稿内容或照片发送给 Google Analytics。Google 可能按其隐私条款处理设备及使用资料。'))) +
+    clarityPrivacy(l) +
     section('maps-privacy', tr(l, 'Maps', '地图'), p(tr(l,
       'Embedded maps are provided by Google. Loading or opening a map connects your browser to Google and is subject to its privacy practices. The suburb map shows an area, not your precise address.',
       '嵌入地图由Google提供。加载或打开地图时，浏览器会连接Google，其资料处理适用Google的隐私规则。郊区地图显示地区，不是你的精确地址。'))) +
@@ -729,6 +731,6 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     (facts.email ? '<a href="mailto:' + esc(facts.email) + '" data-event="click_to_email">' + esc(facts.email) + '</a>' : '') +
     '<span>' + tr(l, 'Felix2 · Mon–Sun 09:00–21:00 Sydney time', 'Felix2 · 周一至周日 09:00–21:00（悉尼时间）') + '</span>' +
     '<a href="' + href('/about/',l) + '">' + tr(l, 'About the company', '关于公司') + '</a><a href="' + href('/privacy/',l) + '">' + tr(l, 'Privacy', '隐私政策') + '</a></nav>' +
-    '</div></footer><script src="/site.js" defer></script>' + serviceQaAssets + '</body></html>';
+    '</div></footer><script src="/site.js" defer></script>' + serviceQaAssets + clarityAssets(l) + '</body></html>';
   return { status: 200, html, page };
 }

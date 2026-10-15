@@ -43,3 +43,12 @@ GA4 loads only on `www.thesydneycarpenter.com.au` and `thesydneycarpenter.com.au
 ## Release and rollback
 
 Run tests, build the public output, verify locally, then commit and push to main. Verify the exact Vercel deployment and all canonical live URLs. For rollback, restore the prior Git commit or Vercel deployment. Keep any independent inquiry data intact; reverting site code is not permission to remove leads.
+
+
+## Optional Microsoft Clarity
+
+`clarity.config.json` supplies this website's dedicated project, canonical hostname and its own Clarity-cookie domains. A null project ID disables the Clarity loader and preference UI. The dedicated project/domain must be independently verified. The client applies explicit whole-body masking before loading, irrespective of account masking mode. Strict account mode is verified for Roofing, Carpentry and Renovations; Plumbing account-mode verification remains pending. A source ID alone is not evidence of incoming recordings.
+
+The shared `public/clarity-consent.js` loads no third-party Clarity script until opt-in. The choice is separate from existing GA4, respects DNT/GPC, binds a grant to the current project, supports page-foot preferences and cross-tab withdrawal, and masks form/draft subtrees. It stops synchronously before form interaction and internal navigation; it does not reload or reset an enquiry for that stop. Contact, confirmation, staff/admin, brief/enquiry and unsafe URL/referrer views are excluded. Complete SPA-route recording is intentionally not claimed. Actual historical behavior cannot be reconstructed before activation.
+
+Run the repository's tests and build, plus `node --test tests/clarity-consent.test.mjs`. Preserve the original GA4 ID, events, metadata, content and enquiry/API behavior. The current analytics work does not prove Google indexing, accepted customer enquiries, sales, or recordings received by Microsoft.

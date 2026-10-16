@@ -19,7 +19,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
       help: "For job details, contact details or photographs, use the enquiry form.",
       privacy: "Please keep your question general. Do not include names, phone numbers, email addresses, street addresses or other personal details.",
       privacyAI:
-        "If AI answers are available, your question is sent to Google’s free AI service. Do not include names, phone numbers, email addresses, street addresses or other personal details.",
+        (provider) => `Your question and relevant published page excerpts are sent to ${provider} to help find an answer. Do not include names, phone numbers, email addresses, street addresses or other personal details.`,
       checking: "Getting the service assistant ready…",
       available: "AI answers use information from this website.",
       fallback:
@@ -31,6 +31,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
       waiting: "Looking for relevant service information…",
       stopped: "Stopped. You can edit your question and try again.",
       generated: "AI answer from our site information",
+      selected: "AI-assisted answer from our published pages",
       excerpts: "From our published pages",
       excerptIntro:
         "These excerpts come directly from this website. Open a page for its full context.",
@@ -60,7 +61,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
       help: "具体工程、联系方式或照片，请通过咨询表单发送。",
       privacy: "请只询问一般服务问题，勿输入姓名、电话、电子邮箱、街道地址或其他个人资料。",
       privacyAI:
-        "如果 AI 回答可用，您的问题会发送至 Google 的免费 AI 服务。请勿输入姓名、电话、电子邮箱、街道地址或其他个人资料。",
+        (provider) => `您的问题及相关已发布页面内容会发送至 ${provider}，协助查找答案。请勿输入姓名、电话、电子邮箱、街道地址或其他个人资料。`,
       checking: "服务小助手正在准备…",
       available: "AI 回答以本网站的信息为依据。",
       fallback: "根据本网站已发布的服务内容查找答案，并提供相关页面链接。",
@@ -71,6 +72,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
       waiting: "正在查找相关服务信息…",
       stopped: "已停止。您可以修改问题后再试。",
       generated: "依据本网站信息的 AI 回答",
+      selected: "AI 协助查找的本站资料",
       excerpts: "本网站已发布的内容",
       excerptIntro: "以下内容直接摘自本网站。打开对应页面可查看完整说明。",
       sources: "参考页面",
@@ -102,6 +104,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
     healthController,
     healthTimer;
   let providerConfigured = null;
+  let providerName = "";
   let bodyObserver, languageObserver;
   const originalHistory = new Map();
 
@@ -213,7 +216,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
     nodes.label.textContent = text().label;
     nodes.question.placeholder = text().placeholder;
     nodes.help.textContent = text().help;
-    nodes.privacy.textContent = providerConfigured === true ? text().privacyAI : text().privacy;
+    nodes.privacy.textContent = providerConfigured === true ? text().privacyAI(providerName) : text().privacy;
     nodes.clear.textContent = text().clear;
     nodes.cancel.textContent = text().cancel;
     nodes.submit.textContent =
@@ -282,7 +285,8 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
       )
         return;
       providerConfigured =
-        result?.providerConfigured === true && result?.freeOnly === true;
+        result?.providerConfigured === true && result?.freeOnly === true && ["groq", "gemini"].includes(result?.provider);
+      providerName = result?.provider === "groq" ? "Groq" : result?.provider === "gemini" ? "Google Gemini" : "";
     } catch {
       if (destroyed || !dialog?.open || healthController !== controller) return;
       providerConfigured = false;
@@ -457,7 +461,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
   function renderResult(result) {
     if (
       !result ||
-      !["generated", "excerpts", "unavailable"].includes(result.mode)
+      !["generated", "selected", "excerpts", "unavailable"].includes(result.mode)
     )
       throw new Error("Invalid response");
     const sources = [];
@@ -496,7 +500,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
     const answer = element(
       "p",
       "serviceqa-answer",
-      result.mode === "generated"
+      ["generated", "selected"].includes(result.mode)
         ? result.answer.slice(0, 6000)
         : result.mode === "excerpts"
           ? text().excerptIntro

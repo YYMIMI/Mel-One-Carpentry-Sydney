@@ -9,22 +9,23 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
     document.currentScript || document.querySelector("script[data-service-qa]");
   const copy = {
     en: {
-      entry: "Ask about our services",
-      title: "Ask about our services",
+      entry: "Service assistant",
+      title: "Service assistant",
       close: "Close",
       intro:
         "Ask a general service question and see the relevant information on this website.",
       label: "Your service question",
       placeholder: "Ask about a service you saw on this website.",
       help: "For job details, contact details or photographs, use the enquiry form.",
-      privacy:
+      privacy: "Please keep your question general. Do not include names, phone numbers, email addresses, street addresses or other personal details.",
+      privacyAI:
         "If AI answers are available, your question is sent to Google’s free AI service. Do not include names, phone numbers, email addresses, street addresses or other personal details.",
-      checking: "Checking answer availability…",
+      checking: "Getting the service assistant ready…",
       available: "AI answers use information from this website.",
       fallback:
-        "AI answers are unavailable right now. You can still search this website’s published information.",
+        "Find answers in this website’s published service information, with links to the relevant pages.",
       submitAI: "Get an AI answer",
-      submitSearch: "Search site information",
+      submitSearch: "Find an answer",
       cancel: "Stop",
       clear: "Clear question",
       waiting: "Looking for relevant service information…",
@@ -50,20 +51,21 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
       counter: (length) => `${length} / 600 characters`,
     },
     zh: {
-      entry: "服务问答",
-      title: "服务问答",
+      entry: "服务小助手",
+      title: "服务小助手",
       close: "关闭",
       intro: "询问一般服务问题，查看本网站的相关说明。",
       label: "您的服务问题",
       placeholder: "请说明您想了解的服务。",
       help: "具体工程、联系方式或照片，请通过咨询表单发送。",
-      privacy:
+      privacy: "请只询问一般服务问题，勿输入姓名、电话、电子邮箱、街道地址或其他个人资料。",
+      privacyAI:
         "如果 AI 回答可用，您的问题会发送至 Google 的免费 AI 服务。请勿输入姓名、电话、电子邮箱、街道地址或其他个人资料。",
-      checking: "正在检查回答服务…",
+      checking: "服务小助手正在准备…",
       available: "AI 回答以本网站的信息为依据。",
-      fallback: "AI 回答暂时不可用，您仍可查找本网站已发布的信息。",
+      fallback: "根据本网站已发布的服务内容查找答案，并提供相关页面链接。",
       submitAI: "获取 AI 回答",
-      submitSearch: "查找网站信息",
+      submitSearch: "查找答案",
       cancel: "停止",
       clear: "清空问题",
       waiting: "正在查找相关服务信息…",
@@ -211,7 +213,7 @@ import { containsPersonalDetails } from "./question-privacy.mjs";
     nodes.label.textContent = text().label;
     nodes.question.placeholder = text().placeholder;
     nodes.help.textContent = text().help;
-    nodes.privacy.textContent = text().privacy;
+    nodes.privacy.textContent = providerConfigured === true ? text().privacyAI : text().privacy;
     nodes.clear.textContent = text().clear;
     nodes.cancel.textContent = text().cancel;
     nodes.submit.textContent =

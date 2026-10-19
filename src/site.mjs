@@ -612,8 +612,8 @@ function supportBody(page, l, facts, selected, production) {
       '悉尼商铺、办公室及商业物业的木作维修也可以联系我们。请说明需要处理的木门、木窗框、柜体或其他木构件，并提供可进场时间及负责批准工作的联系人。') + '</p>' +
     '</div><div class="contact-layout"><div>' + contactForm(l, selected, facts) +
     '</div><aside class="aside-note"><h2>' + tr(l, 'Before you send', '发送前请留意') + '</h2>' + p(tr(l,
-      'Only share images you may provide. Avoid faces, number plates and documents. Review and send your draft through your email app, or call us to discuss the work.',
-      '只分享有权提供的照片，避开人脸、车牌和文件。请在电邮软件中核对并发送草稿，也可致电讨论工作。')) +
+      'Only share images you may provide. Avoid faces, number plates and documents. Send the form online, or use email and phone to contact us. Call us to discuss the work.',
+      '只分享有权提供的照片，避开人脸、车牌和文件。可直接在线提交表格，也可电邮或致电讨论工作。')) +
     businessContact(l,facts) +
     (facts.telephone ? '<p><a href="tel:' + esc(facts.telephone) + '" data-event="click_to_call">' + esc(facts.telephone) + '</a></p>' : '') +
     (facts.email ? '<p><a href="mailto:' + esc(facts.email) + '" data-event="click_to_email">' + esc(facts.email) + '</a></p>' : '') + officeAddress(l,facts) +
@@ -622,11 +622,11 @@ function supportBody(page, l, facts, selected, production) {
     'An enquiry can contain contact details, a suburb, a description and optional photographs. These are used to assess and respond, not placed in public content or analytics events.',
     '询价可能包含联系方式、所在地区、问题描述与可选照片。这些资料用于评估和回复，不会进入公开网页正文或分析事件。')) +
     '</div>' + section('handling', tr(l, 'Handling and access', '处理与访问'), p(tr(l,
-      facts.publicEmailDrafts ? 'The enquiry builder prepares a draft in your browser. It does not upload photos or send your enquiry. When you choose to send, your email provider handles the email and attachments. We use received enquiries to assess and reply. For questions about your information, call or email us.' : 'Uploaded photographs are stored privately. Please do not include faces, number plates or documents. For questions about information you have sent, contact us by phone or email.',
-      facts.publicEmailDrafts ? '询价工具在浏览器中整理草稿，不上传照片或自动发送资料。你选择发送时，由电邮服务商处理邮件与附件。我们将收到的询价用于评估和回复。如需询问资料处理，请电话或电邮联系。' : '上传的照片存放在私有空间。请不要包含人脸、车牌或文件。如需询问已提交资料的处理方式，请通过电话或电邮联系我们。'))) +
+      facts.publicEmailDrafts ? 'The online form sends your phone or email, suburb, selected timber task, scope, quantity and access notes to handyman.kevinlee@gmail.com through Resend. We use these details to assess and reply. If you provide an email, we send a confirmation that you can reply to with optional photos. Enquiry and delivery records are held in business email and Resend, which may process records outside Australia. We do not store enquiry text in browser storage. A reference prevents duplicate email when the same request is retried. For access, correction or privacy questions, call or email us.' : 'Uploaded photographs are stored privately. Please do not include faces, number plates or documents. For questions about information you have sent, contact us by phone or email.',
+      facts.publicEmailDrafts ? '在线表格透过 Resend 将电话或电邮、地区、木作项目、范围、数量及通道备注发送到 handyman.kevinlee@gmail.com，用于评估及回复。如填写电邮，会寄出确认信，可回复附上选填照片。询价及投递记录保留于业务邮箱及 Resend，可能在澳洲境外处理。网站不把询价文字存入浏览器储存空间；独立编号用于防止同一内容重试时重复寄信。如需查询、更正资料或咨询隐私问题，请电话或电邮联系。' : '上传的照片存放在私有空间。请不要包含人脸、车牌或文件。如需询问已提交资料的处理方式，请通过电话或电邮联系我们。'))) +
     section('analytics-privacy', tr(l, 'Website analytics', '网站使用分析'), p(tr(l,
-      'We use Google Analytics on this website to understand page visits and actions such as clicking a phone or email link, preparing an RFQ email draft and opening that draft in an email app. These events may include the page path, page language and selected service code. We do not send names, contact details, suburb text, job descriptions, email draft contents or photos to Google Analytics. Google may process device and usage data under its privacy terms.',
-      '本网站使用 Google Analytics 了解页面访问，以及点击电话或电邮链接、整理询价电邮草稿和打开电邮软件等操作。事件可能包含页面路径、页面语言及所选服务代码；不会把姓名、联系方式、填写的地区、工程描述、电邮草稿内容或照片发送给 Google Analytics。Google 可能按其隐私条款处理设备及使用资料。'))) +
+      'We use Google Analytics on this website to understand page visits and actions such as clicking a phone or email link, submitting an online enquiry. These events may include the page path, page language and selected service code. We do not send names, contact details, suburb text, job descriptions, email draft contents or photos to Google Analytics. Google may process device and usage data under its privacy terms.',
+      '本网站使用 Google Analytics 了解页面访问，以及点击电话或电邮链接、在线提交询价等操作。事件可能包含页面路径、页面语言及所选服务代码；不会把姓名、联系方式、填写的地区、工程描述、电邮草稿内容或照片发送给 Google Analytics。Google 可能按其隐私条款处理设备及使用资料。'))) +
     clarityPrivacy(l) +
     section('maps-privacy', tr(l, 'Maps', '地图'), p(tr(l,
       'Embedded maps are provided by Google. Loading or opening a map connects your browser to Google and is subject to its privacy practices. The suburb map shows an area, not your precise address.',

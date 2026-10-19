@@ -79,11 +79,14 @@ test('every custom event uses a page location without query or fragment data', (
   }
 });
 
-test('RFQ actions remain intent events and never report a successful lead', () => {
+test('online RFQ reports a lead only through the accepted receipt callback', () => {
   const source = readFileSync(new URL('../public/rfq.js', import.meta.url), 'utf8');
-  assert.match(source, /rfq_draft_prepared/);
-  assert.match(source, /rfq_email_open/);
-  assert.doesNotMatch(source, /generate_lead|lead_submit_success/);
+  const client = readFileSync(new URL('../public/online-enquiry.mjs', import.meta.url), 'utf8');
+  assert.match(source, /onAccepted\(\)\{window\.gtag/);
+  assert.match(source, /generate_lead/);
+  assert.doesNotMatch(source, /rfq_draft_prepared|rfq_email_open/);
+  assert.ok(client.indexOf('onAccepted();') > client.indexOf('!validReceipt(result,retry.id)'));
+  assert.doesNotMatch(source.match(/onAccepted\(\)\{[\s\S]*$/)[0], /contact:|email:|phone:|scope:|suburb:|submissionId:/);
 });
 
 test('future backend form reports generate_lead only after accepted true', () => {

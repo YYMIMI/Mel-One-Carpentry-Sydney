@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {validReceipt,requireReply} from '../public/online-enquiry.mjs';
+const id='b3dc4836-1d4e-40da-8f3c-4eb89b8f265f';
+test('success requires a matching reference and a provider email receipt',()=>{const good={accepted:true,receipt:{id,emailId:'17eec210-8a20-4e81-bd34-15b51a376278'},confirmationEmailAccepted:false};assert.equal(validReceipt(good,id),true);for(const bad of [null,{}, {accepted:true},{...good,receipt:{id:'other',emailId:good.receipt.emailId}},{...good,receipt:{id,emailId:''}},{...good,accepted:false}])assert.ok(!validReceipt(bad,id));});
+test('a reply channel must be a real email or Australian phone format',()=>{assert.equal(requireReply('qa@example.com').email,'qa@example.com');assert.equal(requireReply('0412 345 678').phone,'0412 345 678');for(const bad of ['', 'call me','foo@bar','123'])assert.throws(()=>requireReply(bad));});

@@ -38,7 +38,7 @@ export async function buildSite({ dest = join(root, 'dist'), production = false,
       'Business: ' + facts.brand + '\nLegal entity: ' + (facts.legalEntity || facts.brand) + '\n' +
       (facts.officeAddress ? 'Office: ' + facts.officeAddress + '. Suburb pages describe service enquiries, not branch offices.\n' : '') +
       (facts.telephone ? 'Phone: ' + facts.telephone + '\n' : '') + (facts.email ? 'Email: ' + facts.email + '\n' : '') +
-      '\nScope, access, materials and availability are confirmed before booking. Photos are not evidence of work in an unconfirmed location. RFQ drafts require the visitor to send the email; generating a draft is not a received enquiry.\n\n' +
+      '\nScope, access, materials and availability are confirmed before booking. Photos are not evidence of work in an unconfirmed location. Online enquiries are sent to the Sydney carpentry team. Submission does not confirm a booking, price or attendance time.\n\n' +
       '## Authoritative pages\n\n' + pages.filter(p => routes.includes(p.path)).map(p => '- [' + p.h1 + ' (' + p.locale + ')](' + facts.domain + p.path + ')').join('\n') +
       '\n\n## Crawl discovery\n\n- [XML sitemap](' + facts.domain + '/sitemap.xml)\n- [Crawler rules](' + facts.domain + '/robots.txt)\n';
     await writeFile(join(dest, 'llms.txt'), text, 'utf8');

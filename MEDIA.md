@@ -1,5 +1,18 @@
 # Image provenance and placement
 
+## Coastal stair repair and refurbishment — supplied 21 October 2026
+
+The owner supplied four photographs and confirmed a completed stair repair/refurbishment job at a coastal home, with work finishing at night. Images 1–2 are the before condition; images 3–4 are the completed stair and landing views. The S18 bilingual service Owner displays the four-image sequence, and the homepage real-work collection links to it. No suburb, construction specification, component-replacement method, lifespan or certification is inferred.
+
+The public derivatives retain the full 1280 × 1700 frames, converted to WebP with metadata stripped and no visual retouching. The original JPGs remain untouched in the owner's supplied D-drive attachment location.
+
+| Original clipboard image | Public file in `assets/real-work/` | Caption role |
+| --- | --- | --- |
+| `6ba6cebf-c629-4f83-b2f9-9506184c0d1c` | `coastal-timber-stairs-before.webp` | Before: stair and balustrades |
+| `112bb0fb-6027-4d1f-b36f-e93832043957` | `coastal-stair-timber-damage.webp` | Before: tread connection detail |
+| `7ddb2afa-32af-4302-96f9-ae48f5fe7b9c` | `coastal-timber-stairs-after.webp` | After: repaired/refurbished stair at night |
+| `7f019c00-1ac6-4e69-8ed2-b85064b4f3cd` | `coastal-landing-balustrade-after.webp` | After: painted landing rails and posts |
+
 ## Exterior door jamb condition — supplied 30 September 2026
 
 The owner supplied `ce4f5294485709db9ce3f61358457950.jpg` and `978df864ff4195da4ae47072203105b0.jpg`. Full-frame, metadata-stripped WebP derivatives are `public/assets/real-work/sydney-exterior-door-jamb-condition-side.webp` and `sydney-exterior-door-jamb-condition-close.webp`. They appear only on the existing timber door and door-frame repair service page. The photographs show visible damage; the exact cause, job suburb, performed repair and outcome have not been confirmed.

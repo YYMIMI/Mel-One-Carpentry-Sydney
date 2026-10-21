@@ -5,7 +5,7 @@ import { pages, renderPage } from '../src/site.mjs';
 
 test('new outdoor enquiries have bilingual service owners, photos and selected contact handoff', () => {
   for (const prefix of ['', '/zh']) {
-    for (const [slug, id] of [['timber-sleeper-installation', 'S16'], ['under-house-timber-screening', 'S17']]) {
+    for (const [slug, id] of [['timber-sleeper-installation', 'S16'], ['under-house-timber-screening', 'S17'], ['timber-stair-repairs', 'S18']]) {
       const path = `${prefix}/services/${slug}/`;
       const result = renderPage(path, {});
       assert.equal(result.status, 200, path);

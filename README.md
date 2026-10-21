@@ -1,6 +1,6 @@
 # Mel One Sydney carpentry
 
-Bilingual residential timber repair site, published at https://www.thesydneycarpenter.com.au. The 188 public routes include 76 location pairs, eleven service pairs and seven support-page pairs. The original nine services remain, with timber sleeper installation and under-house timber screening added. This is the Sydney carpentry project, with selected additional enquiry locations in Central Coast, Illawarra and Wollondilly named by the owner.
+Bilingual residential timber repair site, published at https://www.thesydneycarpenter.com.au. The 190 public routes include 76 location pairs, twelve service pairs and seven support-page pairs. The original nine services remain, with timber sleeper installation, under-house timber screening and timber stair repair/refurbishment added. The stair Owner includes an owner-confirmed coastal-home before/after case. This is the Sydney carpentry project, with selected additional enquiry locations in Central Coast, Illawarra and Wollondilly named by the owner.
 
 ## Vercel deployment
 

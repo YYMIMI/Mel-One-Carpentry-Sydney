@@ -1,6 +1,7 @@
 // Editorial draft for a protected preview. Service scope and business claims
 // remain gated by independently approved business facts before publication.
 import { outdoorServices } from './outdoor-services.mjs';
+import { stairService } from './stair-service.mjs';
 import { areaAdditions } from './popular-areas.mjs';
 export const services = [
   {
@@ -103,7 +104,7 @@ export const services = [
     }
   },
   {
-    id: 'S04', slug: 'rotten-timber-repairs', related: ['S01', 'S02', 'S03', 'S05', 'S07'],
+    id: 'S04', slug: 'rotten-timber-repairs', related: ['S01', 'S02', 'S03', 'S05', 'S07', 'S18'],
     en: {
       title: 'Rotten Timber Repairs Sydney',
       h1: 'Rotten Timber Repairs in Sydney',
@@ -202,7 +203,7 @@ export const services = [
     }
   },
   {
-    id: 'S07', slug: 'deck-repairs', related: ['S04', 'S16', 'S17'],
+    id: 'S07', slug: 'deck-repairs', related: ['S04', 'S16', 'S17', 'S18'],
     en: {
       title: 'Deck Repairs & Board Replacement Sydney',
       h1: 'Deck Repairs & Board Replacement in Sydney',
@@ -303,6 +304,7 @@ export const services = [
     }
   },
   ...outdoorServices,
+  stairService,
 ];
 
 export const coreAreaGroups = [

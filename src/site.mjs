@@ -99,7 +99,7 @@ function repairDecisions(l, facts = {}, production = false) {
       '<a class="text-link" href="' + href(path, l) + '">' + [tr(l, 'Door and frame repairs', '木门与门框维修'), tr(l, 'Fence maintenance and repairs', '围栏保养与维修'), tr(l, 'Assessing rotten timber', '腐木检查与修复')][index] + '</a>' +
       (index === 0 ? '<a class="text-link" href="' + href('/services/timber-window-repairs/', l) + '">' +
         tr(l, 'For timber windows', '木窗相关维修') + '</a>' : '') +
-      (index === 1 ? services.filter(s => ['S06', 'S07'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a class="text-link" href="' + servicePath(s, l) + '">' + esc(shortName(s, l)) + '</a>').join('') : '') + '</article>').join('') +
+      (index === 1 ? services.filter(s => ['S06', 'S07', 'S18'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a class="text-link" href="' + servicePath(s, l) + '">' + esc(shortName(s, l)) + '</a>').join('') : '') + '</article>').join('') +
     '</div></section>';
 }
 function companyFeedback(l, detailed = false) {
@@ -125,8 +125,9 @@ function conversionRail(l, facts) {
     '<div class="mobile-contact-dock" aria-label="' + tr(l, 'Quick contact', '快捷联系') + '">' + call +
     '<a class="button button-primary" href="' + href('/contact/', l) + '">' + tr(l, 'Photo quote', '照片询价') + '</a></div>';
 }
-const serviceOrder = ['S05', 'S01', 'S02', 'S06', 'S07', 'S16', 'S17', 'S03', 'S04', 'S08', 'S09'];
+const serviceOrder = ['S05', 'S01', 'S02', 'S06', 'S07', 'S18', 'S16', 'S17', 'S03', 'S04', 'S08', 'S09'];
 const serviceImages = {
+  S18: ['/assets/real-work/coastal-timber-stairs-after.webp', 'Repaired and repainted outdoor timber stairs with white balustrades and a blue handrail, photographed at night', '夜间拍摄的维修翻新后户外木楼梯，配白色栏杆与蓝色扶手', 1280, 1700],
   S16: ['/assets/real-work/outdoor-timber-edge.webp', 'Low timber edging beside an outdoor stair and new timber battens', '户外楼梯旁的低矮木边框与新木条围板', 1280, 1707],
   S17: ['/assets/real-work/under-house-battens-detail.webp', 'New unpainted timber battens beneath weatherboards beside tiled steps', '外墙板下方、瓷砖楼梯旁的新装未刷漆木条', 1280, 1707],
   S01: ['/assets/real-work/window-multipane.jpg', 'Timber window and sill', '木窗与窗台', 1280, 1707],
@@ -156,7 +157,7 @@ function serviceCardPhoto(id, l, priority = false) {
     '" loading="' + (priority ? 'eager' : 'lazy') + '" decoding="async" alt="' + esc(tr(l, photo[1], photo[2])) + '">' : '';
 }
 function serviceMenu(l,facts,production,page) {
-  const groups=[['Doors, windows & timber','门窗与木材',['S01','S02','S04','S03']],['Fences, decks & outdoor timber','围栏、露台与户外木作',['S05','S06','S07','S16','S17']],['Interior repairs','室内木作维修',['S08','S09']]];
+  const groups=[['Doors, windows & timber','门窗与木材',['S01','S02','S04','S03']],['Fences, decks & outdoor timber','围栏、露台与户外木作',['S05','S06','S07','S18','S16','S17']],['Interior repairs','室内木作维修',['S08','S09']]];
   return '<details class="service-menu"><summary>'+tr(l,'Services','木工服务')+'</summary><div class="service-menu-panel"><a class="all-services" href="'+href('/services/',l)+'">'+tr(l,'All carpentry services','查看全部木工服务')+'</a><div class="service-menu-groups">'+groups.map(([en,zh,ids],index)=>{
     const available=services.filter(s=>ids.includes(s.id)&&(!production||facts.approvedServices?.includes(s.id)));
     return available.length ? '<div class="service-menu-group service-menu-group--'+['timber','outdoor','interior'][index]+'"><h2>'+tr(l,en,zh)+'</h2>'+available.map(s=>'<a href="'+servicePath(s,l)+'"'+(page.id===s.id?' aria-current="page"':'')+'>'+esc(shortName(s,l))+'</a>').join('')+'</div>':'';
@@ -211,6 +212,16 @@ function doorRepairVisual(l) {
 }
 
 const casePhotoGroups = {
+  S18: {
+    title: ['Before and after: coastal timber stair repair', '维修前后：海边房屋木楼梯维修与翻新'],
+    intro: ['At this coastal home, the exterior timber stairs and balustrades had peeling paint and visible timber deterioration around the tread connections. Mel One completed the stair repair and refurbishment, finishing the work at night. The first two photos show the original condition and damaged detail; the final two show the repainted stairs and landing balustrade. For similar work, send a wide view, close-ups and your suburb so we can discuss the repair and finish your stairs need.', '这处海边房屋的户外木楼梯与栏杆原先有明显掉漆，踏步连接处也可见木材老化破损。Mel One 完成了楼梯维修与翻新，施工收尾到夜间。前两张记录维修前整体和损坏细节，后两张展示翻新后的楼梯及平台栏杆。房东如有类似需求，可提供全景、损坏近照及所在地区，咨询适合的维修与表面翻新范围。'],
+    photos: [
+      ['coastal-timber-stairs-before.webp', 'Before repair: outdoor timber stairs with peeling white paint on the balustrades and strings', '维修前：户外木楼梯的栏杆与侧梁白漆大面积剥落', 'Before: stairs and weathered balustrades', '维修前：楼梯与老化栏杆', 1280, 1700],
+      ['coastal-stair-timber-damage.webp', 'Before repair: deteriorated timber around the junction of a brown stair tread and painted side string', '维修前：棕色踏步与涂漆侧梁连接处的木材破损', 'Before: timber damage at a tread connection', '维修前：踏步连接处的木材损坏', 1280, 1700],
+      ['coastal-timber-stairs-after.webp', 'After repair and refurbishment: brown timber steps, white balustrades and a blue top handrail at night', '维修翻新后：夜间的棕色木踏步、白色栏杆与蓝色上扶手', 'After: repaired and repainted stairs, photographed at night', '维修后：夜间拍摄的楼梯翻新效果', 1280, 1700],
+      ['coastal-landing-balustrade-after.webp', 'After refurbishment: freshly painted white timber posts and rails along the stair landing', '翻新后：楼梯平台上重新刷漆的白色木立柱与横栏', 'After: the landing posts and rails', '维修后：平台立柱与栏杆', 1280, 1700],
+    ],
+  },
   S16: {
     title: ['From our work: a timber edge beside the stairs', '我们的现场木作：楼梯旁的木边框'],
     intro: ['This job includes a low timber edge beside an outdoor stair, with new vertical screening around the adjoining opening. The photos show the layout during work. For sleeper installation at your home, send the proposed line, length and ground levels so edging and any retaining work can be scoped separately.', '这组现场木作展示户外楼梯旁的低矮木边框，以及相邻开口的新木条围板；照片记录施工时的布局。需要安装 sleeper 时，请提供计划走向、长度与地面高低，让花园边框及可能涉及的挡土工作分别确定范围。'],
@@ -311,6 +322,7 @@ function caseGallery(pageId, l) {
 
 function selectedWork(l, facts, production) {
   const items = [
+    ['S18', 'coastal-timber-stairs-after.webp', 'Coastal stair repair: before & after', '海边楼梯维修翻新：前后对比'],
     ['S05', 'fence-timber-work.jpg', 'Timber fence maintenance & repairs', '木围栏保养与维修'],
     ['S16', 'outdoor-timber-edge.webp', 'Garden timber edging', '花园木边框'],
     ['S17', 'under-house-battens-detail.webp', 'Under-house timber battens', '屋下木条围板'],
@@ -721,7 +733,7 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     tr(l, 'Residential timber repairs and maintenance, with the job scope confirmed before booking.', '住宅木作维修与保养；预约前先确认实际工作范围。') +
     '</p><p>' + esc(facts.legalEntity || 'Mel One Property Maintenance Pty Ltd') + '<br>ABN 39 666 325 408 · ACN 666 325 408</p>' + officeAddress(l,facts) + '</div>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Service links', '服务链接') + '"><h2>' + tr(l, 'Services', '木工服务') + '</h2>' +
-    services.filter(s => ['S05','S01','S02','S07','S09','S16','S17'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a href="' + servicePath(s,l) + '">' + esc(shortName(s,l)) + '</a>').join('') +
+    services.filter(s => ['S05','S01','S02','S07','S09','S18','S16','S17'].includes(s.id) && (!production || facts.approvedServices?.includes(s.id))).map(s => '<a href="' + servicePath(s,l) + '">' + esc(shortName(s,l)) + '</a>').join('') +
     '<a href="' + href('/services/',l) + '">' + tr(l, 'All carpentry services', '全部木工服务') + '</a></nav>' +
     '<nav class="footer-group" aria-label="' + tr(l, 'Areas and work', '地区与案例') + '"><h2>' + tr(l, 'Explore', '了解更多') + '</h2>' +
     '<a href="' + href('/areas/',l) + '">' + tr(l, 'Service areas: Sydney & selected NSW locations', '服务地区：悉尼及 NSW 指定地区') + '</a><a href="' + href('/#selected-work',l) + '">' + tr(l, 'Real work photos', '真实施工照片') + '</a><a href="' + href('/faq/',l) + '">' + tr(l, 'Common questions', '常见问题') + '</a></nav>' +

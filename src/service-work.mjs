@@ -1,5 +1,10 @@
 // Concrete options within the existing service scope; suitability requires assessment.
 export const serviceWork = {
+  S18: [
+    ['Damaged stair treads', 'Check the tread ends, connections and supporting timber before choosing a local repair or replacement. The sound parts around the damage determine the workable repair extent.', '踏板开裂或破损', '先检查踏板端部、连接和支撑木材，再决定局部修补或更换；周围完好木材的状态决定适合的维修范围。'],
+    ['Loose rails, posts or balustrades', 'Assess the timber and its fixing points together. A loose handrail or post can need more than new screws or a fresh coat of paint.', '扶手、立柱或栏杆松动', '木材与固定点要一起评估。扶手或立柱松动，不一定只换螺丝或重新刷漆就能解决。'],
+    ['Repair and refurbish the finish', 'Separate timber repairs from preparation and painting. For coastal properties, discuss the exposed faces, existing coating and fixing condition before agreeing the finish.', '木材维修与表面翻新', '把修木与前处理、刷漆分开列清。沿海物业可先说明外露面、旧涂层与固定件状况，再确定表面收尾。'],
+  ],
   S16: [
     ['New garden borders', 'Set out the line, corners and finished height before choosing timber and fixings. Show how the edge meets paths, lawn and adjoining fences.', '花园边框新装', '选择材料和固定方式前，先确定走向、转角与完成高度，并说明与步道、草坪及围栏如何衔接。'],
     ['Deteriorated sleeper replacement', 'Check the full section, not only the visible face. Confirm sound fixing points and whether removal, ground preparation and disposal are included.', '老化 sleeper 更换', '检查整段木材，不只看表面；确认稳固固定点，以及是否包含拆旧、地面准备和清运。'],

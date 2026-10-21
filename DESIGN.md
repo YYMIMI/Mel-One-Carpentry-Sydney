@@ -30,6 +30,8 @@ The later user-confirmed real-case batch extends that same field-photo system on
 
 ## Tokens and ownership
 
+The coastal stair repair addition reuses the existing service introduction, three repair-option cards, four-column photo gallery and horizontally scrolling homepage case collection. Its bilingual S18 Owner has a real before/after sequence with explicit captions, using all four owner-supplied photographs without visual retouching. The homepage case links to the S18 gallery; service navigation, the footer and the existing enquiry select use the same Owner. No new design tokens, form behavior or suburb-specific project claims are introduced.
+
 `public/site.css` is the single runtime token source. Its `:root` defines `--ink`, `--ink-soft`, `--paper`, `--surface`, `--line`, `--timber`, `--timber-dark`, `--focus`, scrollbar colours, radius and spacing. Area cards reuse those tokens; no second theme adapter exists. Text content and area research selections live in `src/content.mjs`, while `src/site.mjs` owns route rendering and approved-versus-pending area presentation.
 
 On 2026-09-29 the user chose a plain white page canvas, then rejected the pale-green backgrounds in the shared conversion rail and service intro. `--paper` is `#ffffff`; the conversion rail and other large pale-green content panels use white with a quiet border. The user then requested a light colour only beside the timber-fence service photo: that S05 intro uses the existing cool blue-grey `#e8edf0` and matching border `#d5e1e6`, while all other service intros stay white. Deep-ink buttons, the hero, imagery, content and layout stay as they were. Earlier warm-paper and sage-panel descriptions above record previous versions, not the current preference.

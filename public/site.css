@@ -1,17 +1,51 @@
+/*
+Constra visual adaptation for Mel One Sydney.
+Source: https://github.com/themefisher/constra-bootstrap
+Pinned commit: d75c9a80d13618031f78aa5abbd2c5e3ac592402.
+Selected header, photo-banner, service-card, button and footer rules are
+adapted to the existing DOM; no upstream scripts, fonts or photos are used.
+
+The MIT License (MIT)
+
+Copyright (c) 2016 - Present, Themefisher
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 :root {
-  --ink: #20343d;
-  --ink-soft: #43565b;
+  --ink: #17354d;
+  --ink-soft: #4d6172;
   --paper: #ffffff;
-  --surface: #fffefb;
-  --sage: #dfe9e1;
-  --line: #d9dfd7;
-  --timber: #cc955f;
-  --timber-dark: #74491f;
-  --focus: #d29136;
-  --scroll-track: #e3eae9;
-  --scroll-thumb: #54717a;
-  --radius: 2rem;
+  --surface: #f3f6f9;
+  --sage: #e9f0f7;
+  --line: #d6e0e8;
+  --timber: #1659a2;
+  --timber-dark: #10467f;
+  --focus: #1675d1;
+  --scroll-track: #edf1f5;
+  --scroll-thumb: #687f94;
+  --radius: .2rem;
   --space: clamp(1.1rem, 2.5vw, 2rem);
+  --font-body: 'Manrope', 'Aptos', 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-display: 'Aptos Display', 'Aptos', 'Segoe UI', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --navy: #112c43;
+  --accent-light: #91c9ff;
+  --clarity-button-text: #ffffff;
   color-scheme: light;
 }
 * { box-sizing: border-box }
@@ -542,3 +576,279 @@ form .button { justify-self: start }
 
 /* Online enquiry states use the existing form layout and palette. */
 .rfq-form .online-consent{display:flex;align-items:flex-start;gap:.7rem;line-height:1.65}.rfq-form .online-consent input[type=checkbox]{width:1.15rem;height:1.15rem;flex:0 0 1.15rem;margin-top:.25rem;padding:0}.online-field-error{color:#8c1e1e;font-size:.9rem;line-height:1.6;font-weight:500}.online-field-error:empty{display:none}.rfq-form [data-online-submit]{min-width:13rem}.rfq-form [data-online-submit]:disabled{cursor:default;opacity:.7}.rfq-form [data-online-status]{overflow-wrap:anywhere;min-height:1.65em}.rfq-form[aria-busy=true]{cursor:progress}
+
+/* Constra adaptation: visual layer over the existing component/state contracts.
+   Canonical palette and type tokens are defined once in :root above. */
+body { background: var(--paper); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.75 }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 750; color: var(--ink); letter-spacing: -.025em; line-height: 1.2 }
+h1 { font-size: clamp(2.1rem, 4vw, 3.7rem); max-width: 29ch }
+h2 { font-size: clamp(1.7rem, 2.8vw, 2.65rem); max-width: 35ch }
+h3 { font-size: 1.2rem; line-height: 1.4 }
+.service-menu-group h2, .service-quote-card strong, .concern-grid h3, .decision-grid h3, .review-card blockquote, .site-footer .footer-brand, .service-card-number, .concern-number { font-family: var(--font-display) }
+html[lang="zh-Hans"] { line-break: strict }
+html[lang="zh-Hans"] h1, html[lang="zh-Hans"] h2, html[lang="zh-Hans"] h3 { letter-spacing: 0; line-height: 1.4 }
+.eyebrow { color: var(--timber); font-size: .78rem; line-height: 1.5; letter-spacing: .12em; margin-bottom: .85rem }
+[id] { scroll-margin-top: 1.5rem }
+a:hover { text-decoration-color: var(--timber) }
+button, select, summary { cursor: pointer }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px }
+.skip-link { z-index: 200; background: var(--paper); color: var(--ink) }
+::-webkit-scrollbar { width: 12px; height: 12px }
+::-webkit-scrollbar-track { background: var(--scroll-track) }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border: 3px solid var(--scroll-track); border-radius: 8px }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-soft) }
+::-webkit-scrollbar-thumb:active { background: var(--ink) }
+
+/* Compact contact strip, white header and three-family service navigation. */
+.site-header { position: relative; z-index: 30; padding: 0; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 2px 8px #112c4309 }
+.site-header > .business-contact { max-width: none; margin: 0; padding: .6rem max(var(--space), calc((100% - 1216px) / 2)); background: var(--surface); color: var(--ink-soft); border: 0; border-radius: 0; justify-content: space-between; font-size: .83rem; line-height: 1.5 }
+.business-contact a { color: var(--ink); font-size: 1.2rem; text-decoration: none; white-space: nowrap }
+.business-contact a:hover { color: var(--timber); text-decoration: underline }
+.header-inner { max-width: 1280px; min-height: 6.2rem; margin: auto; padding: .75rem var(--space); gap: 1.2rem; background: var(--paper); border: 0; border-radius: 0; box-shadow: none }
+.brand { color: var(--ink); gap: .75rem; font-family: var(--font-display); font-size: 1.5rem; font-weight: 800 }
+.brand small { color: var(--ink-soft); font-size: .61rem; line-height: 1.3; letter-spacing: .1em; font-weight: 650; margin-top: .45rem }
+.brand-logo { width: 4.5rem; height: 4.5rem; background: transparent; border: 0; border-radius: 0 }
+.header-inner nav { align-items: center; gap: .1rem; justify-content: flex-end }
+.header-inner nav > a, .language, .service-menu > summary { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: .65rem; font-size: .85rem; font-weight: 800; line-height: 1.3; color: var(--ink); border-radius: var(--radius); text-transform: uppercase; transition: color .18s, background .18s }
+.header-inner nav > a:hover, .language:hover, .service-menu > summary:hover { color: var(--timber); background: var(--surface) }
+.header-inner nav > a[aria-current="page"] { color: var(--timber); background: transparent; box-shadow: inset 0 -3px var(--timber) }
+.header-inner nav a.nav-contact { background: var(--timber); color: #fff; border-radius: var(--radius); padding-inline: 1rem }
+.header-inner nav a.nav-contact:hover { background: var(--timber-dark) }
+.language { border-left: 1px solid var(--line); padding-left: 1rem; text-transform: none }
+.menu-toggle { min-height: 2.75rem; padding: .55rem .9rem; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); font-weight: 750 }
+.menu-toggle:hover, .menu-toggle[aria-expanded="true"] { background: var(--timber); color: #fff; border-color: var(--timber) }
+.service-menu > summary { list-style: none }
+.service-menu > summary::-webkit-details-marker { display: none }
+.service-menu[open] > summary { background: var(--surface); color: var(--timber) }
+.service-menu-panel { top: 100%; left: max(var(--space), calc((100% - 1216px) / 2)); right: max(var(--space), calc((100% - 1216px) / 2)); padding: 1.5rem; background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--timber); border-radius: var(--radius); box-shadow: 0 14px 30px #112c4326 }
+.service-menu-panel .all-services { background: var(--timber); color: #fff; border-radius: var(--radius) }
+.service-menu-groups { gap: 1rem; margin-top: 1.3rem }
+.service-menu-group { padding: 1.2rem; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--timber); border-radius: var(--radius) }
+.service-menu-group--timber { border-top-color: var(--timber) }
+.service-menu-group--outdoor { border-top-color: #427b9a }
+.service-menu-group--interior { border-top-color: #516b83 }
+.service-menu-group h2 { font-size: 1rem; letter-spacing: 0 }
+.service-menu-group a { border-radius: var(--radius) }
+.service-menu-group a:hover, .service-menu-group a:focus-visible { background: var(--paper); color: var(--timber); transform: none }
+.service-menu-group a[aria-current="page"] { background: var(--paper); color: var(--timber); box-shadow: inset 3px 0 var(--timber) }
+
+/* Full-width existing field photograph with Constra's dark text treatment. */
+.home-hero { display: grid; grid-template-columns: minmax(0, 1fr); position: relative; isolation: isolate; max-width: none; min-height: 39rem; margin: 0; border-radius: 0; background: var(--navy); color: #fff; box-shadow: none }
+.home-hero .hero-photo { grid-area: 1 / 1; position: relative; min-height: 39rem; max-height: none; margin: 0; border-radius: 0; background: var(--navy); z-index: -1 }
+.home-hero .hero-photo img { object-position: center 58% }
+.home-hero .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #112c43f5 0%, #112c43e0 39%, #112c4366 72%, #112c4326 100%) }
+.home-hero .hero-copy { grid-area: 1 / 1; align-self: center; width: 100%; max-width: 1280px; margin: auto; padding: clamp(3.5rem, 6vw, 6rem) var(--space) }
+.home-hero .hero-copy h1 { max-width: 23ch; margin-bottom: 1.5rem; color: #fff; font-size: clamp(2.6rem, 4.8vw, 4.15rem); font-weight: 800; line-height: 1.08; letter-spacing: -.035em }
+.home-hero .hero-copy .eyebrow { color: #b3d7ff }
+.home-hero .hero-intro { max-width: 51ch; color: #f0f5f9; font-size: 1.15rem; line-height: 1.75 }
+.home-hero .hero-actions { max-width: 42rem; gap: .9rem 1.3rem; align-items: center }
+.home-hero .hero-actions .button { min-height: 3.5rem; font-size: .98rem }
+.home-hero .hero-actions .button-primary { background: #fff; color: var(--timber-dark); border-color: #fff }
+.home-hero .hero-actions .button-primary:hover { background: #e7f2ff; border-color: #e7f2ff }
+.home-hero .hero-actions .button-call { color: #fff; background: transparent; border-color: #ffffffb3 }
+.home-hero .hero-actions .button-call:hover { background: #ffffff18; color: #fff; border-color: #fff }
+.home-hero .hero-actions .text-link { color: #c7e3ff; margin-left: 0 }
+.home-hero :focus-visible, .site-footer :focus-visible, .site-conversion :focus-visible { outline-color: var(--accent-light) }
+.service-highlights { max-width: 1280px; padding: 2rem var(--space); border-bottom: 1px solid var(--line); gap: 2rem }
+.service-highlights p { margin: 0; border: 0; border-left: 3px solid var(--timber); padding: 0 0 0 1rem; background: transparent; border-radius: 0 }
+.service-highlights strong { font-family: var(--font-display); font-weight: 750 }
+.service-highlights span { font-size: .94rem; line-height: 1.6 }
+
+/* Rectangular buttons and image service cards, with complete existing copy. */
+.button { min-height: 3.4rem; padding: .8rem 1.3rem; border-radius: var(--radius); font-size: .98rem; font-weight: 750; line-height: 1.4; text-align: center; transition: color .18s, background .18s, border-color .18s }
+.button-primary { background: var(--timber); color: #fff; border-color: var(--timber) }
+.button-primary:hover { background: var(--timber-dark); border-color: var(--timber-dark); color: #fff; transform: none; box-shadow: none }
+.button:active { box-shadow: inset 0 2px 5px #0002 }
+.button-call { background: var(--paper); color: var(--timber); border-color: var(--timber) }
+.button-call:hover { background: var(--sage); transform: none }
+.text-link { color: var(--timber-dark); font-weight: 750 }
+.homepage-section, .process-strip, .page-main { max-width: 1280px; padding: clamp(2.75rem, 5.5vw, 5rem) var(--space) }
+.page-main { padding-top: clamp(2rem, 4vw, 3.6rem) }
+.section-heading { gap: 2.5rem; margin-bottom: 1.8rem }
+.section-heading h2 { margin-bottom: .5rem }
+.section-heading h2::before { content: ''; display: block; width: 3rem; height: 4px; margin-bottom: 1rem; background: var(--timber) }
+.section-heading > p { color: var(--ink-soft) }
+.service-grid { gap: 1.5rem }
+.service-card, .service-card:first-child { display: flex; flex-direction: column; grid-column: auto; min-height: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); box-shadow: none; transition: border-color .18s, box-shadow .18s }
+.service-card .service-photo, .service-card:first-child .service-photo { width: 100%; height: 15rem; min-height: 0; aspect-ratio: 3 / 2; order: 0; transition: none }
+.service-card-copy, .service-card:first-child .service-card-copy { padding: 1.5rem; background: var(--paper); order: 1 }
+.service-card-number { color: var(--timber); font-size: .8rem; font-weight: 800; letter-spacing: .08em }
+.service-card strong, .service-card:first-child strong { margin-bottom: .85rem; font-family: var(--font-display); font-size: 1.28rem; font-weight: 750; line-height: 1.35 }
+.service-card-copy > span:not(.service-card-number) { display: block; -webkit-line-clamp: unset; overflow: visible; font-size: .97rem; line-height: 1.7 }
+.service-card em, .service-quote-card em { color: var(--timber); font-size: .9rem; font-weight: 800; padding-top: 1.4rem }
+.service-card:hover, .service-card:focus-visible { border-color: var(--timber); box-shadow: 0 8px 24px #112c4312; transform: none }
+.service-card:hover .service-photo, .service-card:focus-visible .service-photo { transform: none }
+.service-quote-card { grid-column: auto; min-height: 23rem; padding: 2rem; border: 0; border-radius: var(--radius); background: var(--navy); color: #fff }
+.service-quote-card .eyebrow, .service-quote-card em { color: #b3d7ff }
+.service-quote-card strong { font-size: 1.8rem; line-height: 1.3; font-weight: 750 }
+.service-quote-card > span:not(.eyebrow) { color: #dce9f4 }
+.service-quote-card:hover, .service-quote-card:focus-visible { background: #1c405c }
+.page-header { margin-bottom: 2rem; padding-bottom: 1.7rem }
+.page-header .eyebrow { margin-bottom: .65rem }
+.page-lead { margin-bottom: 2rem; font-size: 1.12rem; line-height: 1.8 }
+.service-intro { min-height: 0; margin-bottom: 3rem; background: var(--surface); border-radius: var(--radius) }
+.service-intro--fence { background: #e8edf0; border-color: #d5e1e6 }
+.service-intro-copy { justify-content: flex-start; padding: clamp(1.5rem, 3.5vw, 3rem) }
+.service-intro .page-lead { font-size: 1.12rem }
+.service-intro-image, .service-intro-image .service-photo { min-height: 22rem }
+.split-content, .contact-layout { gap: clamp(2rem, 4vw, 4rem) }
+.content-section { padding: 1.6rem 0 2rem }
+.content-section h2 { font-size: clamp(1.5rem, 2.3vw, 2rem) }
+.aside-note { background: var(--surface); border-top: 3px solid var(--timber); border-radius: var(--radius) }
+
+/* Gallery behavior and full portrait case evidence are preserved. */
+.selected-work { padding-block: clamp(2.75rem, 5.5vw, 5rem); border-block: 1px solid var(--line); background: var(--surface) }
+.case-scroll-control { width: 3rem; height: 3rem; background: var(--paper); border-radius: var(--radius); transition: color .18s, background .18s }
+.case-scroll-control:hover { background: var(--timber); color: #fff; border-color: var(--timber); transform: none }
+.case-grid { gap: 1rem; padding-bottom: 1.25rem }
+.case-grid .case-card, .case-grid .case-card:first-child { flex-basis: clamp(17rem, 29vw, 23rem); height: clamp(23rem, 35vw, 28rem); border-radius: var(--radius) }
+.case-card > div, .case-card:first-child > div { padding: 3.5rem 1.2rem 1.2rem; background: linear-gradient(transparent, #112c43f5) }
+.case-card h3, .case-grid .case-card:first-child h3 { color: #fff; font-size: 1.3rem; line-height: 1.35 }
+.case-card span { color: #c7e3ff; font-size: .86rem }
+.case-card:hover img, .case-card:focus-visible img { transform: none; filter: none }
+.work-photo, .door-repair-visual { border-radius: var(--radius) }
+.work-photo img { background: var(--surface) }
+.backyard-door-case .work-photo img { aspect-ratio: 3 / 4; object-fit: contain }
+.work-photo figcaption { padding: .9rem; font-size: .86rem; line-height: 1.55 }
+
+/* Shared decision, region, feedback and guidance components. */
+.decision-grid, .review-grid { gap: 1.5rem }
+.decision-grid article, .review-card { background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--timber); border-radius: var(--radius) }
+.decision-grid article:nth-child(n), .review-card:nth-child(n) { background: var(--paper) }
+.decision-grid h3 { font-size: 1.3rem; line-height: 1.4; max-width: 24ch }
+.concern-grid { gap: 1.25rem }
+.concern-grid article, .concern-grid article:nth-child(n) { padding: 1.5rem; background: var(--surface); border-radius: var(--radius); box-shadow: none }
+.concern-grid h3 { font-size: 1.2rem; line-height: 1.4 }
+.concern-number { color: var(--timber); font-size: .9rem }
+.review-card blockquote { font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 650; line-height: 1.6 }
+.area-groups { gap: 1rem }
+.area-groups > div { padding: 1.4rem; background: var(--surface); border-radius: var(--radius) }
+.area-groups h3 { font-size: 1.15rem }
+.area-groups p { font-size: .97rem; line-height: 1.8 }
+.faq-list { max-width: 56rem }
+.faq-list details { margin-bottom: .7rem; border-radius: var(--radius) }
+.faq-list details[open] { border-color: var(--timber) }
+.faq-list summary:hover, .faq-list details[open] summary { color: var(--timber) }
+.related-links a, .fence-task-nav a { border-radius: var(--radius); color: var(--timber-dark) }
+.fence-feature, .fence-maintenance { background: var(--paper); border-radius: var(--radius) }
+.fence-feature { border-left: 4px solid var(--timber) }
+.fence-checks article { background: var(--surface); border-radius: var(--radius) }
+.rfq-guidance-grid article { background: var(--surface); border-top-color: var(--timber); border-radius: var(--radius) }
+.quote-band { border-radius: var(--radius); background: var(--surface); border-left: 4px solid var(--timber) }
+
+/* The existing form state machine and field contracts are untouched. */
+.home-inquiry { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); padding: clamp(2.75rem, 5.5vw, 5rem) var(--space); border: 0; border-top: 1px solid var(--line); border-radius: 0; gap: clamp(2rem, 4vw, 4rem) }
+.home-inquiry-copy h2 { font-size: clamp(2rem, 3vw, 3.2rem); line-height: 1.2; max-width: 16ch }
+.home-inquiry form, .rfq-form { background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--timber); border-radius: var(--radius); box-shadow: none }
+.rfq-form { margin-block: 1.5rem; padding: clamp(1.3rem, 3vw, 2.3rem); scroll-margin-top: 2rem }
+.rfq-form h2 { font-size: 1.7rem; margin-bottom: .5rem }
+input, select, textarea { padding: .85rem .9rem; background: #fff; color: var(--ink); border-color: #8296a8; border-radius: var(--radius); font-size: 1rem; line-height: 1.5 }
+input:hover, select:hover, textarea:hover { border-color: var(--timber) }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline-width: 2px; outline-offset: 2px }
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #a32323; border-width: 2px }
+.rfq-form textarea { resize: vertical; min-height: 9rem }
+.rfq-note { color: var(--ink-soft) }
+.rfq-result { border-color: var(--line) }
+.rfq-form [data-online-submit] { min-width: min(100%, 13rem) }
+.file-label { border-radius: var(--radius); background: var(--surface) }
+.office-map { max-width: 1216px; background: var(--surface); border-radius: var(--radius) }
+.office-map-frame, .suburb-map { background: var(--surface); border-radius: var(--radius) }
+.site-conversion { max-width: none; margin: 2rem 0 0; padding: 3rem max(var(--space), calc((100% - 1216px) / 2)); background: var(--timber-dark); color: #fff; border: 0; border-radius: 0 }
+.site-conversion .eyebrow { color: #c7e3ff }
+.site-conversion h2 { color: #fff; font-size: clamp(1.7rem, 2.8vw, 2.4rem) }
+.site-conversion p:last-child { color: #e2edf8 }
+.site-conversion-actions .button-primary { background: #fff; color: var(--timber-dark); border-color: #fff }
+.site-conversion-actions .button-primary:hover { background: #e7f2ff; border-color: #e7f2ff }
+.site-conversion-actions .button-call { color: #fff; background: transparent; border-color: #ffffffad }
+.site-conversion-actions .button-call:hover { background: #ffffff18; border-color: #fff }
+
+/* Constra-style full-width dark footer, original links and legal identity. */
+.site-footer { margin-top: 0; padding: 4rem var(--space); background: var(--navy); color: #d0deeb; border-radius: 0 }
+.footer-inner { max-width: 1216px; grid-template-columns: 1.4fr 1.2fr .9fr 1.1fr }
+.footer-group { gap: .7rem; font-size: .94rem }
+.footer-group h2 { margin-bottom: 1rem; padding-left: .85rem; border-left: 3px solid #6db5ff; color: #fff; font-size: 1rem; font-weight: 750; letter-spacing: .04em; text-transform: uppercase }
+.footer-group span, .footer-group p { color: #d0deeb }
+.footer-group a { line-height: 1.6 }
+.footer-group a:hover { color: #fff; text-decoration-color: var(--accent-light) }
+.footer-group a[href^="tel:"] { font-size: 1.2rem; color: #fff }
+.footer-logo { width: 5rem; height: 5rem; border-radius: var(--radius) }
+.site-footer .footer-brand { font-weight: 800; font-size: 1.5rem }
+
+/* Same navigation breakpoint and carousel gap as the existing JavaScript. */
+@media (max-width: 1100px) {
+  .header-inner { margin: auto; min-height: 5rem; gap: 1rem }
+  .language { border: 0; padding-left: .65rem }
+  .menu-toggle { border-radius: var(--radius) }
+  .header-inner nav { align-items: stretch; justify-content: flex-start; padding-block: .6rem }
+  .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .footer-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem }
+}
+@media (max-width: 850px) {
+  .home-inquiry, .split-content, .contact-layout { grid-template-columns: 1fr; gap: 2rem }
+  .home-inquiry-copy h2 { max-width: 28ch }
+  .decision-grid, .rfq-guidance-grid { grid-template-columns: 1fr }
+  .section-heading { display: block }
+  .section-heading > p { max-width: 65ch; margin-top: 1rem }
+  .service-intro-copy { padding: 1.5rem }
+}
+@media (max-width: 700px) {
+  body { padding-bottom: calc(5.4rem + env(safe-area-inset-bottom, 0px)); font-size: 1rem }
+  #clarity-consent { bottom: calc(84px + env(safe-area-inset-bottom, 0px)) }
+  .site-header > .business-contact { justify-content: center; text-align: center; padding-block: .55rem; font-size: .74rem; gap: .3rem 1rem }
+  .header-inner { min-height: 4.9rem; gap: .65rem; padding-block: .7rem; border-radius: 0 }
+  .brand { gap: .5rem; font-size: 1.25rem }
+  .brand small { font-size: .52rem; letter-spacing: .04em; margin-top: .3rem }
+  .brand-logo { width: 3.1rem; height: 3.1rem }
+  .menu-toggle { font-size: .88rem; padding-inline: .7rem }
+  .language { font-size: .83rem; padding-inline: .5rem }
+  .header-inner nav { border-top: 1px solid var(--line); border-radius: 0 }
+  .header-inner nav > a, .service-menu > summary { justify-content: flex-start; min-height: 2.85rem; padding: .75rem }
+  .header-inner nav a.nav-contact { margin: .3rem 0 0; justify-content: center }
+  .service-menu-panel { position: static; padding: 1rem; margin-block: .5rem; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: none }
+  .service-menu-group { padding: 1rem }
+  .home-hero, .home-hero .hero-photo { min-height: 35rem; border-radius: 0 }
+  .home-hero .hero-photo img { object-position: 63% center }
+  .home-hero .hero-photo::after { background: linear-gradient(90deg, #112c43ee, #112c43c9) }
+  .home-hero .hero-copy { padding: 3.1rem var(--space) }
+  .home-hero .hero-copy h1 { font-size: clamp(2.45rem, 9vw, 3.25rem); max-width: 21ch; line-height: 1.12 }
+  .home-hero .hero-intro { font-size: 1rem; line-height: 1.75 }
+  .home-hero .hero-actions { gap: .75rem }
+  .home-hero .hero-actions .text-link { padding-block: .5rem }
+  .homepage-section, .process-strip { padding-block: 2.75rem }
+  .page-main { padding-top: 2rem }
+  .page-header { margin-bottom: 1.5rem; padding-bottom: 1.25rem }
+  .page-header h1 { font-size: clamp(2rem, 7.5vw, 2.7rem); max-width: 25ch }
+  .page-lead { font-size: 1.05rem; margin-bottom: 1.5rem }
+  .service-grid, .concern-grid, .rfq-guidance-grid { grid-template-columns: 1fr }
+  .service-card .service-photo, .service-card:first-child .service-photo { height: 14rem; min-height: 0 }
+  .service-card-copy, .service-card:first-child .service-card-copy { padding: 1.35rem }
+  .service-quote-card { min-height: 20rem; padding: 1.6rem }
+  .service-intro-image, .service-intro-image .service-photo { min-height: 16rem }
+  .service-intro-image .service-photo { height: 18rem }
+  .case-grid .case-card, .case-grid .case-card:first-child { flex-basis: min(82vw, 22rem); height: 25rem; border-radius: var(--radius) }
+  .case-card h3, .case-grid .case-card:first-child h3 { font-size: 1.2rem }
+  .case-scroll-control { width: 2.9rem; height: 2.9rem }
+  .work-photo figcaption { padding: .7rem; font-size: .8rem }
+  .home-inquiry { margin-inline: 0; padding-inline: var(--space); border-radius: 0 }
+  .rfq-form { margin-block: 1rem }
+  .rfq-form h2 { font-size: 1.45rem }
+  .office-map { border-radius: var(--radius) }
+  .site-conversion { margin-inline: 0; padding-block: 2.5rem; border-radius: 0 }
+  .mobile-contact-dock { left: 0; right: 0; bottom: 0; gap: .6rem; padding: .7rem var(--space) calc(.7rem + env(safe-area-inset-bottom, 0px)); border: 0; border-top: 1px solid var(--line); border-radius: 0; background: var(--paper); box-shadow: 0 -3px 15px #112c4314 }
+  .mobile-contact-dock .button { min-height: 3.1rem; padding: .65rem .5rem; font-size: .88rem }
+  .site-footer { padding-block: 3rem }
+}
+@media (max-width: 390px) {
+  .brand small { display: none }
+  .brand { gap: .4rem }
+  .header-inner { gap: .4rem }
+  .brand-logo { width: 2.8rem; height: 2.8rem }
+  .language { padding-inline: .4rem }
+  .menu-toggle { padding-inline: .65rem }
+  .footer-inner { grid-template-columns: 1fr }
+  .footer-identity { grid-column: auto }
+  .mobile-contact-dock .button { font-size: .8rem }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important }
+}

@@ -1,4 +1,50 @@
-# Sydney carpentry preview — design context
+# Sydney carpentry — design context
+
+## Active UI: Constra adaptation — 22 October 2026
+
+The user requested a GitHub-sourced template replacement for this Sydney site while keeping everything else unchanged. This active section supersedes historical visual descriptions below. The site remains the existing bilingual static carpentry enquiry site, with exactly the same 190 rendered HTML documents, copy, headings, routes, real photos, metadata, structured data, enquiry controls, scripts, APIs, analytics and consent behavior.
+
+Visual source: [Themefisher Constra](https://github.com/themefisher/constra-bootstrap), pinned to d75c9a80d13618031f78aa5abbd2c5e3ac592402. The full upstream MIT notice is retained in public/site.css and public/licenses/constra-MIT.txt; THIRD_PARTY.md records the source mapping. No Constra plugins, form service, fonts, stock photographs, testimonials or business claims are adopted.
+
+### Visual system and token ownership
+
+public/site.css remains the canonical runtime token owner (Model B); this document mirrors accepted values. Its existing component/state contracts remain, followed by one clearly marked Constra visual adapter. There is no new framework, token generator or theme dependency.
+
+| Role | Runtime token | Value | Consumers |
+| --- | --- | --- | --- |
+| Body/display ink | --ink | #17354d | Text, headings, navigation |
+| Secondary ink | --ink-soft | #4d6172 | Descriptions, captions, notes |
+| Canvas | --paper | #ffffff | Page background and cards |
+| Muted panel | --surface | #f3f6f9 | Contact strip, guidance, map surroundings |
+| Subtle blue | --sage | #e9f0f7 | Existing hover/secondary panel aliases |
+| Divider | --line | #d6e0e8 | Cards, fields, separators |
+| Primary/action | --timber | #1659a2 | Blue actions, service accents, Clarity theme alias |
+| Strong primary | --timber-dark | #10467f | Hover, text links, closing contact band |
+| Focus | --focus | #1675d1 | Light-surface keyboard focus |
+| Dark background | --navy | #112c43 | Hero and footer |
+| Dark-surface focus | --accent-light | #91c9ff | Hero/footer/contact focus |
+| Corner radius | --radius | .2rem | Rectangular cards, fields, buttons |
+
+Body uses the existing Manrope/Aptos/Segoe UI/Chinese sans fallback stack. Display text uses Aptos Display/Aptos/Segoe UI with Chinese sans fallbacks and 750/800 weights. No web-font request is added. Chinese uses normal tracking and a 1.4 heading line height; long text remains visible.
+
+The signature is the existing field photograph as a full-width banner with a navy reading overlay. A compact pale contact strip, white navigation, rectangular three-column service cards, blue section markers and a square-edged navy footer follow Constra's construction register. Original service-card order and every word are preserved; the first card now shares the standard geometry. The S05 fence intro keeps its existing blue-grey panel. Project photo evidence remains separate; the backyard-door images keep contain fit.
+
+### Search-reference comparison — 22 October 2026
+
+The later user direction asked for Google and AI-search references. A signed-in Chrome observation of Google for carpenter Sydney (desktop, English/Australia requested, pws=0, visible non-personalised notice and Sydney NSW IP footer) showed these first five organic results, in order: [The Sydney Carpenters](https://thesydneycarpenters.com.au/), [Houzz](https://www.houzz.com.au/professionals/carpenters/sydney-02-au-probr0-bo~t_11957~r_2147714), [A Carpenter Sydney](https://acarpentersydney.com.au/), [hipages](https://hipages.com.au/find/carpenters/nsw/sydney), and [Sydney Carpentry Group on Instagram](https://www.instagram.com/sydneycarpentrygroup/). Houzz and hipages are platforms; Instagram is a social profile. This is one dated query observation, not a stable rank claim.
+
+The AI Overview observation named five businesses but its location and personalisation did not match the controlled Sydney organic snapshot. Only actual visible citations are treated as supporting references. Their service grouping, project-gallery and call/quote patterns support the existing hierarchy. The only additional CSS refinement is top-aligning service-intro-copy so the unchanged service description and quote action begin near the top beside tall project photos. No ordering, copy, routes, structured data, services, claims, reviews, assets or form behavior are adopted from competitors. Full dated observations and their limitations are saved in the release evidence folder.
+
+### Preserved interactions
+
+The same native menu/disclosure, language counterpart links, carousel arrows and 1rem carousel gap, photo-enquiry destinations and service/suburb prefill remain. Header navigation collapses at 1100px. The mobile call/quote dock retains document clearance and its original destinations; Clarity still has its existing consent and form exclusion. Forms keep their native selects, field names, hidden fields, privacy choice, validation, pending/error/receipt logic, retry reference and endpoints. No live enquiry is sent for UI testing.
+
+At 850px the long-form/side-note and home enquiry columns stack; at 700px service content and header menu reflow; at 390px portrait galleries and the footer use a single column. Focus is visible on both light and dark surfaces, global scrollbars remain operable, and reduced motion suppresses transitions and smooth scrolling.
+
+### Validation boundary
+
+Compare all 190 route HTML strings and 107 protected source/public/API/config/build hashes against the 4c919c7 baseline. Only the stylesheet may change among those protected files. Run the existing 102 tests and public 190-route checker, then inspect representative English/Chinese Home, service, case, area and Contact surfaces at 1440, 1024, 390 and 320px. Exercise the existing menu/Escape/focus, carousel, locale switching and enquiry states with mocked requests. Production identity and live CSS/HTML must be independently checked before claiming release.
+
 
 ## Backyard door case addition — 22 October 2026
 

@@ -1,5 +1,9 @@
 # Sydney carpentry preview — design context
 
+## Backyard door case addition — 22 October 2026
+
+The existing S02 door/frame Owner gains an independently labelled before/after case. Its four-photo gallery reuses the established cards, typography and spacing, with a scoped contain fit to preserve both tall before views and wider after views. The existing homepage door card now uses the new case photograph and links directly to its section, keeping the eight-card strip. Other cards, the generic door gallery, protected service metadata, palette and enquiry flow remain intact. English and Chinese share the genuine photos with matching localized captions and enquiry links. No new service or suburb URL is created.
+
 ## Purpose and authority
 
 This is a bilingual residential-carpentry enquiry site, not a verified business-coverage claim. The supplied v3 `source-package/01_MASTER_BUILD_SPEC.md` and `config/` own scope and approval rules; `site.config.json` is the deployment fact gate. This document records the implemented visual/interaction choices and cannot authorize unknown business facts.

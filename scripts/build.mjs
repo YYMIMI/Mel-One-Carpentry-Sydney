@@ -40,7 +40,10 @@ export async function buildSite({ dest = join(root, 'dist'), production = false,
       (facts.telephone ? 'Phone: ' + facts.telephone + '\n' : '') + (facts.email ? 'Email: ' + facts.email + '\n' : '') +
       '\nScope, access, materials and availability are confirmed before booking. Photos are not evidence of work in an unconfirmed location. Online enquiries are sent to the Sydney carpentry team. Submission does not confirm a booking, price or attendance time.\n\n' +
       '## Authoritative pages\n\n' + pages.filter(p => routes.includes(p.path)).map(p => '- [' + p.h1 + ' (' + p.locale + ')](' + facts.domain + p.path + ')').join('\n') +
-      '\n\n## Crawl discovery\n\n- [XML sitemap](' + facts.domain + '/sitemap.xml)\n- [Crawler rules](' + facts.domain + '/robots.txt)\n';
+      '\n\n## Backyard door replacement case\n\n' +
+      '- [Backyard door replacement, adjustment and painting](' + facts.domain + '/services/timber-door-frame-repairs/#backyard-door-replacement)\n' +
+      '- [后院旧门板更换、调整与刷漆](' + facts.domain + '/zh/services/timber-door-frame-repairs/#backyard-door-replacement)\n' +
+      '\n## Crawl discovery\n\n- [XML sitemap](' + facts.domain + '/sitemap.xml)\n- [Crawler rules](' + facts.domain + '/robots.txt)\n';
     await writeFile(join(dest, 'llms.txt'), text, 'utf8');
   } else {
     await rm(join(dest, 'sitemap.xml'), { force: true });

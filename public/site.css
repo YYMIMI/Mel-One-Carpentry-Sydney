@@ -171,6 +171,7 @@ html[lang="zh-Hans"] .eyebrow { letter-spacing: .08em }
 .work-photo { min-width: 0; margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden }
 .work-photo img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; background: #e6eeee }
 .work-photo--three-four img { aspect-ratio: 3 / 4 }
+.backyard-door-case .work-photo img { aspect-ratio: 3 / 4; object-fit: contain }
 .work-photo figcaption { padding: .75rem .85rem 1rem; color: var(--ink-soft); font-size: .88rem; line-height: 1.45 }
 .related { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 2rem }
 .related h2 { font-size: 1.6rem }

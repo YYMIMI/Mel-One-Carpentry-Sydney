@@ -2,6 +2,7 @@ import {clarityAssets,clarityPrivacy} from './clarity-assets.mjs';
 import {serviceQaAssets} from "./service-qa-assets.mjs";
 import { services, popularAreaCandidates } from './content.mjs';
 import { serviceWork } from './service-work.mjs';
+import { backyardDoorCase, backyardDoorCaseSchema, backyardDoorAnchor } from './backyard-door-case.mjs';
 import { companyReviews, reviewSource } from './company-reviews.mjs';
 import { suburbs, suburbSlug } from './suburbs.mjs';
 import { popularAreaProfiles } from './popular-areas.mjs';
@@ -327,7 +328,7 @@ function selectedWork(l, facts, production) {
     ['S16', 'outdoor-timber-edge.webp', 'Garden timber edging', '花园木边框'],
     ['S17', 'under-house-battens-detail.webp', 'Under-house timber battens', '屋下木条围板'],
     ['S01', 'window-multipane.jpg', 'Timber window frames & repainting', '木窗框维修与刷漆翻新'],
-    ['S02', 'door-open-leaf.jpg', 'Door panels, frames & hardware', '门板、门框与五金'],
+    ['S02', 'backyard-door-after-front-thumb.webp', 'Backyard door replacement & painting', '后院旧门板更换与刷漆', backyardDoorAnchor, 640, 854],
     ['S08', 'interior-panels-prep.jpg', 'Interior panels & finishing', '室内板件与表面翻新'],
     ['S09', 'cabinet-door-side.jpg', 'Cupboard doors & hardware', '柜门与五金维修'],
   ].filter(([id]) => !production || facts.approvedServices?.includes(id));
@@ -336,8 +337,8 @@ function selectedWork(l, facts, production) {
     tr(l, 'From our real jobs', '我们的真实案例') + '</p><h2>' + tr(l, 'A closer look at the work', '从细节，看实际木作') +
     '</h2></div><p>' + tr(l, 'Fences, outdoor timber, window frames, doors and cupboard details. See real photos alongside the relevant installation, repair and finishing options. Replacement can also be discussed as a distinct option where relevant.',
       '围栏、户外木作、窗框、门板与柜门细节。结合真实照片，了解对应的安装、维修、更换及表面收尾范围。') + '</p></div><div class="case-scroll"><button class="case-scroll-control" type="button" data-direction="previous" aria-label="' + tr(l, 'Previous work photos', '向前查看案例照片') + '">←</button><button class="case-scroll-control" type="button" data-direction="next" aria-label="' + tr(l, 'Next work photos', '向后查看案例照片') + '">→</button></div><div class="case-grid" tabindex="0" aria-label="' + tr(l, 'Real work photo gallery', '真实施工照片列表') + '">' +
-    items.map(([id, name, en, zh]) => '<a class="case-card" href="' + servicePath(services.find(s => s.id === id), l) +
-      '#case-photos"><img src="/assets/real-work/' + name + '" width="1280" height="1707" loading="lazy" decoding="async" alt="' +
+    items.map(([id, name, en, zh, anchor = 'case-photos', width = 1280, height = 1707]) => '<a class="case-card" href="' + servicePath(services.find(s => s.id === id), l) +
+      '#' + anchor + '"><img src="/assets/real-work/' + name + '" width="' + width + '" height="' + height + '" loading="lazy" decoding="async" alt="' +
       esc(tr(l, en, zh)) + '"><div><h3>' + esc(tr(l, en, zh)) + '</h3><span>' + tr(l, 'View photos & service details', '查看照片与服务详情') +
       '</span></div></a>').join('') + '</div></section>';
 }
@@ -478,7 +479,7 @@ function serviceBody(page, l, facts, production) {
     section('quote', tr(l, 'What shapes a quote', '哪些因素影响报价'), p(c.quote)) +
     '</div><aside class="aside-note"><h2>' + tr(l, 'Useful photos', '哪些照片有帮助') + '</h2>' +
     p(c.photo) + p(tr(l, 'Do not put yourself at risk to take a photo.', '拍照不应让自己处于危险位置。')) + '</aside></div>' +
-    (page.id === 'S02' ? doorConditionGallery(l) + doorRepairVisual(l) + doorWorkGallery(l) : '') + caseGallery(page.id, l) +
+    (page.id === 'S02' ? backyardDoorCase(l) + doorConditionGallery(l) + doorRepairVisual(l) + doorWorkGallery(l) : '') + caseGallery(page.id, l) +
     section('areas', tr(l, 'Check the location', '确认所在地区'), p(tr(l,
       'We take residential timber enquiries in Sydney and the selected Central Coast, Illawarra and Wollondilly locations listed in our service directory. Tell us your suburb and the work needed; we will discuss scope, access, timing and any travel charges before arranging a visit.',
       '我们承接悉尼及服务目录中列出的 Central Coast、Illawarra 与 Wollondilly 指定地区的住宅木作询价。请说明所在地区和所需工作；安排上门前先沟通范围、通道、时间及是否涉及出行费用。')) +
@@ -677,6 +678,11 @@ function structuredData(page, facts, base) {
     provider: { '@id': provider }, areaServed: { '@type': 'Place', name: page.area.name + ', NSW, Australia' },
     description: page.area[page.locale],
   });
+  if (page.id === 'S02') {
+    const project = backyardDoorCaseSchema(page, base);
+    graph[2].hasPart = { '@id': project['@id'] };
+    graph.push(project);
+  }
   if (page.id !== 'H00') graph.push({ '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: page.locale === 'zh' ? '首页' : 'Home', item: base + href('/', page.locale) },
     { '@type': 'ListItem', position: 2, name: page.h1, item: base + page.path },

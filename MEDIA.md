@@ -1,5 +1,20 @@
 # Image provenance and placement
 
+## Backyard door-leaf replacement and painting — supplied 22 October 2026
+
+The owner supplied four photographs and confirmed removal of the old backyard door leaf, fitting a replacement to the site dimensions, adjustment of position/opening/closing, surface preparation and painting. The S02 door/frame service Owner displays a separate before/after case at `#backyard-door-replacement`; the homepage real-work strip links directly to it. Existing generic door/frame photographs and their scope remain separate.
+
+The gallery order is original images 1, 2, 4, 3: two before views, the finished external view, then the other side of the replacement leaf. Full native frames are converted to metadata-stripped WebP without retouching; the scoped gallery uses `object-fit: contain`. A separate 640 × 854 thumbnail uses image 4. All original JPGs remain untouched in the owner's D-drive attachment location.
+
+| Original clipboard image | Public file in `assets/real-work/` | Role |
+| --- | --- | --- |
+| `c53f1b6f-0970-4ded-84b7-34210d2c9111` | `backyard-door-before.webp` | Before: worn door face |
+| `7feffb7a-cc3d-426b-9379-f4c75977f3d2` | `backyard-door-edge-before.webp` | Before: damaged latch edge |
+| `821f2685-5f37-4410-b706-8658d9fb6710` | `backyard-door-after-front.webp` | After: fitted and painted external face |
+| `2cc01113-c2ad-4eaf-95a5-d91ade072ea5` | `backyard-door-after-reverse.webp` | After: opposite-side open view |
+
+No frame replacement, new lock/hardware, exact material or coating specification, rot diagnosis, suburb, job date, warranty, wall repair or renovation of the adjacent storage area is inferred. Existing fittings and background conditions remain visible. The supply date above is a media-intake date, not an asserted work date.
+
 ## Coastal stair repair and refurbishment — supplied 21 October 2026
 
 The owner supplied four photographs and confirmed a completed stair repair/refurbishment job at a coastal home, with work finishing at night. Images 1–2 are the before condition; images 3–4 are the completed stair and landing views. The S18 bilingual service Owner displays the four-image sequence, and the homepage real-work collection links to it. No suburb, construction specification, component-replacement method, lifespan or certification is inferred.

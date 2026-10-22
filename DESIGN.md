@@ -1,6 +1,51 @@
 # Sydney carpentry — design context
 
-## Active UI: Constra adaptation — 22 October 2026
+## Active UI: Yellow Online reference — 22 October 2026
+
+The user supplied https://www.yellow.com.au/product/yellow-online/ and asked to apply its UI colours and useful strengths to this Sydney carpentry site. This active section supersedes the older palette and hero descriptions below. Scope remains UI only: all 190 rendered HTML documents, content, URL/metadata/schema, existing image assets and enquiry/analytics/consent behavior remain unchanged. Constra remains the underlying adapted structure and its MIT attribution is retained. Yellow source code, typography files, imagery, logos, customer claims, prices, reviews and forms are not imported.
+
+### Evidence and rationale
+
+The exact Yellow URL returned200 without redirect. Its primary HTML and actual linked sensispress yellow.min.css/navigation stylesheet were read and saved with SHA256 manifests in the release evidence. Source-defined advantages used here are the light split hero, bold sans hierarchy, grouped primary/phone choices, modest rectangular corners, neutral section rhythm, legible proof/FAQ sections and a strong closing enquiry area. The existing Mel One components carry these treatments without adding or moving HTML. Reference and new-screen browser screenshots remain a separate verification requirement; source inspection alone is not a visual pass.
+
+### Canonical colour roles
+
+public/site.css remains the single runtime token owner (Model B). Existing semantic aliases are preserved to avoid replacing component contracts. Yellow accent and dark readable text have separate roles.
+
+| Role | Runtime token | Value | Use |
+|---|---|---|---|
+| Main ink | --ink / --on-accent | #222222 | Text and labels on yellow/white |
+| Secondary text | --ink-soft | #555555 | Body notes on white/light neutral |
+| Canvas | --paper | #ffffff | Page/card/form surfaces |
+| Neutral hero | --surface | #f9f8f7 | Light split hero and quiet panels |
+| Secondary panel | --soft-panel | #e7ebef | Existing fence panel/neutral sections |
+| Restrained hover tint | --sage | #fff5cc | Existing secondary hover alias |
+| Primary accent | --timber / --accent-light | #ffce00 | Primary action, markers and dark-surface focus |
+| Primary hover | --accent-hover | #d9af00 | Dark-label yellow hover |
+| Decorative accent border | --accent-border | #cca500 | Yellow button framing; not essential field/focus boundary |
+| Secondary action/link/focus | --timber-dark / --focus | #3f3c55 | Phone action, links and focus on light surfaces |
+| Secondary hover | --secondary-hover | #2e2c3f | Dark secondary action hover |
+| Dark surface | --navy | #222222 | Compatibility alias for footer/photo captions |
+| Field boundary | --field-border | #757575 | Inputs/selects/textareas |
+| Divider | --line | #d8d8d8 | Decorative separators |
+| Scrollbar | --scroll-track / --scroll-thumb | #f2f2f2 / #6b6b6b | Visible inherited scrollbars |
+| Corners | --radius | .25rem | Modest4px cards/buttons, matching reference scale |
+
+Dark #222 labels have10.67:1 contrast on primary yellow and7.64:1 on its hover. White labels are reserved for the dark secondary action and charcoal footer. Links, expanded service menu, FAQ text and carousel-hover labels stay dark on light/yellow surfaces. The consent panel inherits yellow with dark grant-button text. The existing service question dialog receives scoped token/focus/scrollbar overrides through #serviceqa-dialog; its behavior and bundled assets remain untouched. Its footer entry keeps yellow focus on charcoal, including a forced-colors Highlight override.
+
+### Layout and preserved behavior
+
+Home now uses a light copy/photo split, with the same headline, intro, actions and existing photograph. The yellow capsule is only a treatment of the existing eyebrow. Desktop photo height follows the copy; at850px the grid becomes copy then photo, at700px the photo has18rem reserved height. English hero weight900 echoes the reference; Chinese uses weight800, line-height1.3 and normal tracking. Existing font families and no-remote-font policy remain. The source reference's tight English .9em leading is intentionally not copied.
+
+The unchanged home enquiry section and closing contact rail use yellow backgrounds with readable dark text; the existing form stays white. Original service descriptions, real-work galleries and FAQ controls remain complete. S05's previous blue-grey exception becomes the source's neutral #e7ebef under the user's newer palette instruction.
+
+Navigation still collapses at1100px, carousel gap stays16px, portrait case images retain contain fit, form textarea remains vertically resizable, error red/invalid priority and busy/disabled/hidden states remain, and mobile/Clarity safe-area clearance is preserved. Keyboard focus is dark on light/yellow and yellow on charcoal, with native forced-colors behavior retained.
+
+### Verification boundary
+
+Use the f04467f production snapshot as baseline. Only public/site.css may differ among its108 protected runtime/source/config/asset files. Rebuild all190 routes, compare exactHTML and file hashes, run existing tests/public checks/strict premium audit, then verify representative EN/ZH Home, service, Contact, area, menu and consent/question-dialog states in a browser when available. Distinguish actual browser results from static/source checks and independently verify exact repository, branch, Vercel account/project/commit and live HTML/CSS before reporting publication.
+
+## Previous UI: Constra adaptation — 22 October 2026
 
 The user requested a GitHub-sourced template replacement for this Sydney site while keeping everything else unchanged. This active section supersedes historical visual descriptions below. The site remains the existing bilingual static carpentry enquiry site, with exactly the same 190 rendered HTML documents, copy, headings, routes, real photos, metadata, structured data, enquiry controls, scripts, APIs, analytics and consent behavior.
 

@@ -9,3 +9,5 @@ Selected upstream theme/css/style.css ranges inform the adapted existing selecto
 No upstream demo photographs, stock copy, claims, icon fonts, scripts, carousel, form integration, dependencies or remote font requests are included. All existing Mel One content and source media remain their own assets.
 
 Search-result company, directory and social pages were reviewed as UI references only. Their code, content and imagery are not included. The source and MIT attribution above remain the template provenance. See DESIGN.md for the dated search-reference comparison.
+
+The subsequent Yellow Online reference (https://www.yellow.com.au/product/yellow-online/, inspected 22 October2026) informed palette and decision/contact hierarchy only. No Yellow code, fonts, logos, photographs, copy, reviews, claims or form integration are distributed. The existing Constra MIT notice remains the code attribution. DESIGN.md records the current token mapping and evidence boundary.

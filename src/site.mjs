@@ -444,7 +444,7 @@ function suburbBody(page,l,facts,production) {
       '在 '+a.name+' 需要木作维修？先看受损部位和对应服务，再告诉我们现场遇到的问题。'))+localCta+'</div>'+
     areaJobPlanning(a,l,facts,production)+
     section('local-enquiry',tr(l,'A useful enquiry example','询价准备示例'),p(tr(l,a.en,a.zh))+
-      p(primary[l].assessment)+
+
       '<a class="text-link" href="'+servicePath(primary,l)+'">'+esc(shortName(primary,l))+'</a>')+
     suburbScope(a,l,primary)+suburbOptionsSection(a,l)+
     section('choose-service',tr(l,'Another timber task?','需要处理其他木构件？'),'<a class="text-link" href="'+href('/services/',l)+'">'+tr(l,'Compare all carpentry services','比较全部木工服务')+'</a>')+

@@ -25,14 +25,14 @@ export function rfqForm(l, facts, area = null, selected = '') {
 }
 
 export function suburbScope(area, l, service) {
-  const content = service[l];
+  const target=(l==='zh'?'/zh':'')+'/services/'+service.slug+'/';
   return '<section class="content-section suburb-scope" id="quote-decisions"><p class="eyebrow">'+tr(l,'Planning the repair','先理清维修范围')+'</p><h2>'+esc(tr(l,area.detail.questionEn,area.detail.questionZh))+'</h2><p>'+esc(area.detail[l])+'</p>'+
-    '<div class="rfq-guidance-grid"><article><h3>'+tr(l,'Photos that help define this work','有助于判断这类工作的照片')+'</h3><p>'+esc(content.photo)+'</p></article><article><h3>'+tr(l,'What changes the quote','哪些项目影响报价')+'</h3><p>'+esc(content.quote)+'</p></article><article><h3>'+tr(l,'Agree the inclusions','先确认包含哪些工作')+'</h3><p>'+esc(content.boundary)+'</p></article></div></section>';
+    '<div class="rfq-guidance-grid"><article><h3>'+tr(l,'Check the service scope','核对服务范围')+'</h3><p>'+tr(l,'Compare the repair options above with the service checklist before you enquire. It explains which component photos help, what affects the quote and which tasks need a separate allowance.','询价前，把上方维修方案与服务清单一起核对，了解需要拍哪些构件、哪些因素影响报价，以及哪些工作需另列费用。')+'</p><a href="'+target+'">'+tr(l,'Photo checklist, quote inclusions and repair limits','照片清单、报价项目与维修边界')+' →</a></article></div></section>';
 }
 
 export function suburbMap(area, l) {
   const query = encodeURIComponent(area.name+', NSW, Australia');
-  return '<section class="content-section" id="area-map"><h2>'+esc(tr(l,area.name+' area map',area.name+' 地区地图'))+'</h2><p>'+esc(tr(l,area.region,area.regionZh))+' · '+tr(l,'Check the suburb and nearby streets when describing access for timber, tools and removal of old materials. An exact address is only needed when arranging the work.','查看所在地区及附近道路，询价时说明木材、工具和拆旧材料怎样进出。安排工作时再提供准确地址即可。')+'</p><iframe class="suburb-map" title="'+esc(tr(l,'Map of '+area.name,area.name+' 地区地图'))+'" src="https://www.google.com/maps?q='+query+'&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><p><a href="https://www.google.com/maps/search/?api=1&amp;query='+query+'" target="_blank" rel="noopener">'+tr(l,'Open '+area.name+' in Google Maps','在Google Maps查看 '+area.name)+'</a></p></section>';
+  return '<section class="content-section" id="area-map"><h2>'+esc(tr(l,area.name+' area map',area.name+' 地区地图'))+'</h2><p>'+esc(tr(l,area.region,area.regionZh))+' · '+tr(l,'Check the suburb and nearby streets when describing access for timber, tools and removal of old materials. An exact address is only needed when arranging the work.','查看所在地区及附近道路，询价时说明木材、工具和拆旧材料怎样进出。安排工作时再提供准确地址即可。')+'</p><figure><img src="/images/editorial/sydney-area-map.png" alt="'+tr(l,'Sydney and surrounding service regions','悉尼及周边服务地区')+'" width="1200" height="780" style="display:block;width:100%;height:auto" loading="lazy"><figcaption>'+tr(l,'Sydney regional overview. ','悉尼地区概览。')+'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a></figcaption></figure><iframe class="suburb-map" title="'+esc(tr(l,'Map of '+area.name,area.name+' 地区地图'))+'" src="https://www.google.com/maps?q='+query+'&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><p><a href="https://www.google.com/maps/search/?api=1&amp;query='+query+'" target="_blank" rel="noopener">'+tr(l,'Open '+area.name+' in Google Maps','在Google Maps查看 '+area.name)+'</a></p></section>';
 }
 
 export function suburbOptionsSection(area, l) {

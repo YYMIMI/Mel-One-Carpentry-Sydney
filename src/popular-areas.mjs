@@ -1,9 +1,9 @@
-// Owner-requested locations from the 29 September 2026 screenshot.
+// Owner-requested screenshot locations and researched Sydney coverage additions.
 // Scenarios are enquiry guidance, never claims about local jobs or housing stock.
 export const areaAdditions = [
   { en: 'Sydney CBD & Inner City', zh: '悉尼市区与内城', names: ['Haymarket','Ultimo','Waterloo','Zetland'] },
   { en: 'Inner West', zh: '内西区', names: ['Rhodes','Strathfield'] },
-  { en: 'Eastern Suburbs', zh: '东区', names: ['Kingsford'] },
+  { en: 'Eastern Suburbs', zh: '东区', names: ['Kingsford','Bondi Junction'] },
   { en: 'Ryde & North West', zh: 'Ryde与西北', names: ['Marsfield'] },
   { en: 'Parramatta & Surrounds', zh: 'Parramatta及周边', names: ['Auburn'] },
   { en: 'South Western Sydney', zh: '西南悉尼', names: ['Campsie'] },
@@ -35,6 +35,13 @@ const rows = [
     '请标出松动跨段，并说明泥土、木边框或种植是否挡住柱脚通道，哪些花园木材希望保留。修围栏柱不默认包含重设 sleeper、搬土或恢复种植。这些选择要在报价前说明，同时确认两侧进入方式和拆下旧木材如何搬出，避免施工范围不清楚。',
     'Compare a fence-only repair with a combined fence-and-edging scope. Keep the new timber lengths, post work and garden reinstatement distinct in the quotation.',
     '比较仅修围栏与围栏加边框一起处理，报价分清新木料长度、柱脚工作及花园恢复范围。'],
+  ['Bondi Junction','2022','S09',
+    'For two cupboard doors with an uneven centre gap, photograph both fronts closed, then the accessible hinges and mounting plates. Mention whether either door was replaced or recently adjusted.', '两扇柜门的中缝不齐时，请先拍两扇关闭的全景，再拍安全可见的铰链及底座，并说明是否刚换过门板或调整过五金。',
+    'Can paired cupboard doors be realigned without replacing the fronts?', '双扇柜门可以重新对齐，而不用整组换门板吗？',
+    'An uneven centre gap can come from hinge adjustment, a loose mounting plate or a door that no longer sits flat. Show the top, centre and bottom gaps and identify which leaf rubs. Do not keep tightening a screw that spins in damaged board. Ask for the fixing surface to be checked before new hinges are ordered; opening angle, mounting plate and overlay must suit the existing cabinet. If a replacement front is considered, compare its dimensions, thickness and finish with the retained door. Set out whether the quote covers adjustment, fixing repair, compatible hardware and final closing checks.',
+    '中缝不齐可能涉及铰链调整、底座松动，或门板本身不平。请拍上、中、下三处缝隙，标出哪扇门发生刮擦；若螺丝在坏板材中空转，不要继续拧紧。订购新铰链前，应先检查固定基层，并核对开启角度、底座及门板盖住柜边的尺寸是否适合现有柜体。如考虑换门板，需与保留的一扇比较尺寸、厚度及表面效果。报价应写清是否包含对位调整、固定处修复、相容五金和最后开关检查。',
+    'Compare reusing sound hinges after adjustment with repairing the damaged fixing panel and fitting compatible replacements. Include both doors in the final alignment check, even if only one hinge is replaced. Confirm whether matching edge finishes or filling unused holes is required; a whole set of replacement fronts should remain a separate choice.',
+    '比较调整并保留完好铰链，与修复固定板材后安装相容换件。即使只换一个铰链，最后也应核对两扇门的对位；另说明是否需要匹配门边涂层或填补旧孔。整组换门板应作为另一个可选择的范围。'],
   ['Campsie','2194','S09',
     'For a cupboard door dropping at one corner, show the open hinge and the board where its screws attach, alongside a closed-door view.', '柜门一角下垂，请提供开启的铰链、螺丝固定板材，以及柜门闭合状态的照片。',
     'Is the problem the hinge, its fixing holes or the cabinet panel?', '问题在铰链、固定孔，还是柜体板材？',
@@ -160,7 +167,7 @@ export const addedAreaProfiles = Object.fromEntries(rows.map(([name, postcode, s
   name, postcode, service, en, zh, detail: { questionEn, questionZh, en: detailEn, zh: detailZh }, options: {en:optionEn,zh:optionZh},
 }]));
 
-// The nine existing owners retain their URLs, titles and detailed repair guidance.
+// Existing owners retain their URLs, titles, primary services and repair guidance.
 const existing = [
   ['Ashfield','2131','S01','For window or door timber beside a balcony opening, show the junction with the surrounding wall. Separate moisture-source investigation from replacement timber and finishing.','阳台开口旁的门窗木材，需拍与周围墙面的接合处；受潮来源检查、换木材及表面收尾应分开。'],
   ['Burwood','2134','S09','If several cupboard doors need attention, label each one and keep hinge, runner and damaged-panel photos together. Confirm material matching before agreeing to replace a whole set.','多扇柜门需处理时逐一编号，把铰链、导轨及坏板照片按位置归组；先确认材料匹配，再决定是否整组更换。'],
@@ -171,6 +178,19 @@ const existing = [
   ['Parramatta','2150','S02','If a doorway is used throughout the day, explain which access must stay available. Separate repairs needed to restore closing from optional paint and trim matching.','门口白天持续使用时，请说明必须保留哪条通道；恢复开关所需维修，与可选刷漆及门套匹配分开列项。'],
   ['Ryde','2112','S05','For a fence, gate and sleeper edge along the same boundary, show the full run. Mark which supports move and which timber you want to keep before comparing repairs with replacement.','同一边界有围栏、闸门和 sleeper 边框时拍整排，标出移动的支撑与希望保留的木材，再比较维修和更换。'],
   ['Sydney CBD','2000','S08','For Sydney City enquiries, include the floor, work area and any lift or loading bookings. Cabinet repairs, internal trim and timber-door work can be listed separately in one request.','Sydney City 市区询价请说明楼层、工作位置及电梯或装卸预约。柜体、室内线条和木门工作可以在同一询价中分别列明。'],
+  ['Blacktown','2148','S05','For fence upkeep, mark the sound sections as well as loose boards or moving supports. Compare the necessary timber repairs before deciding how much surface preparation and coating to include.','围栏保养请标出完好段、松板及移动支撑，先比较必要修木范围，再决定包含多少表面准备及涂层工作。'],
+  ['Marrickville','2204','S05','For a shared fence, keep the agreed repair spans and access arrangements together. Show both joining ends of each span so the quote identifies retained rails, replacement timber and removal.','共用围栏请把已沟通的维修跨段与通道安排一并说明，拍出每段两端连接，便于报价分清保留横梁、换木材及清运。'],
+  ['Randwick','2031','S02','For a damaged balcony-door surround, label the timber frame, door leaf and threshold separately. Describe visible moisture or staining, and ask which source investigation or adjoining work sits outside the timber repair.','阳台门周边损坏，请分别标明木门框、门扇和门槛，说明可见潮湿或水渍，并确认哪些水源检查或相邻工作不属于修木范围。'],
+  ['Coogee','2034','S07','For isolated deck-board repairs, identify the affected lengths and photograph accessible ends and fixings. Agree how new boards meet sound retained timber and whether finishing stops at the repair or covers a wider section.','Deck 局部换板请标出受影响长度，拍安全可见的板端及固定件，先确定新板怎样接入保留木材，以及收尾只做维修处还是延伸至较大范围。'],
+  ['Newtown','2042','S01','For a sticking sash window, describe whether it will not start moving, catches part-way or fails to stay open. Separate repairs to the timber frame from any specialist balance, catch or glazing work before booking.','升降木窗卡住，请说明是完全推不动、开到一半卡住，还是不能保持开启；预约前，把窗框修木与专门平衡机构、窗扣或玻璃工作分清。'],
+  ['Surry Hills','2010','S02','For a door that rubs after painting, note when it started and show the closed gaps. Compare hinge adjustment or coating preparation before choosing trimming, then include sealing and finishing of any cut edge.','刷漆后门刮擦，请说明何时开始并拍关门缝隙。修边前先比较铰链调整及涂层处理；若确需切边，包含切口封闭和表面收尾。'],
+  ['Mosman','2088','S06','For a dragging timber gate, show the hinge post and latch when safely open and closed. Discuss leaf alignment, the timber supporting the hinges and the available material route before choosing new hardware.','木闸门刮地，请在安全开、关位置拍铰链柱及门闩，先讨论门扇对位、承托铰链的木材和材料通道，再选择新五金。'],
+  ['North Sydney','2060','S09','For a drawer dropping on one side, provide accessible runner markings and cabinet-side fixings. Ask whether the existing mechanism can be resecured or needs a compatible pair, including adjustment and a complete travel check.','抽屉一侧下沉，请提供安全可见的导轨标记及柜侧固定处，确认能否重新固定原机构，还是需成对换相容配件，并包含调整及全行程检查。'],
+  ['Manly','2095','S01','For painted timber-window surrounds, distinguish opening problems from damaged joints and worn coating. Photograph each affected corner so repair, surface preparation and repainting can be compared as separate work items.','刷漆木窗周边请区分开启问题、接缝损坏及涂层磨损，拍出各受影响框角，让修木、表面准备及重刷作为不同项目比较。'],
+  ['Hornsby','2077','S05','For fence posts that feel soft near ground level, show adjoining rails from a safe position and count the affected supports. Ask which sound sections can stay and how replacement posts connect to the retained fence.','围栏柱近地面处发软，请从安全位置拍相连横梁，并记录坏支撑数量；确认哪些完好段能保留，以及新柱怎样连接旧围栏。'],
+  ['Castle Hill','2154','S05','For repairs along a longer fence, number each span on an overview. Distinguish maintenance of sound timber, selected post or rail repairs and complete span replacement so quantities remain clear in the quote.','较长围栏维修请在全景逐跨编号，把完好木材保养、指定立柱或横梁维修与整跨更换分开，让报价中的数量清楚。'],
+  ['Bankstown','2200','S05','For a fence beside a side passage, include its narrowest clear width and turns. Confirm material handling and removal access before choosing replacement lengths, then list repairs and any optional finishing separately.','侧通道旁围栏维修请提供最窄净宽及转弯位置，选换料长度前先确认搬运与清运通道，再把维修和可选表面收尾分项列明。'],
+  ['Liverpool','2170','S09','For a cupboard door that has come away, retain the loose hardware and show the hinge recesses and fixing board. Compare repairing the support and reusing compatible parts before deciding to replace the front.','柜门脱落后请保留松脱五金，拍出铰链槽及固定板材；先比较修复承托基层、保留相容配件，再决定是否需要换门板。'],
 ];
 export const popularAreaProfiles = {
   ...Object.fromEntries(existing.map(([name,postcode,service,en,zh])=>[name,{name,postcode,service,en,zh}])),

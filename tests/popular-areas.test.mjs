@@ -5,15 +5,18 @@ import { createHash } from 'node:crypto';
 import { coreAreaGroups } from '../src/content.mjs';
 import { suburbs } from '../src/suburbs.mjs';
 
-const wanted = ['appin','ashfield','auburn','berkeley-vale','burwood','campsie','chatswood','eastwood','epping','fairy-meadow','gwynneville','haymarket','hurstville','killarney-vale','kingsford','marsfield','mount-ousley','north-wollongong','parramatta','rhodes','ryde','shellharbour','strathfield','sydney-cbd','the-entrance','ultimo','waterloo','wollongong','zetland'];
+const wanted = ['appin','ashfield','auburn','bankstown','berkeley-vale','blacktown','bondi-junction','burwood','campsie','castle-hill','chatswood','coogee','eastwood','epping','fairy-meadow','gwynneville','haymarket','hornsby','hurstville','killarney-vale','kingsford','liverpool','manly','marrickville','marsfield','mosman','mount-ousley','newtown','north-sydney','north-wollongong','parramatta','randwick','rhodes','ryde','shellharbour','strathfield','surry-hills','sydney-cbd','the-entrance','ultimo','waterloo','wollongong','zetland'];
 test('all supplied popular locations resolve through the directory to bilingual enquiry pages', () => {
   for (const prefix of ['', '/zh']) {
     const directory = renderPage(prefix + '/areas/', {}).html;
+    const prominent = directory.match(/<section\b[^>]*id="popular-locations"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(prominent, 'the prominent directory is present');
     for (const slug of wanted) {
       const path = prefix + '/areas/' + slug + '/';
       const result = renderPage(path, {});
       assert.equal(result.status, 200, path);
       assert.ok(directory.includes('href="'+path+'"'),path);
+      assert.ok(prominent.includes('href="'+path+'"'),path+' appears in the prominent directory');
       assert.match(result.html, /id="area-job-planning"/);
       assert.match(result.html, /id="suburb-rfq"/);
       assert.ok(result.html.includes('href="'+prefix+'/services/timber-sleeper-installation/"'));
@@ -30,7 +33,24 @@ test('regional locations keep their geographic identity and all original area ro
     assert.ok(area.region.includes(region));
   }
   for (const slug of ['newtown','bondi','manly','hornsby','liverpool','cronulla']) assert.equal(renderPage('/areas/'+slug+'/',{}).status,200);
-  assert.equal(pages.filter(p=>p.area).length,152);
+  assert.equal(pages.filter(p=>p.area).length,154);
+});
+
+test('Bondi Junction offers cabinet repair decisions, matching evidence and an accurate area map in both languages', () => {
+  for (const prefix of ['', '/zh']) {
+    const path = prefix + '/areas/bondi-junction/';
+    const result = renderPage(path, {});
+    assert.equal(result.status, 200, path);
+    assert.ok(result.html.includes('NSW 2022'), path + ' shows its delivery postcode');
+    assert.ok(result.html.includes('href="'+prefix+'/services/cabinet-door-drawer-repairs/#case-photos"'), path + ' links to matching work evidence');
+    for (const id of ['quote-decisions', 'repair-options', 'suburb-rfq', 'area-map']) {
+      assert.ok(result.html.includes('id="'+id+'"'), path + ' supplies ' + id);
+    }
+    assert.ok(result.html.includes('Bondi%20Junction%2C%20NSW%2C%20Australia'), path + ' maps the actual suburb');
+    assert.ok(result.html.includes('href="'+prefix+'/areas/bondi/"'), path + ' offers its regional neighbour');
+    const neighbour = renderPage(prefix+'/areas/bondi/', {}).html;
+    assert.ok(neighbour.includes('href="'+path+'"'), path + ' is discoverable from its regional neighbour');
+  }
 });
 
 test('published area links remain discoverable from the home and area directory', () => {

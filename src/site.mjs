@@ -34,7 +34,7 @@ function analyticsHead(facts) {
     'page_location:window.location.origin+window.location.pathname,page_path:window.location.pathname})})();</script>';
 }
 function businessContact(l,facts) {
-  return '<div class="business-contact">'+(facts.serviceHours?'<span>'+tr(l,'Mon–Sun','周一至周日')+' '+esc(facts.serviceHours)+' '+tr(l,'Sydney time','悉尼时间')+'</span>':'')+(facts.contactName?'<span>'+tr(l,'Contact: ','联系人：')+esc(facts.contactName)+'</span>':'')+(facts.telephone?'<a href="tel:'+esc(facts.telephone)+'" data-event="click_to_call">'+esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3'))+'</a>':'')+'</div>';
+  return '<div class="business-contact">'+(facts.serviceHours?'<span>'+tr(l,'Mon–Sun','周一至周日')+' '+esc(facts.serviceHours)+' '+tr(l,'Sydney time','悉尼时间')+'</span>':'')+(facts.contactName?'<span>'+tr(l,'Contact: ','联系人：')+esc(facts.contactName==='Felix2'?tr(l,'Mel One Sydney carpentry team','Mel One 悉尼木工团队'):facts.contactName)+'</span>':'')+(facts.telephone?'<a href="tel:'+esc(facts.telephone)+'" data-event="click_to_call">'+esc(facts.telephone.replace(/(\d{4})(\d{3})(\d{3})/,'$1 $2 $3'))+'</a>':'')+'</div>';
 }
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
 const href = (path, l) => l === 'zh' ? (path === '/' ? '/zh/' : '/zh' + path) : path;
@@ -572,8 +572,8 @@ function supportBody(page, l, facts, selected, production) {
       'An initial enquiry includes the component, damage, suburb and safe access. Repair, local replacement or a wider assessment then becomes a defined decision. Finishing, disposal and another trade’s work belong in the written scope.',
       '初次询价尽量说明构件、可见损坏、地区和安全通道。之后才能判断维修、局部更换或扩大检查。油漆、清运和其他工种工作应写进书面范围。'))) +
     section('company', tr(l, 'Company and contact', '公司与联系资料'), p(tr(l,
-      'This Sydney carpentry service is operated by Mel One Property Maintenance Pty Ltd, ABN 39 666 325 408 and ACN 666 325 408. Contact Felix2 on 0403 202 949 or handyman.kevinlee@gmail.com. Enquiries are taken Monday to Sunday, 09:00–21:00 Sydney time; the actual job and appointment are confirmed individually.',
-      '悉尼木工服务由 Mel One Property Maintenance Pty Ltd 经营，ABN 39 666 325 408，ACN 666 325 408。联系 Felix2：0403 202 949，handyman.kevinlee@gmail.com。询价时间为悉尼时间周一至周日 09:00–21:00；具体工作和预约须分别确认。')) +
+      'This Sydney carpentry service is operated by Mel One Property Maintenance Pty Ltd, ABN 39 666 325 408 and ACN 666 325 408. Contact our Sydney carpentry team on 0403 202 949 or handyman.kevinlee@gmail.com. Enquiries are taken Monday to Sunday, 09:00–21:00 Sydney time; the actual job and appointment are confirmed individually.',
+      '悉尼木工服务由 Mel One Property Maintenance Pty Ltd 经营，ABN 39 666 325 408，ACN 666 325 408。联系悉尼木工团队：0403 202 949，handyman.kevinlee@gmail.com。询价时间为悉尼时间周一至周日 09:00–21:00；具体工作和预约须分别确认。')) +
       '<p><a class="text-link" href="https://abr.business.gov.au/ABN/View?id=39666325408" target="_blank" rel="noopener noreferrer">' +
       tr(l, 'Check this ABN on the Australian Business Register', '在澳大利亚商业登记册核对该 ABN') + '</a></p>' + officeAddress(l,facts)) +
     section('insurance', tr(l, 'Insurance and work scope', '保险与工作范围'), p(tr(l,
@@ -747,7 +747,7 @@ export function renderPage(inputPath, facts, { production = false, indexable = f
     '<a href="' + href('/contact/',l) + '">' + tr(l, 'Send photos & request a quote', '发送照片并询价') + '</a>' +
     (facts.telephone ? '<a href="tel:' + esc(facts.telephone) + '" data-event="click_to_call">' + esc(facts.telephone) + '</a>' : '') +
     (facts.email ? '<a href="mailto:' + esc(facts.email) + '" data-event="click_to_email">' + esc(facts.email) + '</a>' : '') +
-    '<span>' + tr(l, 'Felix2 · Mon–Sun 09:00–21:00 Sydney time', 'Felix2 · 周一至周日 09:00–21:00（悉尼时间）') + '</span>' +
+    '<span>' + tr(l, 'Mel One Sydney carpentry team · Mon–Sun 09:00–21:00 Sydney time', 'Mel One 悉尼木工团队 · 周一至周日 09:00–21:00（悉尼时间）') + '</span>' +
     '<a href="' + href('/about/',l) + '">' + tr(l, 'About the company', '关于公司') + '</a><a href="' + href('/privacy/',l) + '">' + tr(l, 'Privacy', '隐私政策') + '</a></nav>' +
     '</div></footer><script src="/site.js" defer></script>' + serviceQaAssets + clarityAssets(l) + '</body></html>';
   return { status: 200, html, page };
